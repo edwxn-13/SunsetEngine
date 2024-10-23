@@ -1,0 +1,11 @@
+newmtl mat_1
+map_Kd earthtex.jpg
+map_Ka earthtex.jpg
+map_bump earthtex.jpg
+map_d earthtex.jpg
+
+newmtl mat_2
+map_Kd halotex.jpg
+map_d halotex.jpg
+map_Ka halotex.jpg
+map_bump halotex.jpg

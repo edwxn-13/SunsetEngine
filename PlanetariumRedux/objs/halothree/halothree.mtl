@@ -1,0 +1,68 @@
+# Blender 4.0.0 MTL File: 'halo.blend'
+# www.blender.org
+
+newmtl Material.001
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd earthtex.jpg
+map_d earthtex.jpg
+map_Ka earthtex.jpg
+map_bump earthtex.jpg
+
+newmtl Material.002
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd halotex.jpg
+map_d halotex.jpg
+map_Ka planet_specular.png
+map_bump halotex.jpg
+
+
+newmtl Material.003
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd halosurf.jpg
+map_d halosurf.jpg
+map_Ka planet_specular.png
+map_bump halosurf.jpg
+
+newmtl Material.004
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd halosurf.jpg
+map_d halosurf.jpg
+map_Ka planet_specular.png
+map_bump halosurf.jpg
+
+newmtl Material.005
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd halotex.jpg
+map_d halotex.jpg
+map_Ka planet_specular.png
+map_bump halotex.jpg
