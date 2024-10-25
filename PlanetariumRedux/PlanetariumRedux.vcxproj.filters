@@ -13,6 +13,27 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{c05dd475-9316-4b2b-8bca-96d51bdf784d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{8452c298-cbae-4f80-b1f4-5a100523f815}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\Maths">
+      <UniqueIdentifier>{a4208448-65de-4c3c-947c-8c5da7a95289}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineObject">
+      <UniqueIdentifier>{35cc6f7e-1ae8-492a-a093-5a7a21aaaddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets">
+      <UniqueIdentifier>{553b4a25-7455-41e6-a3ad-d8ce04a4f6fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{cf2b49f6-e79e-418e-98f7-167c279904de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine">
+      <UniqueIdentifier>{6929c1cd-6081-4fd5-a2f8-441a6ed0e231}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlanetariumRedux.cpp">
@@ -21,124 +42,124 @@
     <ClCompile Include="..\..\include\GL\gl3w.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EngineManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EngineUtils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Scene\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EngineObjects\EngineObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Maths\MathHeader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\file.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Utils\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Assets\MeshObject\MeshObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera\camera.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Components\CameraComponent\CameraComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Component.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\LightComponent\LightComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\MeshComponent\MeshComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Rigidbody\Rigidbody.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Maths\MathHeader.cpp">
+      <Filter>Source Files\Utils\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineObjects\EngineObject.cpp">
+      <Filter>Source Files\EngineObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets\MeshObject\MeshObject.cpp">
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera\camera.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EngineManager.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EngineUtils.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene\Scene.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\EngineManager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineUtils.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Renderer\Renderer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Scene\Scene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EngineObjects\EngineObject.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Maths\MathHeader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\bitmap.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\error.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\file.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\noise.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\obj.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\shader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\shadow.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\stb_image.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Test.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\texture.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Assets\MeshObject\MeshObject.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Utils\shadow.h">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Camera\camera.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="Utils\shader.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\file.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\error.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\Test.h">
+      <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Components\CameraComponent\CameraComponent.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Component.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\LightComponent\LightComponent.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\MeshComponent\MeshComponent.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Rigidbody\Rigidbody.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\MathHeader.h">
+      <Filter>Source Files\Utils\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineObjects\EngineObject.h">
+      <Filter>Source Files\EngineObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets\MeshObject\MeshObject.h">
+      <Filter>Source Files\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\obj.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera\camera.h">
+      <Filter>Source Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineManager.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineUtils.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene\Scene.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\Renderer.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@ public:
 	int get_id() { return component_id; }
 	bool isActive();
 
+	Transform* localTransform;
 	Transform* transform;
 protected:
 	EngineObject* engineObject;
@@ -54,6 +55,8 @@ public:
 
 	Transform(EngineObject * engineObject);
 	Transform(EngineObject* engineObject, Vector3f pos, Vector3f rot, Vector3f s);
+
+	void CopyTransform(Transform* b);
 	void model_transform();
 
 	void Update() override;

@@ -86,7 +86,7 @@ void renderWithShadow(unsigned int renderShaderProgram, ShadowStruct shadow, glm
 	glUniform3f(glGetUniformLocation(renderShaderProgram, "lightColour"), 0.f, 0.f, 0.f);
 	glUniform3f(glGetUniformLocation(renderShaderProgram, "camPos"), Camera.Position.x, Camera.Position.y, Camera.Position.z);
 	glm::mat4 view = glm::mat4(1.f);
-	view = glm::lookAt(Camera.Position, Camera.Position + Camera.Front, Camera.Up);
+	view = Camera.getCamViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(renderShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
 	glm::mat4 projection = glm::mat4(1.f);
@@ -271,7 +271,6 @@ void processKeyboard(GLFWwindow* window, Vector3f target)
 		lightPos = Camera.transform.position.glm();
 		lightDirection = Camera.transform.forward().glm();
 	}
-	Camera.Look();
 }
 
 void generateDepthMap(unsigned int shadowShaderProgram, ShadowStruct shadow, glm::mat4 projectedLightSpaceMatrix)
@@ -317,19 +316,21 @@ int main(int argc, char** argv)
 
 	Camera.InitCamera();
 	Camera.cam_dist = 5.f;
-	Camera.LookAt(glm::vec3(0, 0, 0), Camera.cam_dist, 0.f, 0.f);
-
 	
 	//SECTION A - EDIT THIS CODE TO TEST
 
 	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
 	gooch.transform.scale = Vector3f(10);
-	gooch.transform.position = Vector3f(100, 5, 2);
+	gooch.localTransform.position = Vector3f(2, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
 	ship.getTransform()->position = Vector3f(0, -1.8f, -1.f);
 	ship.transform.Rotate(Vector3f(0));
+
+	
+	ship.addChild(&Camera);
 	//ship.addChild(&Camera);
+
 	preRenderSetUp();
 
 	Skybox skybox = Skybox();
@@ -354,6 +355,9 @@ int main(int argc, char** argv)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		processKeyboard(window, ship.transform.position);
+		ship.transform.position = ship.transform.position + ship.transform.forward() * 8.0f;
+		//ship.transform.Rotate(Vector3f(1.0f,0,0));
+
 	}
 
 	glfwDestroyWindow(window);

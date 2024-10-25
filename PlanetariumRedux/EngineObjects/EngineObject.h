@@ -3,30 +3,6 @@
 #include "../Maths/MathHeader.h"
 #include "../Components/Component.h"
 
-/*struct Transform
-{
-	Vector3f position;
-	Vector3f rotation;
-	Vector3f scale;
-
-	Vector3f forward();
-	Vector3f right();
-	Vector3f up();
-
-	Transform();
-	Transform(Vector3f pos, Vector3f rot, Vector3f s);
-	void model_transform();
-
-	void Update();
-
-	glm::mat4 get_pos_mat();
-	void set_pos_mat(glm::mat4);
-private:
-	glm::mat4 position_matrix;
-
-};*/
-
-
 class EngineObject;
 
 class ObjectFamily
@@ -74,6 +50,7 @@ public:
 
 	static EngineObject* getGlobalObjectIndex(int i);
 	static int getObjectListSize();
+	Transform localTransform;
 	Transform transform;
 	ObjectFamily relationships;
 

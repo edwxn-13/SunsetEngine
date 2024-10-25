@@ -33,33 +33,53 @@ Transform::Transform(EngineObject* engineObject, Vector3f pos, Vector3f rot, Vec
 	position_matrix = glm::mat4(1.f);
 }
 
+void Transform::CopyTransform(Transform* b)
+{
+	position = b->position;
+	rotation = b->rotation;
+	scale = b->scale;
+	position_matrix = b->get_pos_mat();
+}
+
 void Transform::model_transform()
 {
-	//Quaternion rotation_product = Quaternion(0, position.x, position.y, position.z);
-	//rotation_product = (rotation * rotation_product) * rotation.conjugate();
-	//position = Vector3f(rotation_product.x, rotation_product.y, rotation_product.z);
+	//Transform tempTransform(engineObject);
+	//localTransform->CopyTransform(transform);
+
+	position_matrix = glm::mat4(1.f);
+
 	if (engineObject->relationships.getParent()) 
 	{
-		position_matrix = engineObject->relationships.getParent()->transform.get_pos_mat();
+		position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
+		
+
+		Transform * parent_trans = &engineObject->relationships.getParent()->transform;
+
+
+		//ptt - point to transform
+		Vector3f ptt = (localTransform->position);
+		Quaternion imaginary_point = Quaternion(0, ptt.x, ptt.y, ptt.z);
+		Quaternion rotated_point = ((parent_trans->rotation * imaginary_point) * parent_trans->rotation.conjugate());
+		Vector3f transformed_local_pos = Vector3f(rotated_point.x, rotated_point.y, rotated_point.z);
+		transform->position = transformed_local_pos + parent_trans->position;
 		//position = position + engineObject->relationships.getParent()->transform.position;
 		//rotation = engineObject->relationships.getParent()->transform.rotation * rotation;
 	}
+
+	else
+	{
+		localTransform->CopyTransform(transform);
+	}
+
+
 	rotation.normalize();
-	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(rotation);
+	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
 
 	eulerRotation = rotation.ToEulerAngles();
-	position_matrix = glm::mat4(1.f);
-	position_matrix = glm::translate(position_matrix, position.glm());
+	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
 	position_matrix = rotation_matrix * position_matrix;
 
-	position_matrix = glm::scale(position_matrix, scale.glm());
-
-
-	//glm::rotate(position_matrix, position);
-	//position_matrix = glm::rotate(position_matrix, 2 * acos(rotation.w), glm::vec3( rotation.x, rotation.y, rotation.z));
-	//position_matrix = glm::quat(1, 1, 1, 1) * position_matrix;
-	//position_matrix = glm::rotate(position_matrix, eulerRotation.y, glm::vec3(0, 0, 1));
-	//position_matrix = glm::rotate(position_matrix, eulerRotation.z, glm::vec3(0, 1, 0));
+	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
 }
 
 glm::mat4 Transform::get_pos_mat()
@@ -124,6 +144,7 @@ std::vector<Component *> Component::world_list = {};
 Component::Component(EngineObject * engineObject)
 {
 	this->engineObject = engineObject;
+	this->localTransform = &engineObject->localTransform;
 	this->transform = &engineObject->transform;
 	world_list.push_back(this);
 	active = true;

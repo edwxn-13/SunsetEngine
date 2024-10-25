@@ -61,12 +61,12 @@ void SCamera::Look()
 
 glm::mat4 SCamera::getCamViewMatrix()
 {
-	return glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), Up);
+	return glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm());
 }
 
 
 glm::mat4 SCamera::getSkyboxViewMatrix()
 {
-	return glm::mat4(glm::mat3 (glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), Up)));
+	return glm::mat4(glm::mat3 (glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm())));
 }
 	

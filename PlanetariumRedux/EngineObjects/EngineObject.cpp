@@ -5,7 +5,7 @@
 
 std::vector<EngineObject*> EngineObject::object_list = {};
 
-EngineObject::EngineObject() : transform(this)
+EngineObject::EngineObject() : transform(this), localTransform(this)
 {
 	object_list.push_back(this);
 }
