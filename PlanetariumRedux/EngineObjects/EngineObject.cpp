@@ -20,25 +20,6 @@ void EngineObject::removeComponent(Component* component)
 	//TODO - change to linked list
 }
 
-Component* EngineObject::getComponentOfType(int id)
-{
-	for (int i = 0; i < component_list.size(); i++) {
-		if (component_list[i]->get_id() == id) return component_list[i];
-	}
-
-	return nullptr;
-}
-
-std::vector<Component*> EngineObject::getComponentsOfType(int id)
-{
-	std::vector<Component*> list = {};
-
-	for (int i = 0; i < component_list.size(); i++) {
-		if (component_list[i]->get_id() == id) list.push_back(component_list[i]);
-	}
-	return list;
-}
-
 Transform* EngineObject::getTransform()
 {
 	return &transform;

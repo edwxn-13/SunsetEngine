@@ -693,6 +693,13 @@ int obj_parse(const char * filename, vector<Object> *objs)
 
 			new_object.tris.push_back(triangle(temp1, temp2, temp3));  //vecs[triangle_matrix[xx].x - 1], vecs[triangle_matrix[xx + 1].x - 1], vecs[triangle_matrix[xx + 2].x - 1]
 		}
+	
+		if (materials.size() == 1) 
+		{
+			new_object.mtl = materials[0];
+			objs->push_back(new_object);
+			continue;
+		}
 		new_object.mtl = materials[tstage - 1];
 		objs->push_back(new_object);
 	}

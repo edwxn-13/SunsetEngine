@@ -24,6 +24,7 @@
     <ProjectGuid>{18e535f6-cbc4-4cbc-b31b-9953f1464886}</ProjectGuid>
     <RootNamespace>PlanetariumRedux</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>PlanetariumRedux</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,7 +149,7 @@
     <ClCompile Include="Engine\EngineUtils.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
-    <ClCompile Include="PlanetariumRedux.cpp" />
+    <ClCompile Include="SunsetEngine.cpp" />
     <ClCompile Include="Utils\file.cpp" />
     <ClCompile Include="Utils\texture.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@
     <ClInclude Include="Utils\texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EngineObjects\EngineObject.inl" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

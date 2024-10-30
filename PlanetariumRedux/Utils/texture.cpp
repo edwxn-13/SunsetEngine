@@ -13,6 +13,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+
+std::vector<Texture*> TextureManager::loadedFiles = {};
+
+
 unsigned int skyboxIndicies[] =
 {
 	//right 
@@ -52,6 +56,31 @@ float skyboxVerts[] =
 	 1.0f,  1.0f, -1.0f,//6      0--------1
 	-1.0f,  1.0f, -1.0f//7
 };
+
+void TextureManager::addToTextureList(Texture* tex)
+{
+	loadedFiles.push_back(tex);
+}
+
+Texture* TextureManager::checkForTexture(const char* filename)
+{
+	for (int i = 0; i < loadedFiles.size(); i++)
+	{
+		if (strcmp(loadedFiles[i]->filename, filename)) { return loadedFiles[i]; }
+	}
+
+	return nullptr;
+}
+
+Texture::Texture(const char* filename, int width, int height, int channels, unsigned char* pxls)
+{
+	this->filename = filename;
+	this->width = width;
+	this->height = height;
+	this->channels = channels;
+	this->pxls = pxls;
+}
+
 
 Skybox::Skybox()
 {
@@ -248,9 +277,23 @@ GLuint CreateTexture(const char* filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 
-
+	unsigned char* pxls;
 	int width, height, channels;
-	unsigned char* pxls = stbi_load(filename, &width, &height, &channels, 0);
+	Texture* tex = TextureManager::checkForTexture(filename);
+	if (true == false) 
+	{
+		height = tex->height;
+		channels = tex->channels;
+		width = tex->width;
+		//*pxls = *tex->pxls;
+	}
+
+	else 
+	{
+		std::cout << "ok we loaded this bih\n";
+		pxls = stbi_load(filename, &width, &height, &channels, 0);
+		TextureManager::addToTextureList(new Texture(filename, width, height, channels, pxls));
+	}
 
 
 	if (pxls != NULL)
@@ -274,3 +317,4 @@ GLuint CreateTexture(const char* filename)
 
 	return texObject;
 }
+

@@ -14,13 +14,17 @@ class Component
 {
 public:
 	Component(EngineObject* engineObject);
-	std::vector<Component*> findObjectsOfType(int component_id);
+
+	template <class T>
+	std::vector<Component*> findObjectsOfType(T * component);
 	
 	virtual void Update();
 	virtual void Start();
 	virtual void FixedUpdate();
-	
+
+
 	static Component* getGlobalComponantIndex(int i);
+
 	static int getComponentListSize();
 	int get_id() { return component_id; }
 	bool isActive();
@@ -80,3 +84,4 @@ private:
 	glm::mat4 position_matrix;
 
 };
+

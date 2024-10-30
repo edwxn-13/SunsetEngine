@@ -67,7 +67,7 @@ void preRenderSetUp()
 	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
 	{
 		EngineObject::getGlobalObjectIndex(i)->transform.Update();
-		if (MeshComponent* mesh = (MeshComponent*)EngineObject::getGlobalObjectIndex(i)->getComponentOfType(1)) {
+		if (MeshComponent* mesh = EngineObject::getGlobalObjectIndex(i)->getComponentOfType<MeshComponent>()) {
 			if (mesh)
 			{
 				mesh->loadMesh();
@@ -251,7 +251,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 	if (cam_changed)
 	{
-		Camera.LookAt(glm::vec3(0.f, 0.f, 0.f), Camera.cam_dist, x_offset, y_offset);
 	}
 }
 
@@ -319,10 +318,10 @@ int main(int argc, char** argv)
 	
 	//SECTION A - EDIT THIS CODE TO TEST
 
-	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
-	gooch.transform.scale = Vector3f(10);
-	gooch.localTransform.position = Vector3f(2, 50, 2);
+	MeshObject ship = MeshObject("objs/MagnumTris/MH2A.obj", texture_program);
+	gooch.transform.scale = Vector3f(0.2);
+	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
 	ship.getTransform()->position = Vector3f(0, -1.8f, -1.f);
 	ship.transform.Rotate(Vector3f(0));
@@ -355,8 +354,6 @@ int main(int argc, char** argv)
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		processKeyboard(window, ship.transform.position);
-		ship.transform.position = ship.transform.position + ship.transform.forward() * 8.0f;
-		//ship.transform.Rotate(Vector3f(1.0f,0,0));
 
 	}
 

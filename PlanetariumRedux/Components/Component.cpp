@@ -141,6 +141,8 @@ Vector3f Transform::getEulerAngles()
 
 std::vector<Component *> Component::world_list = {};
 
+
+
 Component::Component(EngineObject * engineObject)
 {
 	this->engineObject = engineObject;

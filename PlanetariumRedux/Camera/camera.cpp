@@ -7,6 +7,8 @@
 #include "camera.h"
 #include "../Components/CameraComponent/CameraComponent.h"
 
+std::vector<SCamera*> SCamera::m_cam_list = {};
+
 enum SCamera::Camera_Movement
 {
 	FORWARD,
@@ -17,6 +19,7 @@ enum SCamera::Camera_Movement
 
 SCamera::SCamera()
 {
+	m_cam_list.push_back(this);
 	InitCamera();
 	CameraComponent * cameraMovement = new CameraComponent(this);
 	addComponent(cameraMovement);
@@ -40,13 +43,14 @@ void SCamera::InitCamera()
 	Pitch = 0.f;
 }
 
-void SCamera::LookAt(glm::vec3 target, float distance, float xoffset, float yoffset)
+void SCamera::LookAt(glm::vec3 target)
 {
 	//transform.Rotate(Vector3f(yoffset * MovementSpeed, 0 , xoffset * MovementSpeed));
 
 	Front = glm::normalize(target - transform.position.glm());
 	Right = glm::normalize(glm::cross(Front, Vector3f::Up.glm()));
 	Up = glm::normalize(glm::cross(Right, Front));
+	
 }
 
 

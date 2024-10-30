@@ -33,9 +33,11 @@ public:
 
 	void removeComponent(Component* component);
 
-	Component* getComponentOfType(int id);
+	template <class T>
+	T* getComponentOfType();
 
-	std::vector<Component*> getComponentsOfType(int id);
+	template <class T>
+	std::vector<T*> getComponentsOfType();
 
 	Transform* getTransform();
 
@@ -552,3 +554,5 @@ public:
 		}
 	}
 };*/
+
+#include "EngineObject.inl"

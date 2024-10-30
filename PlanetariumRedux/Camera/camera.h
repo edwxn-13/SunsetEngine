@@ -3,6 +3,7 @@
 
 class SCamera : public EngineObject
 {
+	static std::vector<SCamera*> m_cam_list;
 public:
 	enum Camera_Movement;
 
@@ -10,7 +11,7 @@ public:
 	float radz(float deg);
 	void InitCamera();
 	float cam_dist = 2.f;
-	void LookAt(glm::vec3 target, float distance, float xoffset, float yoffset);
+	void LookAt(glm::vec3 target);
 	void Look();
 
 	glm::mat4 getCamViewMatrix();

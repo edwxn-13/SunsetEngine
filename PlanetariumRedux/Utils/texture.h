@@ -8,6 +8,26 @@ class SCamera;
 float skyboxVerts[];
 unsigned int skyboxIndicies[];
 
+
+struct Texture
+{
+	const char* filename;
+	int width, height, channels;
+	unsigned char* pxls;
+
+	Texture(const char* filename, int width, int height, int channels, unsigned char* pxls);
+
+};
+
+class TextureManager 
+{
+	static std::vector<Texture*> loadedFiles;
+
+public:
+	static void addToTextureList(Texture* tex);
+	static Texture * checkForTexture(const char* filename);
+};
+
 struct Skybox
 {
 	GLuint cubemapTex;
