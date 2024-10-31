@@ -16,7 +16,6 @@
 
 std::vector<Texture*> TextureManager::loadedFiles = {};
 
-
 unsigned int skyboxIndicies[] =
 {
 	//right 
@@ -70,6 +69,14 @@ Texture* TextureManager::checkForTexture(const char* filename)
 	}
 
 	return nullptr;
+}
+
+Texture::Texture(const char* filename)
+{
+	this->filename = filename;
+	width = 0;
+	height = 0;
+	channels = 0;
 }
 
 Texture::Texture(const char* filename, int width, int height, int channels, unsigned char* pxls)
@@ -276,42 +283,39 @@ GLuint CreateTexture(const char* filename)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
+	Texture* temp_tex = new Texture(filename);
 
-	unsigned char* pxls;
-	int width, height, channels;
 	Texture* tex = TextureManager::checkForTexture(filename);
-	if (true == false) 
+	if (tex) 
 	{
-		height = tex->height;
-		channels = tex->channels;
-		width = tex->width;
-		//*pxls = *tex->pxls;
+		temp_tex = tex;
 	}
 
 	else 
 	{
 		std::cout << "ok we loaded this bih\n";
-		pxls = stbi_load(filename, &width, &height, &channels, 0);
-		TextureManager::addToTextureList(new Texture(filename, width, height, channels, pxls));
+		temp_tex->pxls = stbi_load(temp_tex->filename, &temp_tex->width, &temp_tex->height, &temp_tex->channels, 0);
+		TextureManager::addToTextureList(temp_tex);
 	}
 
+	//---------------------------------------------------------------------------------------------------------------------------------
 
-	if (pxls != NULL)
+	if (temp_tex->pxls != NULL)
 	{
-		printf("Loaded %s\n", filename);
-		if (channels == 4)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pxls);
-		if (channels == 3)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, pxls);
+		printf("Loaded %s\n", temp_tex->filename);
+		if (temp_tex->channels == 4)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, temp_tex->width, temp_tex->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, temp_tex->pxls);
+		if (temp_tex->channels == 3)
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, temp_tex->width, temp_tex->height, 0, GL_RGB, GL_UNSIGNED_BYTE, temp_tex->pxls);
 	}
 	else
 	{
-		printf("Failed to load %s\n", filename);
+		printf("Failed to load %s\n", temp_tex->filename);
 	}
 
 	glGenerateMipmap(GL_TEXTURE_2D);
 
-	delete[] pxls;
+	//delete[] temp_tex->pxls;
 
 	glDisable(GL_BLEND);
 

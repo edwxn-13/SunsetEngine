@@ -176,7 +176,6 @@
     <ClInclude Include="Utils\shader.h" />
     <ClInclude Include="Utils\shadow.h" />
     <ClInclude Include="Utils\stb_image.h" />
-    <ClInclude Include="Utils\Test.h" />
     <ClInclude Include="Utils\texture.h" />
   </ItemGroup>
   <ItemGroup>

@@ -57,7 +57,6 @@ void SCamera::LookAt(glm::vec3 target)
 void SCamera::Look()
 {
 	//transform.Rotate(Vector3f(-1.0f * (yoffset * MovementSpeed), 0, -1.0f *(xoffset * MovementSpeed)));
-
 	Front = transform.forward().glm();
 	Right = glm::normalize(glm::cross(Front, Vector3f::Up.glm()));
 	Up = glm::normalize(glm::cross(Right, Front));

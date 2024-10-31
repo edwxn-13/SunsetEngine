@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{6929c1cd-6081-4fd5-a2f8-441a6ed0e231}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils\Texture">
+      <UniqueIdentifier>{a5418d15-4969-4ce2-b488-9ee8766c1396}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils\File">
+      <UniqueIdentifier>{f07abdfe-0258-4c64-915f-005a04ec75b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -44,12 +50,6 @@
     </ClCompile>
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\file.cpp">
-      <Filter>Source Files\Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils\texture.cpp">
-      <Filter>Source Files\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Components\CameraComponent\CameraComponent.cpp">
       <Filter>Source Files\Components</Filter>
@@ -87,21 +87,18 @@
     <ClCompile Include="Engine\Scene\Scene.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\texture.cpp">
+      <Filter>Source Files\Utils\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\file.cpp">
+      <Filter>Source Files\Utils\File</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\bitmap.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\noise.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\stb_image.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\texture.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\shadow.h">
@@ -110,13 +107,7 @@
     <ClInclude Include="Utils\shader.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Utils\file.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\error.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\Test.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Components\CameraComponent\CameraComponent.h">
@@ -160,6 +151,18 @@
     </ClInclude>
     <ClInclude Include="Engine\Renderer\Renderer.h">
       <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\stb_image.h">
+      <Filter>Source Files\Utils\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\bitmap.h">
+      <Filter>Source Files\Utils\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\texture.h">
+      <Filter>Source Files\Utils\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\file.h">
+      <Filter>Source Files\Utils\File</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

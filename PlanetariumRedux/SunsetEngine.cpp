@@ -128,7 +128,6 @@ void renderWithTexture(unsigned int shader, ShadowStruct shadow, glm::mat4 proje
 			if (((MeshComponent*)Component::getGlobalComponantIndex(i))->getType() != shader) { continue; }
 			((MeshComponent*)Component::getGlobalComponantIndex(i))->renderMesh();
 		}
-		
 	}
 	glEnable(GL_DEPTH_TEST);
 
