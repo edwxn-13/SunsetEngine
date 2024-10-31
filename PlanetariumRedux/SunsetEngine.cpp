@@ -315,11 +315,11 @@ int main(int argc, char** argv)
 	gooch.transform.scale = Vector3f(0.2);
 	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
-	ship.getTransform()->position = Vector3f(0, -1.8f, -1.f);
+	ship.getTransform()->position = Vector3f(-90.0f, -20.0f, -1.f);
 	ship.transform.Rotate(Vector3f(0));
 
 	
-	ship.addChild(&Camera);
+	//ship.addChild(&Camera);
 	//ship.addChild(&Camera);
 
 	preRenderSetUp();

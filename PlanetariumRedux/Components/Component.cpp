@@ -73,12 +73,10 @@ void Transform::model_transform()
 
 
 	rotation.normalize();
-	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-
 	eulerRotation = rotation.ToEulerAngles();
+	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
 	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
-	position_matrix = rotation_matrix * position_matrix;
-
+	position_matrix = position_matrix * rotation_matrix;
 	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
 }
 
