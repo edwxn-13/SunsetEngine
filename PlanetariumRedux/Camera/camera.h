@@ -26,21 +26,7 @@ public:
 	float Yaw;
 	float Pitch;
 
-	const float MovementSpeed = 5.5f;
-	float MouseSensitivity = 1.f;
-};
-
-
-class TCamera
-{
-public:
-	enum Camera_Movement;
-
-	TCamera();
-	float radz(float deg);
-	void InitCamera();
-	float cam_dist = 2.f;
-	void MoveAndOrientCamera(TCamera& in, glm::vec3 target, float distance, float xoffset, float yoffset);
+	float fov = 50.0f;
 
 	const float MovementSpeed = 5.5f;
 	float MouseSensitivity = 1.f;

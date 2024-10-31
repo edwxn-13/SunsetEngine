@@ -55,30 +55,40 @@ void CameraComponent::Update()
 		localTransform->position = localTransform->position - localTransform->forward() * 5.f;
 	}
 
-	roll = 0;
+	//roll = 0;
 
 	if (Input::OnKeyPressed(GLFW_KEY_Q))
 	{
-		roll = -1.0f * 10.0f;
+		roll += -1.0f * 10.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_E))
 	{
-		roll = 1.0f * 10.0f;
+		roll += 1.0f * 10.0f;
 	}
+
+	//Input::OnKeyPressed(GLFW_KEY_V)
 	if (true)
 	{
 		Vector2f inputAxis = Input::getMouseInputXY();
 
-		yaw = 10.0f * Input::getMouseInputXY().x;
-		pitch = 10.0f * Input::getMouseInputXY().y;
+		yaw += 10.0f * Input::getMouseInputXY().x;
+		pitch += 10.0f * Input::getMouseInputXY().y;
 
-		localTransform->Rotate(Vector3f(pitch, yaw, roll));
+		localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
 
 		printf("\n angles - x . %f , y . %f, z . %f\n",
 			r_2_degrees(localTransform->getEulerAngles().x), r_2_degrees(localTransform->getEulerAngles().y), r_2_degrees(localTransform->getEulerAngles().z));
 
 	}
+
+
+	/*for (int i = 0; i < EngineObject::getObjectListSize(); i++)
+	{
+		Transform* pos_to_zero = &EngineObject::getGlobalObjectIndex(i)->transform;
+		pos_to_zero->position = pos_to_zero->position - transform->position;
+	}
+	transform->position = transform->position - transform->position;*/
 }
 
 void CameraComponent::FixedUpdate()

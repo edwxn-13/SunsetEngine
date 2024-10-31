@@ -416,7 +416,7 @@ public:
 			0, 0, 0, 1);
 	}
 
-	static Quaternion AxisAngle(Vector3f axis, float angle) {
+	static Quaternion AngleAxis(float angle, Vector3f axis) {
 		float s = sin(angle / 2);
 		Quaternion r = Quaternion(axis.x * s,
 			axis.y * s,
@@ -478,7 +478,7 @@ public:
 		return q1.x * q2.x + q1.y * q2.y + q1.z * q2.z + q1.w * q2.w;
 	}
 
-	Quaternion Slerp(Quaternion q1, Quaternion q2, float t) {
+	static Quaternion Slerp(Quaternion q1, Quaternion q2, float t) {
 		t = t < 0 ? 0 : t;
 		t = t > 1 ? 1 : t;
 		if (Dot(q1, q2) < 0) q2 = Scale(q2, -1);

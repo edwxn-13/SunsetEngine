@@ -174,13 +174,9 @@ void Skybox::renderCubemap(unsigned int skybox_shader, SCamera* Camera)
 
 	glUniform1i(glGetUniformLocation(skybox_shader, "skybox"), 0);
 
-	glm::mat4 projection = glm::mat4(1.f);
-	projection = glm::perspective(glm::radians(45.f), (float)WIDTH / (float)HEIGHT, .01f, 100.f);
-	glUniformMatrix4fv(glGetUniformLocation(skybox_shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
 	glm::mat4 view = glm::mat4(1.f);
 	view = Camera->getSkyboxViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(skybox_shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(skybox_shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 	glActiveTexture(GL_TEXTURE0);
 	glEnable(GL_TEXTURE_CUBE_MAP);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTex);

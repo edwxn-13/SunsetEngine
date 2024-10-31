@@ -9,24 +9,3 @@ MeshObject::MeshObject(const char* filename, unsigned int shader)
 	addComponent(meshComponent);
 	//addComponent(rigidbody);
 }
-
-
-void MeshObject::Start() 
-{
-
-}
-
-void MeshObject::Update() 
-{
-
-}
-
-void MeshObject::FixedUpdate() 
-{
-
-}
-
-void MeshObject::LateUpdate() 
-{
-
-}

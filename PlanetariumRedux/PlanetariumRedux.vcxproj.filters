@@ -40,6 +40,9 @@
     <Filter Include="Source Files\Utils\File">
       <UniqueIdentifier>{f07abdfe-0258-4c64-915f-005a04ec75b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{3ec89303-b06b-4863-8fef-ed70ca260c72}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -169,6 +172,12 @@
     <None Include="README.md" />
     <None Include="EngineObjects\EngineObject.inl">
       <Filter>Source Files\EngineObject</Filter>
+    </None>
+    <None Include="Shaders\Textured\textured.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Shaders\Textured\textured.frag">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

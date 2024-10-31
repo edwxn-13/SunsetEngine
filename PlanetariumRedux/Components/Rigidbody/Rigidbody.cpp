@@ -28,7 +28,7 @@ void Rigidbody::Update()
 
 	//addForce(transform->forward() * -0.01);
 
-	transform->Rotate(Vector3f(2, 0, 0));
+	//transform->Rotate(Vector3f(2, 0, 0));
 	//Vector3f test = transform->forward() * -1;
 	 
 	//transform->position = transform->position + transform->forward() * - 3;

@@ -181,6 +181,8 @@
   <ItemGroup>
     <None Include="EngineObjects\EngineObject.inl" />
     <None Include="README.md" />
+    <None Include="Shaders\Textured\textured.frag" />
+    <None Include="Shaders\Textured\textured.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

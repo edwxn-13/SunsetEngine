@@ -66,6 +66,8 @@ void preRenderSetUp()
 {
 	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
 	{
+		EngineObject::getGlobalObjectIndex(i)->Start();
+
 		EngineObject::getGlobalObjectIndex(i)->transform.Update();
 		if (MeshComponent* mesh = EngineObject::getGlobalObjectIndex(i)->getComponentOfType<MeshComponent>()) {
 			if (mesh)
@@ -87,11 +89,7 @@ void renderWithShadow(unsigned int renderShaderProgram, ShadowStruct shadow, glm
 	glUniform3f(glGetUniformLocation(renderShaderProgram, "camPos"), Camera.Position.x, Camera.Position.y, Camera.Position.z);
 	glm::mat4 view = glm::mat4(1.f);
 	view = Camera.getCamViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(renderShaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-	glm::mat4 projection = glm::mat4(1.f);
-	projection = glm::perspective(glm::radians(45.f), (float)WIDTH / (float)HEIGHT, .01f, 100.f);
-	glUniformMatrix4fv(glGetUniformLocation(renderShaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(renderShaderProgram, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 
 	drawFloorAndCubes(renderShaderProgram);
 }
@@ -106,11 +104,7 @@ void renderWithTexture(unsigned int shader, ShadowStruct shadow, glm::mat4 proje
 
 	glm::mat4 view = glm::mat4(1.f);
 	view = Camera.getCamViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-	glm::mat4 projection = glm::mat4(1.f);
-	projection = glm::perspective(glm::radians(45.f), (float)WIDTH / (float)HEIGHT, .01f, 10000.f);
-	glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 
 	glUniform3f(glGetUniformLocation(shader, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
@@ -259,7 +253,7 @@ void SizeCallback(GLFWwindow* window, int w, int h)
 	glViewport(0, 0, w, h);
 }
 
-void processKeyboard(GLFWwindow* window, Vector3f target)
+void processKeyboard(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
@@ -280,7 +274,6 @@ void generateDepthMap(unsigned int shadowShaderProgram, ShadowStruct shadow, glm
 	glUniformMatrix4fv(glGetUniformLocation(shadowShaderProgram, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(projectedLightSpaceMatrix));
 	//drawFloorAndCubes(shadowShaderProgram);
 	renderWithTexture(shadowShaderProgram, shadow, projectedLightSpaceMatrix);
-
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -352,7 +345,7 @@ int main(int argc, char** argv)
 		renderWithTexture(texture_program, shadow, projectedLightSpaceMatrix);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		processKeyboard(window, ship.transform.position);
+		processKeyboard(window);
 
 	}
 

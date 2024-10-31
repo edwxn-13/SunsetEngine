@@ -24,13 +24,14 @@ private:
 	Vector3f velocity;
 	Vector3f torque;
 
-	bool useGravity;
-	bool useDrag;
-	
-	float mass;
+	float mass = 1;
 	float gravity = 9.8f;
-	float dragCoefficient;
-	
-	
+	float angular_drag_coef = 0.3f;
+
+public:
+
+	bool useGravity = false;
+	bool useDrag = true;
+	bool useAngularDrag = true;
 };
 

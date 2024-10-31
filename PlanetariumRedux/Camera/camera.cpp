@@ -4,9 +4,10 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <GL/glcorearb.h>
 #include "camera.h"
 #include "../Components/CameraComponent/CameraComponent.h"
-
+#include "../Engine/EngineUtils.h"
 std::vector<SCamera*> SCamera::m_cam_list = {};
 
 enum SCamera::Camera_Movement
@@ -64,12 +65,26 @@ void SCamera::Look()
 
 glm::mat4 SCamera::getCamViewMatrix()
 {
-	return glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm());
+	glm::mat4 projection = glm::mat4(1.f);
+	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX()/ (float)Screen::getScreenY(), .01f, 10000.f);
+	//glm::mat4 view = glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm());
+	glm::mat4 view = transform.get_pos_mat();
+	//view = glm::inverse(view);
+	glm::mat4 camMat = projection * view;
+	return camMat;
 }
 
 
 glm::mat4 SCamera::getSkyboxViewMatrix()
 {
-	return glm::mat4(glm::mat3 (glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm())));
+	glm::mat4 projection = glm::mat4(1.f);
+	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX() / (float)Screen::getScreenY(), .01f, 10000.f);
+	//glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm())));
+	glm::mat4 view = transform.get_pos_mat();
+	//view = glm::inverse(view);
+	view = glm::mat4(glm::mat3(view));
+	glm::mat4 camMat = projection * view;
+
+	return camMat;
 }
 	

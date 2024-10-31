@@ -45,10 +45,10 @@ public:
 
 	void removeChild(EngineObject* childObject);
 
-	virtual void Start();
-	virtual void Update();
-	virtual void FixedUpdate();
-	virtual void LateUpdate();
+	void Start();
+	void Update();
+	void FixedUpdate();
+	void LateUpdate();
 
 	static EngineObject* getGlobalObjectIndex(int i);
 	static int getObjectListSize();
