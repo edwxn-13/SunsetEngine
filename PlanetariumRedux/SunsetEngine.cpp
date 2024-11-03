@@ -280,7 +280,7 @@ void generateDepthMap(unsigned int shadowShaderProgram, ShadowStruct shadow, glm
 int main(int argc, char** argv)
 {
 	glfwInit();
-	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Planetarium!", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Sunset Engine v1.10", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	Screen::setScreenXY(WIDTH, HEIGHT);
 	Input::updateWindowValue(window);
@@ -302,7 +302,6 @@ int main(int argc, char** argv)
 	GLuint skybox_shader = CompileShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
 	GLuint simple_planet = CompileShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");
 
-
 	glDebugMessageCallback(DebguMessageCallback, 0);
 
 	Camera.InitCamera();
@@ -315,13 +314,9 @@ int main(int argc, char** argv)
 	gooch.transform.scale = Vector3f(0.2);
 	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
-	ship.getTransform()->position = Vector3f(-90.0f, -20.0f, -1.f);
-	ship.transform.Rotate(Vector3f(0));
+	ship.getTransform()->position = Vector3f(-50, -20.0f, 100.f);
 
-	
-	//ship.addChild(&Camera);
-	//ship.addChild(&Camera);
-
+	ship.transform.Rotate(Vector3f(0, 0, 0));
 	preRenderSetUp();
 
 	Skybox skybox = Skybox();

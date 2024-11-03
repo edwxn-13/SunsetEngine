@@ -51,10 +51,8 @@ void Transform::model_transform()
 	if (engineObject->relationships.getParent()) 
 	{
 		position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
-		
 
 		Transform * parent_trans = &engineObject->relationships.getParent()->transform;
-
 
 		//ptt - point to transform
 		Vector3f ptt = (localTransform->position);
@@ -71,9 +69,9 @@ void Transform::model_transform()
 		localTransform->CopyTransform(transform);
 	}
 
-
 	rotation.normalize();
 	eulerRotation = rotation.ToEulerAngles();
+
 	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
 	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
 	position_matrix = position_matrix * rotation_matrix;
@@ -136,10 +134,7 @@ Vector3f Transform::getEulerAngles()
 	return rot;
 }
 
-
 std::vector<Component *> Component::world_list = {};
-
-
 
 Component::Component(EngineObject * engineObject)
 {

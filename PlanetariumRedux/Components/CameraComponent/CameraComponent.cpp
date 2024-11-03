@@ -12,47 +12,44 @@
 CameraComponent::CameraComponent(EngineObject* engineObject) : Component(engineObject)
 {
 	component_id = 23;
-
 }
-
 
 void CameraComponent::Start()
 {
 	
 }
 
-
 void CameraComponent::Update()
 {
 
 	if (Input::OnKeyPressed(GLFW_KEY_C))
 	{
-		transform->position = localTransform->position - transform->up() * 5.f;
+		transform->position = localTransform->position - transform->up() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
 	{
-		transform->position = localTransform->position + transform->up() * 5.f;
+		transform->position = localTransform->position + transform->up() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_A))
 	{
-		transform->position = localTransform->position - transform->right() * 5.f;
+		transform->position = localTransform->position - transform->right() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_D))
 	{
-		transform->position = localTransform->position + transform->right() * 5.f;
+		transform->position = localTransform->position + transform->right() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_W))
 	{
-		transform->position = localTransform->position + transform->forward() * 5.f;
+		transform->position = localTransform->position + transform->forward() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_S))
 	{
-		transform->position = localTransform->position - transform->forward() * 5.f;
+		transform->position = localTransform->position - transform->forward() * 2.0f;
 	}
 
 	//roll = 0;

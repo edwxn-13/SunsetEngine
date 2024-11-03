@@ -211,6 +211,15 @@ public:
 		return result;
 	}
 
+	Vector3f operator- () const
+	{
+		Vector3f result;
+		result.x = -x;
+		result.y = -y;
+		result.z =  -z;
+		return result;
+	}
+
 	Vector3f operator- (const float& c) const
 	{
 		Vector3f result;

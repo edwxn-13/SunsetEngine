@@ -58,7 +58,7 @@ void Input::Update()
 	double mouseRawX = a - Screen::getScreenX()/2;
 	double mouseRawY = b - Screen::getScreenY() / 2;
 
-	MouseXY.x = mouseRawX/ (Screen::getScreenX() / 2) * -1.0f;
+	MouseXY.x = mouseRawX/ (Screen::getScreenX() / 2);
 	MouseXY.y = (mouseRawY / (Screen::getScreenY() / 2));
 	glfwSetCursorPos(window_p, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
 }
