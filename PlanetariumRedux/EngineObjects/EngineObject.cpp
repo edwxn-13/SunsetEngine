@@ -36,7 +36,13 @@ void EngineObject::removeChild(EngineObject* childObject)
 	//TODO - make linked list for children
 }
 
-void EngineObject::Start() {}
+void EngineObject::Start() 
+{
+	for (int i = 0; i < component_list.size(); i++)
+	{
+		component_list[i]->Start();
+	}
+}
 void EngineObject::Update() {}
 void EngineObject::FixedUpdate() {}
 void EngineObject::LateUpdate() {}

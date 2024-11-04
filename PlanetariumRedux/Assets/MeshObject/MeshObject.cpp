@@ -5,7 +5,7 @@
 MeshObject::MeshObject(const char* filename, unsigned int shader)
 {
 	MeshComponent* meshComponent = new MeshComponent(this, filename, shader);
-	//Rigidbody* rigidbody = new Rigidbody(this);
+	Rigidbody* rigidbody = new Rigidbody(this);
 	addComponent(meshComponent);
-	//addComponent(rigidbody);
+	addComponent(rigidbody);
 }

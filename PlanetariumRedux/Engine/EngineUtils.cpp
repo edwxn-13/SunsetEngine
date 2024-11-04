@@ -1,9 +1,15 @@
 #include "EngineUtils.h"
 #include <GLFW/glfw3.h>
-
+#include <iostream>
+#include <chrono>
 GLFWwindow* Input::window_p = 0;
 int Screen::screen_x = 0;
 int Screen::screen_y = 0;
+
+float Time::currentTime = 0.0f;
+float Time::delta_time = 0.0f;
+float Time::pastTime = 0.0f;
+
 Vector2f Input::MouseXY = Vector2f(0);
 
 void Screen::setScreenXY(int ax, int ay)
@@ -83,3 +89,13 @@ int Input::OnKeyUp(int KeyValue)
 	return glfwGetKey(window_p, KeyValue) == GLFW_RELEASE;
 }
 
+float Time::DeltaTime()
+{
+	return delta_time;
+}
+
+void Time::updateTime()
+{
+	pastTime = currentTime;
+	delta_time = currentTime - pastTime;
+}

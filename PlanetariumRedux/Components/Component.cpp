@@ -60,6 +60,8 @@ void Transform::model_transform()
 		Quaternion rotated_point = ((parent_trans->rotation * imaginary_point) * parent_trans->rotation.conjugate());
 		Vector3f transformed_local_pos = Vector3f(rotated_point.x, rotated_point.y, rotated_point.z);
 		transform->position = transformed_local_pos + parent_trans->position;
+
+
 		//position = position + engineObject->relationships.getParent()->transform.position;
 		//rotation = engineObject->relationships.getParent()->transform.rotation * rotation;
 	}

@@ -241,7 +241,9 @@ public:
 	Vector3f operator* (const Vector3f& c) const
 	{
 		Vector3f result;
-		result = glm::cross(glm::vec3(this->x, this->y, this->z), glm::vec3(c.x, c.y, c.z));
+		result.x = this->x * c.x;
+		result.y = this->y * c.y;
+		result.z = this->z * c.z;
 		return result;
 	}
 
@@ -252,6 +254,13 @@ public:
 		result.y = this->y / c;
 		result.z = this->z / c;
 		return result;
+	}
+
+
+	bool operator == (const Vector3f& c) const
+	{
+		if (c.x == x && c.y == y && c.z == z) { return true; }
+		return false;
 	}
 
 	float magnitude() 

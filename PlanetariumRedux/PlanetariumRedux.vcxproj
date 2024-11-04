@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\include\GL\gl3w.c" />
     <ClCompile Include="Assets\MeshObject\MeshObject.cpp" />
+    <ClCompile Include="Assets\Ship\ShipController\ShipController.cpp" />
     <ClCompile Include="Camera\camera.cpp" />
     <ClCompile Include="Components\CameraComponent\CameraComponent.cpp" />
     <ClCompile Include="Components\Component.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp" />
     <ClCompile Include="Engine\EngineManager.cpp" />
     <ClCompile Include="Engine\EngineUtils.cpp" />
+    <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
@@ -155,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\MeshObject\MeshObject.h" />
+    <ClInclude Include="Assets\Ship\ShipController\ShipController.h" />
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Components\CameraComponent\CameraComponent.h" />
     <ClInclude Include="Components\Component.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="Engine\EngineManager.h" />
     <ClInclude Include="Engine\EngineUtils.h" />
     <ClInclude Include="Engine\Renderer\Renderer.h" />
+    <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Maths\MathHeader.h" />
     <ClInclude Include="Utils\bitmap.h" />

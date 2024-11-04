@@ -13,7 +13,7 @@
 #include "Assets/MeshObject/MeshObject.h"
 #include "Components/Rigidbody/Rigidbody.h"
 #include "Engine/EngineUtils.h"
-
+#include "Assets/Ship/ShipController/ShipController.h"
 //light direction variable here
 
 SCamera Camera = SCamera();
@@ -34,32 +34,15 @@ GLuint VAOs[NUM_VAOS];
 float yaw, pitch = 0;
 float roll = 0.0f;
 
-void drawFloorAndCubes(unsigned int shaderProgram)
+void GlobalStartCall() 
 {
-	glBindVertexArray(VAOs[0]);
-
-	//floor
-	glm::mat4 model = glm::mat4(1.f);
-	model = glm::translate(model, glm::vec3(0, -3, 0));
-	model = glm::scale(model, glm::vec3(100, 0.1, 100));
-	glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-
-	//cubes
-	for (int i = -1; i < 2; i++)
+	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
 	{
-		for (int j = -1; j < 2; j++)
-		{
-			for (int k = -1; k < 2; k++)
-			{
-				glm::mat4 model = glm::mat4(1.f);
-				model = glm::translate(model, glm::vec3(float(i * 2), float(j * 2), float(k * 2)));
-				glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
-				glDrawArrays(GL_TRIANGLES, 0, 36);
-			}
-		}
-	}
+		EngineObject::getGlobalObjectIndex(i)->Start();
 
+		EngineObject::getGlobalObjectIndex(i)->transform.Update();
+		
+	}
 }
 
 void preRenderSetUp() 
@@ -77,21 +60,6 @@ void preRenderSetUp()
 			}
 		}
 	}
-}
-
-void renderWithShadow(unsigned int renderShaderProgram, ShadowStruct shadow, glm::mat4 projectedLightSpaceMatrix)
-{
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glUseProgram(renderShaderProgram);
-	glUniform3f(glGetUniformLocation(renderShaderProgram, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-	glUniform3f(glGetUniformLocation(renderShaderProgram, "lightDirection"), lightDirection.x, lightDirection.y, lightDirection.z);
-	glUniform3f(glGetUniformLocation(renderShaderProgram, "lightColour"), 0.f, 0.f, 0.f);
-	glUniform3f(glGetUniformLocation(renderShaderProgram, "camPos"), Camera.Position.x, Camera.Position.y, Camera.Position.z);
-	glm::mat4 view = glm::mat4(1.f);
-	view = Camera.getCamViewMatrix();
-	glUniformMatrix4fv(glGetUniformLocation(renderShaderProgram, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
-
-	drawFloorAndCubes(renderShaderProgram);
 }
 
 void renderWithTexture(unsigned int shader, ShadowStruct shadow, glm::mat4 projectedLightSpaceMatrix)
@@ -127,7 +95,6 @@ void renderWithTexture(unsigned int shader, ShadowStruct shadow, glm::mat4 proje
 
 	glBindVertexArray(0);
 }
-
 /*
 void renderWithTextureP(unsigned int shader, vector<Planet>eObjs, ShadowStruct shadow, glm::mat4 projectedLightSpaceMatrix)
 {
@@ -202,46 +169,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	float y_offset = 0.f;
 	bool cam_changed = false;
 
-	if (glfwGetKey(window, GLFW_KEY_RIGHT && action) == GLFW_PRESS)
-	{
-		x_offset = 1.f;
-		y_offset = 0.f;
-		cam_changed = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_LEFT && action) == GLFW_RELEASE)
-	{
-		x_offset = -1.f;
-		y_offset = 0.f;
-		cam_changed = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_UP && action) == GLFW_RELEASE)
-	{
-		x_offset = 0.f;
-		y_offset = 1.f;
-		cam_changed = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_DOWN && action) == GLFW_RELEASE)
-	{
-		x_offset = 0.f;
-		y_offset = -1.f;
-		cam_changed = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_R && action) == GLFW_REPEAT)
-	{
-		Camera.cam_dist += 0.1f;
-		cam_changed = true;
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_F && action) == GLFW_REPEAT)
-	{
-		Camera.cam_dist -= 0.1f;
-		cam_changed = true;
-	}
-
 	if (cam_changed)
 	{
 	}
@@ -249,7 +176,7 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 
 void SizeCallback(GLFWwindow* window, int w, int h)
 {
-	Screen::setScreenXY(WIDTH, HEIGHT);
+	Screen::setScreenXY(w, h);
 	glViewport(0, 0, w, h);
 }
 
@@ -285,8 +212,6 @@ int main(int argc, char** argv)
 	Screen::setScreenXY(WIDTH, HEIGHT);
 	Input::updateWindowValue(window);
 
-	//glfwSetKeyCallback(window, KeyCallback);
-
 	glfwSetWindowSizeCallback(window, SizeCallback);
 
 	gl3wInit();
@@ -303,20 +228,20 @@ int main(int argc, char** argv)
 	GLuint simple_planet = CompileShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");
 
 	glDebugMessageCallback(DebguMessageCallback, 0);
-
-	Camera.InitCamera();
-	Camera.cam_dist = 5.f;
 	
 	//SECTION A - EDIT THIS CODE TO TEST
 
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
 	MeshObject ship = MeshObject("objs/MagnumTris/MH2A.obj", texture_program);
+
+	ship.addComponent(new ShipController(&ship));
 	gooch.transform.scale = Vector3f(0.2);
 	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
 	ship.getTransform()->position = Vector3f(-50, -20.0f, 100.f);
+	ship.addChild(&Camera);
 
-	ship.transform.Rotate(Vector3f(0, 0, 0));
+
 	preRenderSetUp();
 
 	Skybox skybox = Skybox();
@@ -335,13 +260,14 @@ int main(int argc, char** argv)
 		glClearColor(1.f, 1.f, 1.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glViewport(0, 0, WIDTH, HEIGHT);
+
+		Time::updateTime();
 		Input::Update();
 		skybox.renderCubemap(skybox_shader, &Camera);
 		renderWithTexture(texture_program, shadow, projectedLightSpaceMatrix);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		processKeyboard(window);
-
 	}
 
 	glfwDestroyWindow(window);

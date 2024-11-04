@@ -11,22 +11,9 @@ public:
 
 	SCamera();
 	float radz(float deg);
-	void InitCamera();
-	float cam_dist = 2.f;
-	void LookAt(glm::vec3 target);
-	void Look();
 
 	glm::mat4 getCamViewMatrix();
 	glm::mat4 getSkyboxViewMatrix();
-
-	glm::vec3 Position;
-	glm::vec3 Front;
-	glm::vec3 Up;
-	glm::vec3 Right;
-	glm::vec3 WorldUp;
-
-	float Yaw;
-	float Pitch;
 
 	float fov = 50.0f;
 

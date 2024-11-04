@@ -14,6 +14,7 @@ private:
 	float m_fov;
 	unsigned int layer;
 	Vector3f fromt;
+	Vector3f former_position;
 
 	float yaw, pitch = 0;
 	float roll = 0.0f;

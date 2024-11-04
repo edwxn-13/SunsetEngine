@@ -12,44 +12,48 @@
 CameraComponent::CameraComponent(EngineObject* engineObject) : Component(engineObject)
 {
 	component_id = 23;
+	localTransform->position = Vector3f(0, 20, 0);
+
 }
+
 
 void CameraComponent::Start()
 {
 	
 }
 
+
 void CameraComponent::Update()
 {
 
 	if (Input::OnKeyPressed(GLFW_KEY_C))
 	{
-		transform->position = localTransform->position - transform->up() * 2.0f;
+		localTransform->position = localTransform->position - localTransform->up() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
 	{
-		transform->position = localTransform->position + transform->up() * 2.0f;
+		localTransform->position = localTransform->position + localTransform->up() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_A))
 	{
-		transform->position = localTransform->position - transform->right() * 2.0f;
+		localTransform->position = localTransform->position - localTransform->right() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_D))
 	{
-		transform->position = localTransform->position + transform->right() * 2.0f;
+		localTransform->position = localTransform->position + localTransform->right() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_W))
 	{
-		transform->position = localTransform->position + transform->forward() * 2.0f;
+		localTransform->position = localTransform->position + localTransform->forward() * 2.0f;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_S))
 	{
-		transform->position = localTransform->position - transform->forward() * 2.0f;
+		localTransform->position = localTransform->position - localTransform->forward() * 2.0f;
 	}
 
 	//roll = 0;
@@ -72,20 +76,26 @@ void CameraComponent::Update()
 		yaw += 10.0f * Input::getMouseInputXY().x;
 		pitch += 10.0f * Input::getMouseInputXY().y;
 
-		transform->setEulerAngles(Vector3f(pitch, yaw, roll));
+		localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
 
 		printf("\n angles - x . %f , y . %f, z . %f\n",
-			r_2_degrees(transform->getEulerAngles().x), r_2_degrees(transform->getEulerAngles().y), r_2_degrees(transform->getEulerAngles().z));
+			r_2_degrees(localTransform->getEulerAngles().x), r_2_degrees(localTransform->getEulerAngles().y), r_2_degrees(localTransform->getEulerAngles().z));
 
 	}
 
+	/*
+	if (!(transform->position == Vector3f(0))) {
+		for (int i = 0; i < EngineObject::getObjectListSize(); i++)
+		{
+			Transform* pos_to_zero = &EngineObject::getGlobalObjectIndex(i)->localTransform;
+			pos_to_zero->position = pos_to_zero->position - former_position;
+		}
+		localTransform->position = localTransform->position - former_position;
 
-	/*for (int i = 0; i < EngineObject::getObjectListSize(); i++)
-	{
-		Transform* pos_to_zero = &EngineObject::getGlobalObjectIndex(i)->transform;
-		pos_to_zero->position = pos_to_zero->position - transform->position;
-	}
-	transform->position = transform->position - transform->position;*/
+
+		former_position = localTransform->position;
+	}*/
+
 }
 
 void CameraComponent::FixedUpdate()

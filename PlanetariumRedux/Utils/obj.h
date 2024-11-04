@@ -87,15 +87,16 @@ public:
 	char fil_name[256];
 	char spec_name[256];
 	char bump_name[256];
-
+	char shader_name[256];
 
 	Material() {}
-	Material(char* n, char* f, char* s, char * b) 
+	Material(char* n, char* f, char* s, char * b, char * sn) 
 	{
 		strcpy(mtl_name, n); 
 		strcpy(fil_name, f);
 		strcpy(spec_name, s);
 		strcpy(bump_name, b);
+		strcpy(shader_name, sn);
 
 	}
 	~Material() 
@@ -109,6 +110,7 @@ class Object
 public:
 	unsigned int VAO;
 	unsigned int VBO;
+
 	vector<triangle> tris;
 	Material mtl;
 	GLuint texture;
@@ -487,8 +489,12 @@ int mtl_parse(char* filename, vector<Material>* mtls)
 		const char* bumppath = bump_dir.c_str();
 		char* tempbump = _strdup(bumppath);
 
+
+		const char* shader_name = material_names[i].c_str();
+		char* tempshade = _strdup(shader_name);
+
 		char* matname = mtls[0][i].mtl_name;
-		mtls[0][i] = Material(matname,tempimage,tempspec,tempbump);
+		mtls[0][i] = Material(matname,tempimage,tempspec,tempbump, tempshade);
 	}
 	return 1;
 }
@@ -672,7 +678,7 @@ int obj_parse(const char * filename, vector<Object> *objs)
 	{
 		const char* temp = material_ids[i].c_str();
 		char* material_name_id = _strdup(temp);
-		materials.push_back(Material(material_name_id, char_material_dir, char_material_dir, char_material_dir));
+		materials.push_back(Material(material_name_id, char_material_dir, char_material_dir, char_material_dir, char_material_dir));
 	}
 
 

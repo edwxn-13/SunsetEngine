@@ -96,6 +96,12 @@
     <ClCompile Include="Utils\file.cpp">
       <Filter>Source Files\Utils\File</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets\Ship\ShipController\ShipController.cpp">
+      <Filter>Source Files\Assets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
@@ -166,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="Utils\file.h">
       <Filter>Source Files\Utils\File</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h">
+      <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets\Ship\ShipController\ShipController.h">
+      <Filter>Source Files\Assets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,17 @@ class KeyCode
 
 };
 
+class Time 
+{
+
+	static float currentTime;
+	static float delta_time;
+	static float pastTime;
+public:
+	static float DeltaTime();
+	static void updateTime();
+};
+
 class Screen 
 {
 	static int screen_x;
