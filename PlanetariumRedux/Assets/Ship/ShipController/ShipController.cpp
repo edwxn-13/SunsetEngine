@@ -21,6 +21,8 @@ ShipController::ShipController(EngineObject* engineObject) : Component (engineOb
 void ShipController::Start()
 {
 	ship_rigidbody = engineObject->getComponentOfType<Rigidbody>();
+	ship_rigidbody->mass = 2.0f;
+	ship_stats = ShipStats();
 }
 
 void ShipController::Update() 
@@ -72,16 +74,32 @@ void ShipController::Update()
 
 	if (true)
 	{
-		Vector2f inputAxis = Input::getMouseInputXY();
+		//roll = 1 * rcs_torque;
 
+		Vector2f inputAxis = Input::getMouseInputXY();
+		
 		yaw = rcs_torque * Input::getMouseInputXY().x;
 		pitch = rcs_torque * Input::getMouseInputXY().y;
 
-		ship_rigidbody->addTorque(Vector3f(pitch, yaw, roll));
+		ship_rigidbody->addTorque(Vector3f(pitch, 0, 0));
 	}
+}
+
+void ShipController::Thrust()
+{
+	ship_rigidbody->useDrag = inertial_dampners;
+	ship_rigidbody->addForce(transform->forward() * ship_stats.thruster.specific_impulse);
 }
 
 void ShipController::FixedUpdate()
 {
 
+}
+
+void ShipController::ShipStats::ShipInit()
+{
+	ship_modules.push_back(&reactor);
+	ship_modules.push_back(&vector_thrust);
+	ship_modules.push_back(&thruster);
+	ship_modules.push_back(&reaction_control_sys);
 }

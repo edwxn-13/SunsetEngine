@@ -43,9 +43,27 @@ void EngineObject::Start()
 		component_list[i]->Start();
 	}
 }
-void EngineObject::Update() {}
-void EngineObject::FixedUpdate() {}
-void EngineObject::LateUpdate() {}
+void EngineObject::Update() 
+{
+	for (int i = 0; i < component_list.size(); i++)
+	{
+		component_list[i]->Update();
+	}
+}
+void EngineObject::FixedUpdate() 
+{
+	for (int i = 0; i < component_list.size(); i++)
+	{
+		component_list[i]->FixedUpdate();
+	}
+}
+void EngineObject::LateUpdate() 
+{
+	for (int i = 0; i < component_list.size(); i++)
+	{
+		//component_list[i]->LateUpdate();
+	}
+}
 
 EngineObject* EngineObject::getGlobalObjectIndex(int i)
 {

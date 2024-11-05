@@ -35,13 +35,14 @@ private:
 	Vector3f drag_force;
 	Vector3f angular_drag_force;
 
-	float mass = 1;
 	float gravity = 9.8f;
 	float angular_drag_coef = 0.3f;
 	float drag_coef = 0.3f;
-	float air_density = 0.5f;
+	float air_density = 0.89f;
 
 public:
+
+	float mass = 1;
 
 	bool useGravity = false;
 	bool useDrag = true;

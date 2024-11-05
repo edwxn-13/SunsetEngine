@@ -61,7 +61,6 @@ void Transform::model_transform()
 		Vector3f transformed_local_pos = Vector3f(rotated_point.x, rotated_point.y, rotated_point.z);
 		transform->position = transformed_local_pos + parent_trans->position;
 
-
 		//position = position + engineObject->relationships.getParent()->transform.position;
 		//rotation = engineObject->relationships.getParent()->transform.rotation * rotation;
 	}
@@ -107,9 +106,15 @@ void Transform::FixedUpdate()
 
 void Transform::Rotate(Vector3f angles)
 {
-	Quaternion q = Quaternion::ToQuaternion(angles);
-	rotation = q * rotation;
-	//rotation = rotation * q.conjugate();
+	Quaternion w = Quaternion::ToQuaternion(angles);
+	//Quaternion w = Quaternion(glm::quat(angles.glm()));
+	rotation = w * rotation;
+}
+
+void Transform::RotateAngleAxis(float angle, Vector3f axis) 
+{
+	Quaternion w = Quaternion::AngleAxis(angle, axis.normal());
+	rotation = w * rotation;
 }
 
 void Transform::Rotate(Quaternion q)

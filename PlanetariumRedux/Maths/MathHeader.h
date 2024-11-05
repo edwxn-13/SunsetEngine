@@ -435,16 +435,14 @@ public:
 	}
 
 	static Quaternion AngleAxis(float angle, Vector3f axis) {
-		float s = sin(angle / 2);
+
+		float rad_angle = radians(angle);
+		float s = sin(rad_angle / 2);
 		Quaternion r = Quaternion(axis.x * s,
 			axis.y * s,
 			axis.z * s,
-			cos(angle / 2));
-
-		r.normalize();
+			cos(rad_angle / 2));
 		return r;
-
-
 	}
 
 	static Quaternion Exp(Quaternion q) {

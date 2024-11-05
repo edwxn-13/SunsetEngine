@@ -43,6 +43,39 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{3ec89303-b06b-4863-8fef-ed70ca260c72}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Assets\MeshObject">
+      <UniqueIdentifier>{7def4973-75fe-499d-a3d4-caea50454f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets\ShipController">
+      <UniqueIdentifier>{47ea44f3-8058-4d69-bf70-2b74dec9e685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\CameraComponent">
+      <UniqueIdentifier>{745b9a74-2e3e-4a61-8725-0aaf58074b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\LightComponent">
+      <UniqueIdentifier>{4f596090-e3bf-4457-8f58-5807565991c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Rigidbody">
+      <UniqueIdentifier>{4d4b2d84-a55f-4e48-90d2-446b31e10d38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\MeshComponent">
+      <UniqueIdentifier>{a6e97dcc-77a9-4778-9a29-c347043ab543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\EngineUtils">
+      <UniqueIdentifier>{17f59d57-a187-42bb-b0bf-d0d80d1cd598}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Renderer">
+      <UniqueIdentifier>{e22ca305-cef2-47f7-9f53-17f5c2fc9a89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\ShaderManager">
+      <UniqueIdentifier>{f821b1cb-6f38-4cfd-b0cd-528dbb844f2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\EngineManager">
+      <UniqueIdentifier>{25b5fce9-4bff-46fc-878c-4e0639872d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scene">
+      <UniqueIdentifier>{d7050b7e-7300-4646-ba02-1e18d710c10c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -54,41 +87,14 @@
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Components\CameraComponent\CameraComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\LightComponent\LightComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\MeshComponent\MeshComponent.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Components\Rigidbody\Rigidbody.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Maths\MathHeader.cpp">
       <Filter>Source Files\Utils\Maths</Filter>
     </ClCompile>
     <ClCompile Include="EngineObjects\EngineObject.cpp">
       <Filter>Source Files\EngineObject</Filter>
     </ClCompile>
-    <ClCompile Include="Assets\MeshObject\MeshObject.cpp">
-      <Filter>Source Files\Assets</Filter>
-    </ClCompile>
     <ClCompile Include="Camera\camera.cpp">
       <Filter>Source Files\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EngineManager.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EngineUtils.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Scene\Scene.cpp">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Utils\texture.cpp">
       <Filter>Source Files\Utils\Texture</Filter>
@@ -96,11 +102,38 @@
     <ClCompile Include="Utils\file.cpp">
       <Filter>Source Files\Utils\File</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp">
-      <Filter>Source Files\Engine</Filter>
+    <ClCompile Include="Assets\MeshObject\MeshObject.cpp">
+      <Filter>Source Files\Assets\MeshObject</Filter>
     </ClCompile>
     <ClCompile Include="Assets\Ship\ShipController\ShipController.cpp">
-      <Filter>Source Files\Assets</Filter>
+      <Filter>Source Files\Assets\ShipController</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CameraComponent\CameraComponent.cpp">
+      <Filter>Source Files\Components\CameraComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\LightComponent\LightComponent.cpp">
+      <Filter>Source Files\Components\LightComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Rigidbody\Rigidbody.cpp">
+      <Filter>Source Files\Components\Rigidbody</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\MeshComponent\MeshComponent.cpp">
+      <Filter>Source Files\Components\MeshComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EngineUtils.cpp">
+      <Filter>Source Files\Engine\EngineUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp">
+      <Filter>Source Files\Engine\ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\EngineManager.cpp">
+      <Filter>Source Files\Engine\EngineManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene\Scene.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,47 +152,17 @@
     <ClInclude Include="Utils\error.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Components\CameraComponent\CameraComponent.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Component.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\LightComponent\LightComponent.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\MeshComponent\MeshComponent.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Components\Rigidbody\Rigidbody.h">
-      <Filter>Source Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Maths\MathHeader.h">
       <Filter>Source Files\Utils\Maths</Filter>
     </ClInclude>
     <ClInclude Include="EngineObjects\EngineObject.h">
       <Filter>Source Files\EngineObject</Filter>
     </ClInclude>
-    <ClInclude Include="Assets\MeshObject\MeshObject.h">
-      <Filter>Source Files\Assets</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\obj.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Camera\camera.h">
       <Filter>Source Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineManager.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EngineUtils.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Scene\Scene.h">
-      <Filter>Source Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Renderer\Renderer.h">
-      <Filter>Source Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Utils\stb_image.h">
       <Filter>Source Files\Utils\Texture</Filter>
@@ -173,11 +176,41 @@
     <ClInclude Include="Utils\file.h">
       <Filter>Source Files\Utils\File</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h">
-      <Filter>Source Files\Engine</Filter>
+    <ClInclude Include="Assets\MeshObject\MeshObject.h">
+      <Filter>Source Files\Assets\MeshObject</Filter>
     </ClInclude>
     <ClInclude Include="Assets\Ship\ShipController\ShipController.h">
-      <Filter>Source Files\Assets</Filter>
+      <Filter>Source Files\Assets\ShipController</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent\CameraComponent.h">
+      <Filter>Source Files\Components\CameraComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\LightComponent\LightComponent.h">
+      <Filter>Source Files\Components\LightComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Rigidbody\Rigidbody.h">
+      <Filter>Source Files\Components\Rigidbody</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\MeshComponent\MeshComponent.h">
+      <Filter>Source Files\Components\MeshComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Source Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineUtils.h">
+      <Filter>Source Files\Engine\EngineUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\Renderer.h">
+      <Filter>Source Files\Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h">
+      <Filter>Source Files\Engine\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EngineManager.h">
+      <Filter>Source Files\Engine\EngineManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene\Scene.h">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

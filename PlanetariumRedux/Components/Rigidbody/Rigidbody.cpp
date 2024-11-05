@@ -16,12 +16,14 @@ void Rigidbody::Start()
 
 void Rigidbody::addForce(Vector3f force)
 {
-	velocity = velocity + force;
+	Vector3f delta_v = force / mass;
+	velocity = velocity + delta_v;
 }
 
 void Rigidbody::addTorque(Vector3f t)
 {
-	torque = torque + t;
+	Vector3f delta_w = t / mass;
+	torque = torque + delta_w;
 }
 
 void Rigidbody::setTorque(Vector3f t)
@@ -80,18 +82,12 @@ void Rigidbody::Update()
 		drag_coef = drag_coef;
 	}
 
-	if (drag_force.magnitude() < velocity.magnitude()) 
-	{
-	}
-
-	if (angular_drag_force.magnitude() < angular_drag_force.magnitude())
-	{
-	}
-	velocity = velocity - drag_force;
-
+	//velocity = velocity - drag_force;
 	torque = torque - angular_drag_force;
+	transform->Rotate(transform->right() * torque.x);
+	transform->Rotate(transform->up() * torque.y);
+	transform->Rotate(transform->forward() * torque.z);
 
-	transform->Rotate(torque);
 	transform->position = transform->position + velocity * 0.00001f;
 }
 

@@ -69,7 +69,7 @@ public:
 
 	void Rotate(Vector3f angles);
 	void Rotate(Quaternion q);
-
+	void RotateAngleAxis(float angle, Vector3f axis);
 	void eulerRotate(Vector3f angles);
 
 	void setEulerAngles(Vector3f angles);

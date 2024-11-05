@@ -232,9 +232,9 @@ int main(int argc, char** argv)
 	//SECTION A - EDIT THIS CODE TO TEST
 
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
-	MeshObject ship = MeshObject("objs/MagnumTris/MH2A.obj", texture_program);
+	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 
-	ship.addComponent(new ShipController(&ship));
+	gooch.addComponent(new ShipController(&gooch));
 	gooch.transform.scale = Vector3f(0.2);
 	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
