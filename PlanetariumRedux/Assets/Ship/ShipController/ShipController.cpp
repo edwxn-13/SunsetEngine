@@ -34,54 +34,57 @@ void ShipController::Update()
 
 	roll = 0.0f;
 
-	if (Input::OnKeyPressed(GLFW_KEY_C))
-	{
-		ship_rigidbody->addForce(transform->up() * -vector_thrust * Time::DeltaTime());
+	if (!Input::OnKeyPressed(GLFW_KEY_V)) {
+
+		if (Input::OnKeyPressed(GLFW_KEY_C))
+		{
+			ship_rigidbody->addForce(transform->up() * -vector_thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_SPACE))
+		{
+			ship_rigidbody->addForce(transform->up() * vector_thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_A))
+		{
+			ship_rigidbody->addForce(transform->right() * -vector_thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_D))
+		{
+			ship_rigidbody->addForce(transform->right() * vector_thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_W))
+		{
+			ship_rigidbody->addForce(transform->forward() * thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_S))
+		{
+			ship_rigidbody->addForce(transform->forward() * -thrust * Time::DeltaTime());
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_Q))
+		{
+			roll = -1.0f * rcs_torque;
+		}
+
+		if (Input::OnKeyPressed(GLFW_KEY_E))
+		{
+			roll = 1.0f * rcs_torque;
+		}
+
+		Vector2f inputAxis = Input::getMouseInputXY();
+
+		yaw = rcs_torque * Input::getMouseInputXY().x * 0.70f;
+		pitch = rcs_torque * Input::getMouseInputXY().y;
+
+		Vector3f shipRotor = Vector3f(pitch, yaw, roll) * Time::DeltaTime();
+
+		ship_rigidbody->addTorque(shipRotor);
 	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
-	{
-		ship_rigidbody->addForce(transform->up() * vector_thrust * Time::DeltaTime());
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_A))
-	{
-		ship_rigidbody->addForce(transform->right() * -vector_thrust * Time::DeltaTime());
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_D))
-	{
-		ship_rigidbody->addForce(transform->right() * vector_thrust * Time::DeltaTime());
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_W))
-	{
-		ship_rigidbody->addForce(transform->forward() * thrust * Time::DeltaTime());
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_S))
-	{
-		ship_rigidbody->addForce(transform->forward() * -thrust * Time::DeltaTime());
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_Q))
-	{
-		roll = -1.0f * rcs_torque;
-	}
-
-	if (Input::OnKeyPressed(GLFW_KEY_E))
-	{
-		roll = 1.0f * rcs_torque;
-	}
-
-	Vector2f inputAxis = Input::getMouseInputXY();
-
-	yaw = rcs_torque * Input::getMouseInputXY().x * 0.70f;
-	pitch = rcs_torque * Input::getMouseInputXY().y;
-
-	Vector3f shipRotor = Vector3f(pitch, yaw, roll) * Time::DeltaTime();
-
-	ship_rigidbody->addTorque(shipRotor);
 	
 }
 

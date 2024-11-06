@@ -21,8 +21,8 @@ enum SCamera::Camera_Movement
 SCamera::SCamera()
 {
 	m_cam_list.push_back(this);
-	//CameraComponent * cameraMovement = new CameraComponent(this);
-	//addComponent(cameraMovement);
+	CameraComponent * cameraMovement = new CameraComponent(this);
+	addComponent(cameraMovement);
 }
 
 float SCamera::radz(float deg)

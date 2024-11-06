@@ -3,7 +3,7 @@
 #include "../../../Components/Component.h"
 class Rigidbody;
 
-struct ShipPart { float mass; float cost; float power_draw; bool is_active = true; float integrity = 100.0f; };
+struct ShipPart { std::string part_name; float mass; float cost; float power_draw; bool is_active = true; float integrity = 100.0f; };
 
 
 struct Reactor : public ShipPart { };
