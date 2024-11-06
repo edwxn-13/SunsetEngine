@@ -45,6 +45,20 @@ void GlobalStartCall()
 	}
 }
 
+
+void fixedUpdateCaller() 
+{
+	bool call_fixed = Time::fixedUpdateChecker();
+
+	if (call_fixed) 
+	{
+		for (int i = 0; i < EngineObject::getObjectListSize(); i++)
+		{
+			EngineObject::getGlobalObjectIndex(i)->FixedUpdate();
+		}
+	}
+}
+
 void preRenderSetUp() 
 {
 	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
@@ -234,7 +248,7 @@ int main(int argc, char** argv)
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
 	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 
-	gooch.addComponent(new ShipController(&gooch));
+	ship.addComponent(new ShipController(&ship));
 	gooch.transform.scale = Vector3f(0.2);
 	gooch.localTransform.position = Vector3f(100, 50, 2);
 	ship.getTransform()->scale = Vector3f(5);
@@ -265,6 +279,7 @@ int main(int argc, char** argv)
 		Input::Update();
 		skybox.renderCubemap(skybox_shader, &Camera);
 		renderWithTexture(texture_program, shadow, projectedLightSpaceMatrix);
+		fixedUpdateCaller();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 		processKeyboard(window);

@@ -172,6 +172,7 @@
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Maths\MathHeader.h" />
+    <ClInclude Include="SunsetCore.h" />
     <ClInclude Include="Utils\bitmap.h" />
     <ClInclude Include="Utils\error.h" />
     <ClInclude Include="Utils\file.h" />

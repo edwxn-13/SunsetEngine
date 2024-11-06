@@ -71,13 +71,18 @@ void Rigidbody::calculate_contact_force()
 
 void Rigidbody::Update() 
 {
-	if (useGravity) 
+	
+}
+
+void Rigidbody::FixedUpdate()
+{
+	if (useGravity)
 	{
 		velocity = velocity + (g_vector * gravity * 0.001f);
 	}
 
 	calculate_drag();
-	if (torque.x != 0) 
+	if (torque.x != 0)
 	{
 		drag_coef = drag_coef;
 	}
@@ -89,10 +94,5 @@ void Rigidbody::Update()
 	transform->Rotate(transform->forward() * torque.z);
 
 	transform->position = transform->position + velocity * 0.00001f;
-}
-
-void Rigidbody::FixedUpdate()
-{
-
 }
 

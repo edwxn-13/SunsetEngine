@@ -9,6 +9,7 @@ int Screen::screen_y = 0;
 float Time::currentTime = 0.0f;
 float Time::delta_time = 0.0f;
 float Time::pastTime = 0.0f;
+float Time::tickrate = 80.0f;
 
 Vector2f Input::MouseXY = Vector2f(0);
 
@@ -94,8 +95,21 @@ float Time::DeltaTime()
 	return delta_time;
 }
 
+bool Time::fixedUpdateChecker()
+{
+	if (currentTime > 1 / tickrate) 
+	{
+		printf("this is the time step: %f \n\n", currentTime);
+		currentTime = 0;
+		return true;
+	}
+	return false;
+}
+
 void Time::updateTime()
 {
-	pastTime = currentTime;
-	delta_time = currentTime - pastTime;
+	float time = (float)glfwGetTime();
+	delta_time = time - pastTime;
+	pastTime = time;
+	currentTime += delta_time;
 }

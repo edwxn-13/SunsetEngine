@@ -17,7 +17,7 @@ Vector3f Transform::forward()
 
 Vector3f Transform::right()
 {
-	return Vector3f(glm::cross(forward().glm(), Vector3f::Up.glm())).normal();
+	return -Vector3f(position_matrix[0]).normal();
 }
 
 Vector3f Transform::up()

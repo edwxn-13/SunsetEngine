@@ -13,6 +13,8 @@
 #include "../../../Engine/EngineUtils.h"
 
 
+
+
 ShipController::ShipController(EngineObject* engineObject) : Component (engineObject)
 {
 	
@@ -34,32 +36,32 @@ void ShipController::Update()
 
 	if (Input::OnKeyPressed(GLFW_KEY_C))
 	{
-		ship_rigidbody->addForce(transform->up() * -vector_thrust);
+		ship_rigidbody->addForce(transform->up() * -vector_thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
 	{
-		ship_rigidbody->addForce(transform->up() * vector_thrust);
+		ship_rigidbody->addForce(transform->up() * vector_thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_A))
 	{
-		ship_rigidbody->addForce(transform->right() * -vector_thrust);
+		ship_rigidbody->addForce(transform->right() * -vector_thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_D))
 	{
-		ship_rigidbody->addForce(transform->right() * vector_thrust);
+		ship_rigidbody->addForce(transform->right() * vector_thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_W))
 	{
-		ship_rigidbody->addForce(transform->forward() * thrust);
+		ship_rigidbody->addForce(transform->forward() * thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_S))
 	{
-		ship_rigidbody->addForce(transform->forward() * -thrust);
+		ship_rigidbody->addForce(transform->forward() * -thrust * Time::DeltaTime());
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_Q))
@@ -72,23 +74,44 @@ void ShipController::Update()
 		roll = 1.0f * rcs_torque;
 	}
 
-	if (true)
-	{
-		//roll = 1 * rcs_torque;
+	Vector2f inputAxis = Input::getMouseInputXY();
 
-		Vector2f inputAxis = Input::getMouseInputXY();
-		
-		yaw = rcs_torque * Input::getMouseInputXY().x;
-		pitch = rcs_torque * Input::getMouseInputXY().y;
+	yaw = rcs_torque * Input::getMouseInputXY().x * 0.70f;
+	pitch = rcs_torque * Input::getMouseInputXY().y;
 
-		ship_rigidbody->addTorque(Vector3f(pitch, 0, 0));
-	}
+	Vector3f shipRotor = Vector3f(pitch, yaw, roll) * Time::DeltaTime();
+
+	ship_rigidbody->addTorque(shipRotor);
+	
 }
 
 void ShipController::Thrust()
 {
+	if (Input::OnKeyPressed(GLFW_KEY_W))
+	{
+		throttle += 0.1 * Time::DeltaTime();
+	}
+
+	if (Input::OnKeyPressed(GLFW_KEY_S))
+	{
+		throttle -= 0.1 * Time::DeltaTime();
+	}
+
+	if (throttle > 100.0f) { throttle = 100.0f; }
+	if (throttle < -50.0f) { throttle = -50.0f; }
+
+	if (Input::OnKeyPressed(GLFW_KEY_A))
+	{
+		ship_rigidbody->addForce(transform->right() * -vector_thrust * Time::DeltaTime());
+	}
+
+	if (Input::OnKeyPressed(GLFW_KEY_D))
+	{
+		ship_rigidbody->addForce(transform->right() * vector_thrust * Time::DeltaTime());
+	}
+
 	ship_rigidbody->useDrag = inertial_dampners;
-	ship_rigidbody->addForce(transform->forward() * ship_stats.thruster.specific_impulse);
+	ship_rigidbody->addForce(transform->forward() * throttle * ship_stats.thruster.specific_impulse * Time::DeltaTime());
 }
 
 void ShipController::FixedUpdate()

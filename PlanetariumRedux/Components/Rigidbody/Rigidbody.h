@@ -38,7 +38,7 @@ private:
 	float gravity = 9.8f;
 	float angular_drag_coef = 0.3f;
 	float drag_coef = 0.3f;
-	float air_density = 0.89f;
+	float air_density = 0.25f;
 
 public:
 
