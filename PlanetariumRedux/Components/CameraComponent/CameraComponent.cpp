@@ -22,7 +22,6 @@ void CameraComponent::Start()
 	
 }
 
-
 void CameraComponent::Update()
 {
 	if (Input::OnKeyPressed(GLFW_KEY_V)) {

@@ -76,6 +76,15 @@
     <Filter Include="Source Files\Engine\Scene">
       <UniqueIdentifier>{d7050b7e-7300-4646-ba02-1e18d710c10c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\PrimativeRenderer">
+      <UniqueIdentifier>{7868f9b1-5b99-42ea-82f0-3b40c2f8536a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\CollisionComponent">
+      <UniqueIdentifier>{a0ffaa72-f5af-4725-b081-3380ffbc0b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\RenderingComponent">
+      <UniqueIdentifier>{090e85b1-3c65-422b-ad39-7105bd770aff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -134,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Scene\Scene.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PrimativeRenderer\PrimativeRenderer.cpp">
+      <Filter>Source Files\Components\PrimativeRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Rigidbody\CollisionComponent\CollisionComponent.cpp">
+      <Filter>Source Files\Components\CollisionComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\RenderingComponent.cpp">
+      <Filter>Source Files\Components\RenderingComponent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +232,15 @@
     </ClInclude>
     <ClInclude Include="SunsetCore.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PrimativeRenderer\PrimativeRenderer.h">
+      <Filter>Source Files\Components\PrimativeRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Rigidbody\CollisionComponent\CollisionComponent.h">
+      <Filter>Source Files\Components\CollisionComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\RenderingComponent.h">
+      <Filter>Source Files\Components\RenderingComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

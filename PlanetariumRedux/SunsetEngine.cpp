@@ -20,13 +20,8 @@ SCamera Camera = SCamera();
 glm::vec3 lightDirection = glm::vec3(0.1f, -0.81f, -0.61f);
 glm::vec3 lightPos = glm::vec3(2.f, 6.f, 7.f);
 
-#define NUM_BUFFERS 1
-#define NUM_VAOS 1
-GLuint Buffers[NUM_BUFFERS];
-GLuint VAOs[NUM_VAOS];
-
-#define WIDTH 1024
-#define HEIGHT 768
+#define WIDTH 1920
+#define HEIGHT 1080
 
 #define SH_MAP_WIDTH 2048
 #define SH_MAP_HEIGHT 2048
@@ -213,7 +208,6 @@ void generateDepthMap(unsigned int shadowShaderProgram, ShadowStruct shadow, glm
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glUseProgram(shadowShaderProgram);
 	glUniformMatrix4fv(glGetUniformLocation(shadowShaderProgram, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(projectedLightSpaceMatrix));
-	//drawFloorAndCubes(shadowShaderProgram);
 	renderWithTexture(shadowShaderProgram, shadow, projectedLightSpaceMatrix);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

@@ -87,7 +87,7 @@ void Rigidbody::FixedUpdate()
 		drag_coef = drag_coef;
 	}
 
-	//velocity = velocity - drag_force;
+	velocity = velocity - drag_force;
 	torque = torque - angular_drag_force;
 	transform->Rotate(transform->right() * torque.x);
 	transform->Rotate(transform->up() * torque.y);

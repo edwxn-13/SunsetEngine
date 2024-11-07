@@ -22,6 +22,7 @@ public:
 	void FixedUpdate() override;
 	void Update() override;
 	void Thrust();
+	void Vectoring();
 
 private: 
 
@@ -46,11 +47,12 @@ private:
 	ShipStats ship_stats;
 
 	float rcs_torque = 8.0f; 
-	float thrust = 200.0f; 
-	float vector_thrust = 120.0f;
+	float thrust = 2000.0f; 
+	float vector_thrust = 12000.0f;
 
 	float throttle = 0.0f;
-	float throttle_direction = 1.0f;
+	float max_throttle = 1.0f;
+	//float throttle_direction = 1.0f;
 
 	bool inertial_dampners = true;
 	

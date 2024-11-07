@@ -1,18 +1,18 @@
 #pragma once
 
-#include "../Component.h"
+#include "../RenderingComponent.h"
 
 class Object;
 
-class MeshComponent : public Component 
+class MeshComponent : public RenderingComponent 
 {
 public:
 	MeshComponent(EngineObject* engineObject, const char* file, unsigned int shader);
 	std::vector<Object> getMesh();
 	unsigned int getType();
-	void loadMesh();
-	void setUpMesh();
-	void renderMesh();
+	void loadMesh() override;
+	void setUpMesh() override;
+	void renderMesh() override;
 
 private:
 	unsigned int shaderProgram;

@@ -9,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-MeshComponent::MeshComponent(EngineObject* engineObject, const char* file, unsigned int shader) : Component(engineObject)
+MeshComponent::MeshComponent(EngineObject* engineObject, const char* file, unsigned int shader) : RenderingComponent(engineObject)
 {
 	component_id = 1;
 	shaderProgram = shader;
