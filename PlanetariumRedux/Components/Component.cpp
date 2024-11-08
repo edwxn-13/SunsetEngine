@@ -142,6 +142,11 @@ Component::Component(EngineObject * engineObject)
 	active = true;
 }
 
+Component::~Component()
+{
+
+}
+
 Component* Component::getGlobalComponantIndex(int i)
 {
 	return world_list[i];

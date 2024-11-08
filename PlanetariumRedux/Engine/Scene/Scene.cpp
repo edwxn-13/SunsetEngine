@@ -1,6 +1,13 @@
 #include "Scene.h"
 #include "../../SunsetCore.h"
 
+std::vector<Scene*> Scene::SceneList = {};
+
+Scene::Scene()
+{
+	SceneList.push_back(this);
+}
+
 void Scene::InitScene()
 {
 
@@ -38,3 +45,14 @@ void Scene::attachToScene(EngineObject* engineObject)
 {
 	SceneMembers.push_back(engineObject);
 }
+
+Scene* Scene::getScene(int index)
+{
+	return SceneList[index];
+}
+
+Skybox* Scene::getSkybox()
+{
+	return &skybox;
+}
+

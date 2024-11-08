@@ -24,7 +24,6 @@ SunsetShader::SunsetShader(const char* vs, const char* fs)
 	vertex = vs; fragment = fs;
 	sheen = 0.5;
 	opacity = 1.0f;
-
 	shader_list.push_back(this);
 }
 

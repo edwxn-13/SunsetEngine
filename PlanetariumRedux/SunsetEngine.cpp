@@ -26,9 +26,6 @@ glm::vec3 lightPos = glm::vec3(2.f, 6.f, 7.f);
 #define SH_MAP_WIDTH 2048
 #define SH_MAP_HEIGHT 2048
 
-float yaw, pitch = 0;
-float roll = 0.0f;
-
 void GlobalStartCall() 
 {
 	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
@@ -99,7 +96,6 @@ void renderWithTexture(unsigned int shader, ShadowStruct shadow, glm::mat4 proje
 		}
 	}
 	glEnable(GL_DEPTH_TEST);
-
 	glBindVertexArray(0);
 }
 /*

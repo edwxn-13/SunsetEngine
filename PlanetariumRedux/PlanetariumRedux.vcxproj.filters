@@ -147,7 +147,7 @@
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp">
       <Filter>Source Files\Engine\ShaderManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EngineManager.cpp">
+    <ClCompile Include="Engine\Engine.cpp">
       <Filter>Source Files\Engine\EngineManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Scene\Scene.cpp">
@@ -173,6 +173,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Renderer\Renderer.cpp">
       <Filter>Source Files\Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager\SceneManager.cpp">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -245,7 +248,7 @@
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h">
       <Filter>Source Files\Engine\ShaderManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\EngineManager.h">
+    <ClInclude Include="Engine\Engine.h">
       <Filter>Source Files\Engine\EngineManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Scene\Scene.h">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="Assets\Scenes\MainScene.h">
       <Filter>Source Files\Assets\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager\SceneManager.h">
+      <Filter>Source Files\Engine\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

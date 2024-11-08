@@ -4,7 +4,6 @@
 
 class SunsetShader
 {
-
 	static std::vector<SunsetShader*> shader_list;
 	const char* vertex;
 	const char* fragment;
@@ -22,7 +21,7 @@ public:
 	void useShader();
 	unsigned int getProgram();
 
-	SunsetShader* getSunsetShader(int index);
+	static SunsetShader* getSunsetShader(int index);
 };
 
 struct ShaderManager 

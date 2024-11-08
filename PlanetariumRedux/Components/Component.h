@@ -14,7 +14,7 @@ class Component
 {
 public:
 	Component(EngineObject* engineObject);
-
+	~Component();
 	template <class T>
 	std::vector<Component*> findObjectsOfType(T * component);
 	
@@ -36,12 +36,6 @@ protected:
 	bool active;
 	int component_id;
 	static std::vector<Component*> world_list;
-
-private:
-
-	
-
-
 };
 
 

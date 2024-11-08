@@ -1,13 +1,18 @@
 #pragma once
 #include <vector>
+#include <GL/gl3w.h>
+#include "../../Utils/texture.h"
 
 class EngineObject;
 
 class Scene
 {
+	static std::vector<Scene*> SceneList;
+public:
+
+	Scene();
 
 	virtual void InitScene();
-
 	void SetUpScene();
 	void UpdateScene();
 	void FixedUpdate();
@@ -15,7 +20,11 @@ class Scene
 
 	void attachToScene(EngineObject* engineObject);
 
-public:
-	std::vector<EngineObject*> SceneMembers;
+	static Scene* getScene(int index);
 
+	std::vector<EngineObject*> SceneMembers;
+	Skybox* getSkybox();
+protected:
+
+	Skybox skybox;
 };

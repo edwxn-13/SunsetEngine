@@ -150,11 +150,12 @@
     <ClCompile Include="Components\Rigidbody\Rigidbody.cpp" />
     <ClCompile Include="EngineObjects\EngineObject.cpp" />
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp" />
-    <ClCompile Include="Engine\EngineManager.cpp" />
+    <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\EngineUtils.cpp" />
     <ClCompile Include="Engine\Renderer\Material\Material.cpp" />
     <ClCompile Include="Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="Engine\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
@@ -177,11 +178,12 @@
     <ClInclude Include="Components\Rigidbody\Rigidbody.h" />
     <ClInclude Include="EngineObjects\EngineObject.h" />
     <ClInclude Include="EngineObjects\Skybox\Skybox.h" />
-    <ClInclude Include="Engine\EngineManager.h" />
+    <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\EngineUtils.h" />
     <ClInclude Include="Engine\Renderer\Material\Material.h" />
     <ClInclude Include="Engine\Renderer\Renderer.h" />
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="Engine\SceneManager\SceneManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Maths\MathHeader.h" />
     <ClInclude Include="SunsetCore.h" />

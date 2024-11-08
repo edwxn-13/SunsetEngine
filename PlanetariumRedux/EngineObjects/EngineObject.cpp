@@ -14,10 +14,9 @@ EngineObject::~EngineObject()
 {
 	for (int i = 0; i < component_list.size(); i++)
 	{
+		component_list[i]->~Component();
 		free(component_list[i]);
 	}
-
-	free(this);
 }
 
 void EngineObject::addComponent(Component* component)
