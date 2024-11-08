@@ -12,7 +12,7 @@
 CameraComponent::CameraComponent(EngineObject* engineObject) : Component(engineObject)
 {
 	component_id = 23;
-	localTransform->position = Vector3f(0, 2, 0);
+	localTransform->position = Vector3f(0, 9, 30);
 
 }
 

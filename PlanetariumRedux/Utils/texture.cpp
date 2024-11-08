@@ -282,7 +282,7 @@ GLuint CreateTexture(const char* filename)
 	Texture* temp_tex = new Texture(filename);
 
 	Texture* tex = TextureManager::checkForTexture(filename);
-	if (tex) 
+	if (false) 
 	{
 		temp_tex = tex;
 	}

@@ -151,11 +151,13 @@
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp" />
     <ClCompile Include="Engine\EngineManager.cpp" />
     <ClCompile Include="Engine\EngineUtils.cpp" />
+    <ClCompile Include="Engine\Renderer\Material\Material.cpp" />
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
     <ClCompile Include="Utils\file.cpp" />
+    <ClCompile Include="Utils\shader.cpp" />
     <ClCompile Include="Utils\texture.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -174,6 +176,7 @@
     <ClInclude Include="EngineObjects\Skybox\Skybox.h" />
     <ClInclude Include="Engine\EngineManager.h" />
     <ClInclude Include="Engine\EngineUtils.h" />
+    <ClInclude Include="Engine\Renderer\Material\Material.h" />
     <ClInclude Include="Engine\Renderer\Renderer.h" />
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />

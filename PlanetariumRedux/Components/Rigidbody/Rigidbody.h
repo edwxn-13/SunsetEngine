@@ -30,6 +30,9 @@ private:
 	Vector3f g_vector;
 
 	Vector3f velocity;
+	Vector3f old_velocity;
+
+	Vector3f acceleration;
 	Vector3f torque;
 
 	Vector3f drag_force;
@@ -37,6 +40,8 @@ private:
 
 	float gravity = 9.8f;
 	float angular_drag_coef = 0.3f;
+
+	float viscocity = 1.00016f;
 	float drag_coef = 0.3f;
 	float air_density = 0.25f;
 

@@ -9,6 +9,7 @@
 #include "../Components/CameraComponent/CameraComponent.h"
 #include "../Engine/EngineUtils.h"
 std::vector<SCamera*> SCamera::m_cam_list = {};
+SCamera * SCamera::p_camera = nullptr;
 
 enum SCamera::Camera_Movement
 {
@@ -62,5 +63,10 @@ glm::mat4 SCamera::getSkyboxViewMatrix()
 	glm::mat4 skyboxView = projection * sky_view;
 
 	return skyboxView;
+}
+
+SCamera* SCamera::getSceneCamera()
+{
+	return p_camera;
 }
 	

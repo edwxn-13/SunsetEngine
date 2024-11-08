@@ -148,7 +148,7 @@ public:
 		return result;
 	}*/
 
-	Vector3f operator+= (const glm::vec3& c) const 
+	inline Vector3f operator+= (const glm::vec3& c) const 
 	{
 		Vector3f result;
 		result.x = this->x + c.x;
@@ -157,7 +157,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator-= (const glm::vec3& c) const
+	inline Vector3f operator-= (const glm::vec3& c) const
 	{
 		Vector3f result;
 		result.x = this->x - c.x;
@@ -166,7 +166,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator+= (const Vector3f& c) const
+	inline Vector3f operator+= (const Vector3f& c) const
 	{
 		Vector3f result = *this;
 		result.x = this->x + c.x;
@@ -175,7 +175,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator-= (const Vector3f& c) const
+	inline Vector3f operator-= (const Vector3f& c) const
 	{
 		Vector3f result;
 		result.x = this->x - c.x;
@@ -184,7 +184,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator+ (const Vector3f& c) const 
+	inline Vector3f operator+ (const Vector3f& c) const
 	{
 		Vector3f result;
 		result.x = this->x + c.x;
@@ -193,7 +193,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator+ (const float& c) const
+	inline Vector3f operator+ (const float& c) const
 	{
 		Vector3f result;
 		result.x = this->x + c;
@@ -202,7 +202,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator- (const Vector3f& c) const
+	inline Vector3f operator- (const Vector3f& c) const
 	{
 		Vector3f result;
 		result.x = this->x - c.x;
@@ -211,7 +211,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator- () const
+	inline Vector3f operator- () const
 	{
 		Vector3f result;
 		result.x = -x;
@@ -220,7 +220,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator- (const float& c) const
+	inline Vector3f operator- (const float& c) const
 	{
 		Vector3f result;
 		result.x = this->x - c;
@@ -229,7 +229,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator* (const float& c) const
+	inline Vector3f operator* (const float& c) const
 	{
 		Vector3f result;
 		result.x = this->x * c;
@@ -238,7 +238,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator* (const Vector3f& c) const
+	inline Vector3f operator* (const Vector3f& c) const
 	{
 		Vector3f result;
 		result.x = this->x * c.x;
@@ -247,7 +247,7 @@ public:
 		return result;
 	}
 
-	Vector3f operator/ (const float& c) const
+	inline Vector3f operator/ (const float& c) const
 	{
 		Vector3f result;
 		result.x = this->x / c;
@@ -533,7 +533,7 @@ public:
 		return glm_version;
 	}
 
-	Quaternion operator* (const Quaternion& a) const
+	inline Quaternion operator* (const Quaternion& a) const
 	{
 		Quaternion result;
 		//result.w = (w * a.w) - (x * a.x) + (y * a.y) - (z * a.z);

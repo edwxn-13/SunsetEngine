@@ -66,19 +66,19 @@ void ShipController::Thrust()
 
 	if (Input::OnKeyPressed(GLFW_KEY_W))
 	{
-		throttle += 0.03 * Time::DeltaTime();
+		throttle += 0.1 * Time::DeltaTime();
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_S))
 	{
-		throttle -= 0.03 * Time::DeltaTime();
+		throttle -= 0.1 * Time::DeltaTime();
 	}
 
 	if (throttle > max_throttle) { throttle = max_throttle; }
 	if (throttle < -max_throttle/2) { throttle = -max_throttle/2; }
 
 	ship_rigidbody->useDrag = inertial_dampners;
-	ship_rigidbody->addForce(transform->forward() * throttle * ship_stats.thruster.specific_impulse * Time::DeltaTime());
+	ship_rigidbody->addForce(transform->forward() * throttle * ship_stats.thruster.specific_impulse );
 }
 
 void ShipController::Vectoring()
@@ -106,7 +106,8 @@ void ShipController::Vectoring()
 
 void ShipController::FixedUpdate()
 {
-
+	Vector3f v = ship_rigidbody->getVelocity();
+	printf("Velocity %f, %f, %f! \n", v.x, v.y, v.z);
 }
 
 void ShipController::ShipStats::ShipInit()
@@ -115,4 +116,6 @@ void ShipController::ShipStats::ShipInit()
 	ship_modules.push_back(&vector_thrust);
 	ship_modules.push_back(&thruster);
 	ship_modules.push_back(&reaction_control_sys);
+
+	thruster.specific_impulse = 20000;
 }

@@ -20,8 +20,8 @@ SCamera Camera = SCamera();
 glm::vec3 lightDirection = glm::vec3(0.1f, -0.81f, -0.61f);
 glm::vec3 lightPos = glm::vec3(2.f, 6.f, 7.f);
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define WIDTH 1024
+#define HEIGHT 900
 
 #define SH_MAP_WIDTH 2048
 #define SH_MAP_HEIGHT 2048
@@ -241,10 +241,11 @@ int main(int argc, char** argv)
 
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
 	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
+	//MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 
 	ship.addComponent(new ShipController(&ship));
-	gooch.transform.scale = Vector3f(0.2);
-	gooch.localTransform.position = Vector3f(100, 50, 2);
+	gooch.transform.scale = Vector3f(22);
+	gooch.localTransform.position = Vector3f(-200, 0, 0);
 	ship.getTransform()->scale = Vector3f(5);
 	ship.getTransform()->position = Vector3f(-50, -20.0f, 100.f);
 	ship.addChild(&Camera);
@@ -267,7 +268,7 @@ int main(int argc, char** argv)
 
 		glClearColor(1.f, 1.f, 1.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glViewport(0, 0, WIDTH, HEIGHT);
+		glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
 
 		Time::updateTime();
 		Input::Update();

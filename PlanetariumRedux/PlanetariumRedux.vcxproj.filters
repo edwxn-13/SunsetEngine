@@ -153,6 +153,12 @@
     <ClCompile Include="Components\RenderingComponent.cpp">
       <Filter>Source Files\Components\RenderingComponent</Filter>
     </ClCompile>
+    <ClCompile Include="Utils\shader.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Renderer\Material\Material.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
@@ -241,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="Components\RenderingComponent.h">
       <Filter>Source Files\Components\RenderingComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\Material\Material.h">
+      <Filter>Source Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

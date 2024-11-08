@@ -48,32 +48,25 @@ void Transform::model_transform()
 
 	position_matrix = glm::mat4(1.f);
 
+	rotation.normalize();
+	eulerRotation = rotation.ToEulerAngles();
+
+	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
+
+	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
+	position_matrix = position_matrix * rotation_matrix;
+	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
+
 	if (engineObject->relationships.getParent()) 
 	{
-		position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
-
-		Transform * parent_trans = &engineObject->relationships.getParent()->transform;
-
-		//ptt - point to transform
-		Vector3f ptt = (localTransform->position);
-		Quaternion imaginary_point = Quaternion(0, ptt.x, ptt.y, ptt.z);
-		Quaternion rotated_point = ((parent_trans->rotation * imaginary_point) * parent_trans->rotation.conjugate());
-		Vector3f transformed_local_pos = Vector3f(rotated_point.x, rotated_point.y, rotated_point.z);
-		transform->position = transformed_local_pos + parent_trans->position;
+		glm::mat4 parent_position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
+		transform->position_matrix = parent_position_matrix * position_matrix;
 	}
 
 	else
 	{
 		localTransform->CopyTransform(transform);
-	}
-
-	rotation.normalize();
-	eulerRotation = rotation.ToEulerAngles();
-
-	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
-	position_matrix = position_matrix * rotation_matrix;
-	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
+	}	
 }
 
 glm::mat4 Transform::get_pos_mat()

@@ -47,8 +47,8 @@ private:
 	ShipStats ship_stats;
 
 	float rcs_torque = 8.0f; 
-	float thrust = 2000.0f; 
-	float vector_thrust = 12000.0f;
+	float thrust = 1020; 
+	float vector_thrust = 1200;
 
 	float throttle = 0.0f;
 	float max_throttle = 1.0f;

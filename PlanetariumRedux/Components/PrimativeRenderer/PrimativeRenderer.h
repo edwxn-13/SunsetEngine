@@ -1,17 +1,25 @@
 #pragma once
 
 #include "../RenderingComponent.h"
+#include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
 
 class Object;
-class SunsetShader*;
-class PrimativeRenderer : public RenderingComponent
+class SunsetShader;
+class Plane : public RenderingComponent
 {
 public:
-	PrimativeRenderer(EngineObject* engineObject);
+
+
+	Plane(EngineObject* engineObject);
 	void loadMesh() override;
 	void setUpMesh() override;
 	void renderMesh() override;
 
-private:
-	SunsetShader * shader;
+	unsigned int VAO;
+	unsigned int VBO;
+
+	float width = 1.0f; 
+	float length = 1.0f; 
+
+	SunsetShader sunsetShader;
 };

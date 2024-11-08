@@ -20,6 +20,8 @@ public:
 	const float MovementSpeed = 5.5f;
 	float MouseSensitivity = 1.f;
 
+	static SCamera* getSceneCamera();
+
 private:
 	glm::mat4 view = glm::mat4(1.0f);
 	bool primary_cam = true;

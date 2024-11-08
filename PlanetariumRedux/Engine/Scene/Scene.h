@@ -3,12 +3,19 @@
 
 class EngineObject;
 
+class Skybox;
+
 class Scene
 {
-	static void LoadScene(Scene* scene);
-
 	std::vector<EngineObject*> SceneMembers;
+	Skybox* skybox;
 
-	void InitScene();
+	virtual void InitScene();
+
+	void SetUpScene();
 	void UpdateScene();
+	void FixedUpdate();
+	void StartScene();
+
+	void attachToScene(EngineObject* engineObject);
 };

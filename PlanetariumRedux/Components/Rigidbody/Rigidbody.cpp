@@ -58,7 +58,9 @@ void Rigidbody::calculate_drag()
 
 	if (useDrag) 
 	{
-		drag_force = (velocity * velocity.magnitude()) * 0.5 * air_density * drag_coef;
+		float reynolds = air_density * viscocity * 20;
+
+		drag_force = (velocity * velocity.magnitude()) * -0.5 * air_density * drag_coef * reynolds;
 	}
 
 	else { drag_force = 0; }
@@ -71,24 +73,29 @@ void Rigidbody::calculate_contact_force()
 
 void Rigidbody::Update() 
 {
-	
+	Vector3f current_v = velocity;
+	acceleration = current_v - old_velocity;
+	old_velocity = velocity;
 }
 
 void Rigidbody::FixedUpdate()
 {
 	if (useGravity)
 	{
-		velocity = velocity + (g_vector * gravity * 0.001f);
+		addForce(g_vector * gravity * mass);
 	}
 
 	calculate_drag();
-	if (torque.x != 0)
+	if (drag_force.x != 0)
 	{
 		drag_coef = drag_coef;
 	}
 
-	velocity = velocity - drag_force;
+	//printf("\nacc: %f, %f , %f\n", acceleration.x, acceleration.y, acceleration.z);
+
+	//addForce(drag_force);
 	torque = torque - angular_drag_force;
+
 	transform->Rotate(transform->right() * torque.x);
 	transform->Rotate(transform->up() * torque.y);
 	transform->Rotate(transform->forward() * torque.z);

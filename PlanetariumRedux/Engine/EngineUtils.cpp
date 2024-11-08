@@ -99,7 +99,7 @@ bool Time::fixedUpdateChecker()
 {
 	if (currentTime > 1 / tickrate) 
 	{
-		printf("this is the time step: %f \n\n", currentTime);
+		//printf("this is the time step: %f \n\n", currentTime);
 		currentTime = 0;
 		return true;
 	}
