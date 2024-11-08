@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\include\GL\gl3w.c" />
     <ClCompile Include="Assets\MeshObject\MeshObject.cpp" />
+    <ClCompile Include="Assets\Scenes\MainScene.cpp" />
     <ClCompile Include="Assets\Ship\ShipController\ShipController.cpp" />
     <ClCompile Include="Camera\camera.cpp" />
     <ClCompile Include="Components\CameraComponent\CameraComponent.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Engine\EngineManager.cpp" />
     <ClCompile Include="Engine\EngineUtils.cpp" />
     <ClCompile Include="Engine\Renderer\Material\Material.cpp" />
+    <ClCompile Include="Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
@@ -162,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets\MeshObject\MeshObject.h" />
+    <ClInclude Include="Assets\Scenes\MainScene.h" />
     <ClInclude Include="Assets\Ship\ShipController\ShipController.h" />
     <ClInclude Include="Camera\camera.h" />
     <ClInclude Include="Components\CameraComponent\CameraComponent.h" />

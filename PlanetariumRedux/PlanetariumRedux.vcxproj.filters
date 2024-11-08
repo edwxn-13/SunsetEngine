@@ -43,12 +43,6 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{3ec89303-b06b-4863-8fef-ed70ca260c72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Assets\MeshObject">
-      <UniqueIdentifier>{7def4973-75fe-499d-a3d4-caea50454f56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Assets\ShipController">
-      <UniqueIdentifier>{47ea44f3-8058-4d69-bf70-2b74dec9e685}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Components\CameraComponent">
       <UniqueIdentifier>{745b9a74-2e3e-4a61-8725-0aaf58074b24}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,21 @@
     <Filter Include="Source Files\Components\RenderingComponent">
       <UniqueIdentifier>{090e85b1-3c65-422b-ad39-7105bd770aff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Assets\Scenes">
+      <UniqueIdentifier>{c772a3df-da58-4c50-b4eb-6d6068a082f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets\Objects">
+      <UniqueIdentifier>{39dd7f02-b9bb-4d1a-9aea-e00116b66053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets\Objects\MeshObject">
+      <UniqueIdentifier>{7def4973-75fe-499d-a3d4-caea50454f56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets\Components">
+      <UniqueIdentifier>{a106bd6c-8f11-4275-97e0-3eedb8ffa18a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Assets\Components\ShipController">
+      <UniqueIdentifier>{47ea44f3-8058-4d69-bf70-2b74dec9e685}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -112,10 +121,10 @@
       <Filter>Source Files\Utils\File</Filter>
     </ClCompile>
     <ClCompile Include="Assets\MeshObject\MeshObject.cpp">
-      <Filter>Source Files\Assets\MeshObject</Filter>
+      <Filter>Source Files\Assets\Objects\MeshObject</Filter>
     </ClCompile>
     <ClCompile Include="Assets\Ship\ShipController\ShipController.cpp">
-      <Filter>Source Files\Assets\ShipController</Filter>
+      <Filter>Source Files\Assets\Components\ShipController</Filter>
     </ClCompile>
     <ClCompile Include="Components\CameraComponent\CameraComponent.cpp">
       <Filter>Source Files\Components\CameraComponent</Filter>
@@ -159,6 +168,12 @@
     <ClCompile Include="Engine\Renderer\Material\Material.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Assets\Scenes\MainScene.cpp">
+      <Filter>Source Files\Assets\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Renderer\Renderer.cpp">
+      <Filter>Source Files\Engine\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
@@ -201,10 +216,10 @@
       <Filter>Source Files\Utils\File</Filter>
     </ClInclude>
     <ClInclude Include="Assets\MeshObject\MeshObject.h">
-      <Filter>Source Files\Assets\MeshObject</Filter>
+      <Filter>Source Files\Assets\Objects\MeshObject</Filter>
     </ClInclude>
     <ClInclude Include="Assets\Ship\ShipController\ShipController.h">
-      <Filter>Source Files\Assets\ShipController</Filter>
+      <Filter>Source Files\Assets\Components\ShipController</Filter>
     </ClInclude>
     <ClInclude Include="Components\CameraComponent\CameraComponent.h">
       <Filter>Source Files\Components\CameraComponent</Filter>
@@ -250,6 +265,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Renderer\Material\Material.h">
       <Filter>Source Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets\Scenes\MainScene.h">
+      <Filter>Source Files\Assets\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

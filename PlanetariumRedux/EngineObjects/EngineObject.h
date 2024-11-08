@@ -28,7 +28,7 @@ class EngineObject
 public:
 
 	EngineObject();
-
+	~EngineObject();
 	void addComponent(Component* component);
 
 	void removeComponent(Component* component);
@@ -55,6 +55,8 @@ public:
 	Transform localTransform;
 	Transform transform;
 	ObjectFamily relationships;
+
+	bool enabled;
 
 private:
 	std::vector<Component*> component_list;

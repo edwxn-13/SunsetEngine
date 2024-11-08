@@ -34,9 +34,7 @@ void GlobalStartCall()
 	for (int i = 0; i < EngineObject::getObjectListSize(); i++)
 	{
 		EngineObject::getGlobalObjectIndex(i)->Start();
-
 		EngineObject::getGlobalObjectIndex(i)->transform.Update();
-		
 	}
 }
 
@@ -174,13 +172,6 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE && action) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	float x_offset = 0.f;
-	float y_offset = 0.f;
-	bool cam_changed = false;
-
-	if (cam_changed)
-	{
-	}
 }
 
 void SizeCallback(GLFWwindow* window, int w, int h)
@@ -230,7 +221,6 @@ int main(int argc, char** argv)
 
 	GLuint program = CompileShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
 	GLuint shadow_program = CompileShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
-
 	GLuint texture_program = CompileShader("Shaders/Textured/textured.vert", "Shaders/Textured/textured.frag");
 	GLuint skybox_shader = CompileShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
 	GLuint simple_planet = CompileShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");
@@ -241,7 +231,6 @@ int main(int argc, char** argv)
 
 	MeshObject gooch = MeshObject("objs/station/spaceStation.obj", texture_program);
 	MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
-	//MeshObject ship = MeshObject("objs/fighter/fighter.obj", texture_program);
 
 	ship.addComponent(new ShipController(&ship));
 	gooch.transform.scale = Vector3f(22);

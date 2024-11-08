@@ -3,12 +3,8 @@
 
 class EngineObject;
 
-class Skybox;
-
 class Scene
 {
-	std::vector<EngineObject*> SceneMembers;
-	Skybox* skybox;
 
 	virtual void InitScene();
 
@@ -18,4 +14,8 @@ class Scene
 	void StartScene();
 
 	void attachToScene(EngineObject* engineObject);
+
+public:
+	std::vector<EngineObject*> SceneMembers;
+
 };

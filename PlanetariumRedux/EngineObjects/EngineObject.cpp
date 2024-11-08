@@ -5,9 +5,19 @@
 
 std::vector<EngineObject*> EngineObject::object_list = {};
 
-EngineObject::EngineObject() : transform(this), localTransform(this)
+EngineObject::EngineObject() : transform(this), localTransform(this), enabled(true)
 {
 	object_list.push_back(this);
+}
+
+EngineObject::~EngineObject()
+{
+	for (int i = 0; i < component_list.size(); i++)
+	{
+		free(component_list[i]);
+	}
+
+	free(this);
 }
 
 void EngineObject::addComponent(Component* component)
