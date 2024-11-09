@@ -74,7 +74,8 @@ void Renderer::RenderGeneral(Scene* scene)
 		if (RenderingComponent* mesh = scene->SceneMembers[i]->getComponentOfType<RenderingComponent>()) {
 			if (mesh)
 			{
-				mesh->renderMesh();
+				unsigned int a = 2;
+				mesh->renderMesh(a);
 			}
 		}
 	}
@@ -96,7 +97,6 @@ void Renderer::setUpShaders()
 {
 	SunsetShader("Shaders/Textured/textured.vert", "Shaders/Textured/textured.frag");
 	SunsetShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
-
 	SunsetShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
 	SunsetShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
 	SunsetShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");

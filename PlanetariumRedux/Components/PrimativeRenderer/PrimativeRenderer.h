@@ -13,7 +13,7 @@ public:
 	Plane(EngineObject* engineObject);
 	void loadMesh() override;
 	void setUpMesh() override;
-	void renderMesh() override;
+	void renderMesh(unsigned int shader) override;
 
 	unsigned int VAO;
 	unsigned int VBO;

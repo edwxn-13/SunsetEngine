@@ -7,12 +7,12 @@ class Object;
 class MeshComponent : public RenderingComponent 
 {
 public:
-	MeshComponent(EngineObject* engineObject, const char* file, unsigned int shader);
+	MeshComponent(EngineObject* engineObject, const char* file);
 	std::vector<Object> getMesh();
 	unsigned int getType();
 	void loadMesh() override;
 	void setUpMesh() override;
-	void renderMesh() override;
+	void renderMesh(unsigned int shader) override;
 
 private:
 	unsigned int shaderProgram;

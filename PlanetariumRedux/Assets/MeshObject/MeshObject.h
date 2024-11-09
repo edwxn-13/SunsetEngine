@@ -6,6 +6,6 @@ class MeshComponent;
 class MeshObject : public EngineObject 
 {
 public:
-	MeshObject(const char* filename, unsigned int shader);
+	MeshObject(const char* filename);
 
 };

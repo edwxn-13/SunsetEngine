@@ -2,17 +2,17 @@
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Utils/obj.h"
 #include "../../Utils/texture.h"
-
+#include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-MeshComponent::MeshComponent(EngineObject* engineObject, const char* file, unsigned int shader) : RenderingComponent(engineObject)
+MeshComponent::MeshComponent(EngineObject* engineObject, const char* file) : RenderingComponent(engineObject)
 {
 	component_id = 1;
-	shaderProgram = shader;
+	shaderProgram = 1;
 	filename = file;
 }
 
@@ -59,8 +59,9 @@ void MeshComponent::setUpMesh()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-void MeshComponent::renderMesh() 
+void MeshComponent::renderMesh(unsigned int shader) 
 {
+	shaderProgram = shader;
 	for (int i = 0; i < objs.size(); i++)
 	{
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), objs[i].texture);

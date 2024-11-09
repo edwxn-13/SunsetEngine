@@ -18,12 +18,15 @@ public:
 	void OnUpdate();
 	void PauseGame();
 	void EngineStart();
-
+	void EndEngine();
 	void togglePause();
 	void setPause(bool p);
 	bool pauseState();
 
 private:
+
+	void processKeyboard(GLFWwindow* window);
+
 	GLFWwindow* application_window;
 	SceneManager scene_manager;
 	Renderer renderer;

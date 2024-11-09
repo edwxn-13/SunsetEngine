@@ -15,7 +15,11 @@ void Scene::InitScene()
 
 void Scene::SetUpScene()
 {
-
+	for (int i = 0; i < SceneMembers.size(); i++)
+	{
+		SceneMembers[i]->Start();
+		SceneMembers[i]->transform.Update();
+	}
 }
 
 void Scene::UpdateScene()

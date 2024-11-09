@@ -43,7 +43,7 @@ void Plane::setUpMesh()
 	glEnableVertexAttribArray(1);
 }
 
-void Plane::renderMesh()
+void Plane::renderMesh(unsigned int shader)
 {
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_DEPTH_CLAMP);

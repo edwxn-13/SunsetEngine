@@ -7,6 +7,6 @@ class RenderingComponent : public Component
 public:
 	virtual void loadMesh();
 	virtual void setUpMesh();
-	virtual void renderMesh();
+	virtual void renderMesh(unsigned int shader);
 	RenderingComponent(EngineObject * engineObject);
 };

@@ -9,7 +9,7 @@ void RenderingComponent::setUpMesh()
 {
 }
 
-void RenderingComponent::renderMesh()
+void RenderingComponent::renderMesh(unsigned int shader)
 {
 }
 

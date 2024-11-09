@@ -8,6 +8,9 @@ std::vector<EngineObject*> EngineObject::object_list = {};
 EngineObject::EngineObject() : transform(this), localTransform(this), enabled(true)
 {
 	object_list.push_back(this);
+	component_list.push_back(&transform);
+	component_list.push_back(&localTransform);
+
 }
 
 EngineObject::~EngineObject()
@@ -15,7 +18,7 @@ EngineObject::~EngineObject()
 	for (int i = 0; i < component_list.size(); i++)
 	{
 		component_list[i]->~Component();
-		free(component_list[i]);
+		//free(component_list[i]);
 	}
 }
 
@@ -47,6 +50,7 @@ void EngineObject::removeChild(EngineObject* childObject)
 
 void EngineObject::Start() 
 {
+	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
 		component_list[i]->Start();
@@ -54,6 +58,7 @@ void EngineObject::Start()
 }
 void EngineObject::Update() 
 {
+	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
 		component_list[i]->Update();
@@ -61,6 +66,7 @@ void EngineObject::Update()
 }
 void EngineObject::FixedUpdate() 
 {
+	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
 		component_list[i]->FixedUpdate();
@@ -68,6 +74,7 @@ void EngineObject::FixedUpdate()
 }
 void EngineObject::LateUpdate() 
 {
+	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
 		//component_list[i]->LateUpdate();
