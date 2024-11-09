@@ -2,16 +2,18 @@
 
 #include <vector>
 
+
+
 class SunsetShader
 {
-	static std::vector<SunsetShader*> shader_list;
 	const char* vertex;
 	const char* fragment;
 
 	unsigned int shader_program;
-
 	float sheen;
 	float opacity;
+
+	bool useTexture = true;
 
 public:
 	SunsetShader();
@@ -20,11 +22,15 @@ public:
 
 	void useShader();
 	unsigned int getProgram();
-
-	static SunsetShader* getSunsetShader(int index);
 };
 
 struct ShaderManager 
 {
+	ShaderManager();
+	std::vector<SunsetShader*> shader_list;
+	void setupShaders();
+	SunsetShader* getSunsetShader(int index);
 
+	SunsetShader* shaderLookup(const char * id);
+	SunsetShader * makeShader(const char* vertex, const char* fragment);
 };

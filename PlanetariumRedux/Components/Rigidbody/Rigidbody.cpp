@@ -71,14 +71,14 @@ void Rigidbody::calculate_contact_force()
 
 }
 
-void Rigidbody::Update() 
+void Rigidbody::Update(float deltaTime)
 {
 	Vector3f current_v = velocity;
 	acceleration = current_v - old_velocity;
 	old_velocity = velocity;
 }
 
-void Rigidbody::FixedUpdate()
+void Rigidbody::FixedUpdate(float deltaTime)
 {
 	if (useGravity)
 	{

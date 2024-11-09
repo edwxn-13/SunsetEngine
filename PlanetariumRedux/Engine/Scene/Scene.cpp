@@ -18,22 +18,18 @@ void Scene::SetUpScene()
 	for (int i = 0; i < SceneMembers.size(); i++)
 	{
 		SceneMembers[i]->Start();
-		SceneMembers[i]->transform.Update();
+		SceneMembers[i]->transform.Update(0);
 	}
 }
 
-void Scene::UpdateScene()
+void Scene::UpdateScene(float deltaTime, int index)
 {
-
+	SceneMembers[index]->Update(deltaTime);
 }
 
-void Scene::FixedUpdate()
+void Scene::FixedUpdate(float deltaTime, int index)
 {
-	for (int i = 0; i < SceneMembers.size(); i++)
-	{
-		SceneMembers[i]->Start();
-		SceneMembers[i]->transform.Update();
-	}
+	SceneMembers[index]->FixedUpdate(deltaTime);
 }
 
 void Scene::StartScene()
@@ -41,7 +37,7 @@ void Scene::StartScene()
 	for (int i = 0; i < SceneMembers.size(); i++)
 	{
 		SceneMembers[i]->Start();
-		SceneMembers[i]->transform.Update();
+		SceneMembers[i]->transform.Update(0);
 	}
 }
 

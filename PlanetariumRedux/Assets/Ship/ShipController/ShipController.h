@@ -21,10 +21,10 @@ public:
 	ShipController(EngineObject * engineObject);
 
 	void Start() override; 
-	void FixedUpdate() override;
-	void Update() override;
-	void Thrust();
-	void Vectoring();
+	void FixedUpdate(float deltaTime) override;
+	void Update(float deltaTime) override;
+	void Thrust(float deltaTime);
+	void Vectoring(float deltaTime);
 
 private: 
 

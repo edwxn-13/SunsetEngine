@@ -1,15 +1,17 @@
 
 #include "EngineObject.h"
 #include "../Components/Component.h"
+#include "../Engine/Scene/Scene.h"
 #include <glm/ext/matrix_transform.hpp>
 
 std::vector<EngineObject*> EngineObject::object_list = {};
 
-EngineObject::EngineObject() : transform(this), localTransform(this), enabled(true)
+EngineObject::EngineObject(Scene* s) : transform(this), localTransform(this), enabled(true), scene(s)
 {
 	object_list.push_back(this);
 	component_list.push_back(&transform);
 	component_list.push_back(&localTransform);
+	//s->attachToScene(this);
 
 }
 
@@ -56,23 +58,23 @@ void EngineObject::Start()
 		component_list[i]->Start();
 	}
 }
-void EngineObject::Update() 
+void EngineObject::Update(float deltaTime)
 {
 	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
-		component_list[i]->Update();
+		component_list[i]->Update(deltaTime);
 	}
 }
-void EngineObject::FixedUpdate() 
+void EngineObject::FixedUpdate(float deltaTime)
 {
 	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)
 	{
-		component_list[i]->FixedUpdate();
+		component_list[i]->FixedUpdate(deltaTime);
 	}
 }
-void EngineObject::LateUpdate() 
+void EngineObject::LateUpdate(float deltaTime)
 {
 	if (!enabled) { return; }
 	for (int i = 0; i < component_list.size(); i++)

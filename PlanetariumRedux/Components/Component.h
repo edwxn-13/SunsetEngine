@@ -17,10 +17,10 @@ public:
 	~Component();
 	template <class T>
 	std::vector<Component*> findObjectsOfType(T * component);
-	
-	virtual void Update();
+
 	virtual void Start();
-	virtual void FixedUpdate();
+	virtual void Update(float deltaTime);
+	virtual void FixedUpdate(float deltaTime);
 
 
 	static Component* getGlobalComponantIndex(int i);
@@ -57,9 +57,9 @@ public:
 	void CopyTransform(Transform* b);
 	void model_transform();
 
-	void Update() override;
+	void Update(float deltaTime) override;
 	virtual void Start() override;
-	virtual void FixedUpdate() override;
+	virtual void FixedUpdate(float deltaTime) override;
 
 	void Rotate(Vector3f angles);
 	void Rotate(Quaternion q);

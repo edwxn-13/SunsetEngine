@@ -14,8 +14,8 @@ public:
 
 	virtual void InitScene();
 	void SetUpScene();
-	void UpdateScene();
-	void FixedUpdate();
+	void UpdateScene(float deltaTime, int index);
+	void FixedUpdate(float deltaTime, int index);
 	void StartScene();
 
 	void attachToScene(EngineObject* engineObject);

@@ -9,8 +9,8 @@ public:
 	Rigidbody(EngineObject* engineObject);
 
 	void Start() override;
-	void Update() override;
-	void FixedUpdate() override;
+	void Update(float deltaTime) override;
+	void FixedUpdate(float deltaTime) override;
 
 
 	void addForce(Vector3f force);

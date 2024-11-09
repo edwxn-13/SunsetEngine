@@ -8,6 +8,7 @@
 #include "camera.h"
 #include "../Components/CameraComponent/CameraComponent.h"
 #include "../Engine/EngineUtils.h"
+#include "../Engine/Scene/Scene.h"
 std::vector<SCamera*> SCamera::m_cam_list = {};
 SCamera * SCamera::p_camera = nullptr;
 
@@ -19,11 +20,12 @@ enum SCamera::Camera_Movement
 	RIGHT
 };
 
-SCamera::SCamera()
+SCamera::SCamera(Scene * s) : EngineObject(s)
 {
 	m_cam_list.push_back(this);
 	CameraComponent * cameraMovement = new CameraComponent(this);
 	addComponent(cameraMovement);
+	if (!p_camera) { p_camera = this; }
 }
 
 float SCamera::radz(float deg)

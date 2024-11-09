@@ -10,15 +10,23 @@ MainScene::MainScene() : Scene()
 
 void MainScene::InitScene()
 {
-	SCamera Camera = SCamera();
+	SCamera * Camera = new SCamera(this);
 
-	MeshObject gooch = MeshObject("objs/station/spaceStation.obj");
-	MeshObject ship = MeshObject("objs/fighter/fighter.obj");
+	MeshObject * gooch = new MeshObject("objs/station/spaceStation.obj", this);
+	MeshObject * ship = new MeshObject("objs/fighter/fighter.obj", this);
+	skybox = Skybox();
+	skybox.setupCubemap();
 
-	ship.addComponent(new ShipController(&ship));
-	gooch.transform.scale = Vector3f(22);
-	gooch.localTransform.position = Vector3f(-200, 0, 0);
-	ship.getTransform()->scale = Vector3f(5);
-	ship.getTransform()->position = Vector3f(-50, -20.0f, 100.f);
-	ship.addChild(&Camera);
+
+	ship->addComponent(new ShipController(ship));
+	gooch->transform.scale = Vector3f(22);
+	gooch->localTransform.position = Vector3f(-200, 0, 0);
+	ship->getTransform()->scale = Vector3f(5);
+	ship->getTransform()->position = Vector3f(-50, -20.0f, 100.f);
+	ship->addChild(Camera);
+
+	attachToScene(Camera);
+	attachToScene(gooch);
+	attachToScene(ship);
+
 }

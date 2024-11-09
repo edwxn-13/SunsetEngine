@@ -8,19 +8,6 @@ class KeyCode
 
 };
 
-class Time 
-{
-
-	static float currentTime;
-	static float delta_time;
-	static float pastTime;
-	static float tickrate;
-public:
-	static float DeltaTime();
-	static void updateTime();
-	static bool fixedUpdateChecker();
-};
-
 class Screen 
 {
 	static int screen_x;

@@ -177,6 +177,9 @@
     <ClCompile Include="Engine\SceneManager\SceneManager.cpp">
       <Filter>Source Files\Engine\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Utility\Time.cpp">
+      <Filter>Source Files\Engine\EngineUtils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager\SceneManager.h">
       <Filter>Source Files\Engine\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utility\Time.h">
+      <Filter>Source Files\Engine\EngineUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

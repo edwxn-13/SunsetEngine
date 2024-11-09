@@ -4,6 +4,8 @@
 #include "../Renderer/ShaderManager/ShaderManager.h"
 #include "../Scene/Scene.h"
 #include "../../Components/RenderingComponent.h"
+#include "../../Components/MeshComponent/MeshComponent.h"
+
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Camera/camera.h"
 #include <iostream>
@@ -14,13 +16,17 @@
 
 Renderer::Renderer()
 {
-	
+	shader_manager = ShaderManager();
+	shader_manager = ShaderManager();
+	shader_manager.setupShaders();
 }
 
 Renderer::Renderer(GLFWwindow * window)
 {
 	RenderingDistance = 2000;
 	camera = SCamera::getSceneCamera();
+	shader_manager = ShaderManager();
+	shader_manager.setupShaders();
 }
 
 void Renderer::setActiveCamera()
@@ -30,7 +36,7 @@ void Renderer::setActiveCamera()
 
 void Renderer::RenderSkybox(Scene* scene)
 {
-	scene->getSkybox()->renderCubemap(SunsetShader::getSunsetShader(1)->getProgram(), camera);
+	scene->getSkybox()->renderCubemap(shader_manager.getSunsetShader(1)->getProgram(), camera);
 }
 
 void Renderer::CreateShadowMap(Scene* scene)
@@ -45,12 +51,12 @@ void Renderer::RenderTrans(Scene* scene)
 {
 }
 
-void Renderer::RenderGeneral(Scene* scene)
+void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 {
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	SunsetShader::getSunsetShader(0)->useShader();
-	unsigned int shader = SunsetShader::getSunsetShader(0)->getProgram();
+	shader_manager.getSunsetShader(0)->useShader();
+	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
 	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);
 
 	glm::mat4 view = glm::mat4(1.f);
@@ -65,17 +71,18 @@ void Renderer::RenderGeneral(Scene* scene)
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
+		scene->UpdateScene(deltaTime, i);
+		scene->FixedUpdate(deltaTime, i);
+
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
 		if (distance_from_cam > RenderingDistance)
 		{
-			continue;
 		}
 
-		if (RenderingComponent* mesh = scene->SceneMembers[i]->getComponentOfType<RenderingComponent>()) {
+		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
 			if (mesh)
 			{
-				unsigned int a = 2;
-				mesh->renderMesh(a);
+				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
 			}
 		}
 	}
@@ -83,13 +90,13 @@ void Renderer::RenderGeneral(Scene* scene)
 	glBindVertexArray(0);
 }
 
-void Renderer::RenderLoop(Scene* scene)
+void Renderer::RenderLoop(Scene* scene, float deltaTime)
 {
 	clear();
 	RenderSkybox(scene);
 	CreateShadowMap(scene);
 	RenderTrans(scene);
-	RenderGeneral(scene);
+	RenderGeneral(scene, deltaTime);
 	RenderShadows(scene);
 }
 
@@ -107,7 +114,7 @@ void Renderer::preRenderSetUp(Scene* scene)
 	SCamera::getSceneCamera();
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
-		if (RenderingComponent* mesh = scene->SceneMembers[i]->getComponentOfType<RenderingComponent>()) {
+		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
 			if (mesh)
 			{
 				mesh->loadMesh();

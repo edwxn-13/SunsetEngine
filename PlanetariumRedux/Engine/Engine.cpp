@@ -15,12 +15,18 @@ Engine::Engine() : scene_manager(), paused(false)
 	renderer.setUpShaders();
 	glfwInit();
 	application_window = glfwCreateWindow(WIDTH, HEIGHT, "Sunset Engine v1.10", NULL, NULL);
+
 	glfwMakeContextCurrent(application_window);
+
 	Screen::setScreenXY(WIDTH, HEIGHT);
-	//Input::updateWindowValue(application_window);
+	Input::updateWindowValue(application_window);
+
 	gl3wInit();
+
 	glEnable(GL_DEBUG_OUTPUT);
+
 	renderer = Renderer(application_window);
+	timer = Time();
 }
 
 void Engine::EngineStart()
@@ -54,12 +60,15 @@ void Engine::EngineLoop()
 {
 	renderer.preRenderSetUp(scene_manager.active_scene);
 
+	glEnable(GL_DEPTH_TEST);
+
 	while (!glfwWindowShouldClose(application_window))
 	{
-		OnUpdate();
-		OnFixedUpdate();
+		float deltaTime = timer.DeltaTime();
+		OnUpdate(deltaTime);
+		OnFixedUpdate(deltaTime);
 		PauseGame();
-		renderer.RenderLoop(scene_manager.active_scene);
+		renderer.RenderLoop(scene_manager.active_scene, deltaTime);
 		glfwSwapBuffers(application_window);
 		glfwPollEvents();
 		processKeyboard(application_window);
@@ -79,24 +88,25 @@ void Engine::OnStart()
 	scene_manager.active_scene->StartScene();
 }
 
-void Engine::OnFixedUpdate()
+void Engine::OnFixedUpdate(float deltaTime)
 {
-	bool call_fixed = Time::fixedUpdateChecker();
+	timer.DeltaTime();
+
+	bool call_fixed = timer.fixedUpdateChecker();
 
 	if (call_fixed)
 	{
-		scene_manager.active_scene->FixedUpdate();
+
 	}
 	
 }
 
-void Engine::OnUpdate()
+void Engine::OnUpdate(float deltaTime)
 {
 	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
-	Time::updateTime();
+	timer.updateTime();
 	Input::Update();
-
-	scene_manager.active_scene->UpdateScene();
+	renderer.RenderLoop(scene_manager.active_scene, deltaTime);
 }
 
 void Engine::PauseGame()

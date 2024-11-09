@@ -9,7 +9,7 @@ class SCamera : public EngineObject
 public:
 	enum Camera_Movement;
 
-	SCamera();
+	SCamera(Scene* s);
 	float radz(float deg);
 
 	glm::mat4 getCamViewMatrix();

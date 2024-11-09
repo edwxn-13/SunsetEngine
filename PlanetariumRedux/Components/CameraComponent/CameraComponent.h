@@ -6,8 +6,8 @@ class CameraComponent : public Component
 {
 public:
 	CameraComponent(EngineObject* engineObject);
-	void Update() override;
-	void FixedUpdate() override;
+	void Update(float deltaTime) override;
+	void FixedUpdate(float deltaTime) override;
 	void Start() override;
 
 private:

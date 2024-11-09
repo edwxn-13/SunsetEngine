@@ -3,8 +3,6 @@
 #include "../../../Utils/shader.h"
 #include <GL/gl3w.h>
 
-std::vector<SunsetShader*> SunsetShader::shader_list = {};
-
 SunsetShader::SunsetShader() 
 {
 	sheen = 0.5; 
@@ -24,7 +22,6 @@ SunsetShader::SunsetShader(const char* vs, const char* fs)
 	vertex = vs; fragment = fs;
 	sheen = 0.5;
 	opacity = 1.0f;
-	shader_list.push_back(this);
 }
 
 void SunsetShader::useShader()
@@ -37,7 +34,33 @@ unsigned int SunsetShader::getProgram()
 	return shader_program;
 }
 
-SunsetShader* SunsetShader::getSunsetShader(int index)
+ShaderManager::ShaderManager()
+{
+	shader_list.reserve(20);
+}
+
+void ShaderManager::setupShaders()
+{
+	makeShader("Shaders/Textured/textured.vert", "Shaders/Textured/textured.frag");
+	makeShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
+	makeShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
+	makeShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
+	makeShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");
+}
+
+SunsetShader* ShaderManager::getSunsetShader(int index)
 {
 	return shader_list[index];
+}
+
+SunsetShader* ShaderManager::shaderLookup(const char* id)
+{
+	return nullptr;
+}
+
+SunsetShader* ShaderManager::makeShader(const char* vertex, const char* fragment)
+{
+	SunsetShader* sunsetShader = new SunsetShader(vertex, fragment);
+	shader_list.push_back(sunsetShader);
+	return sunsetShader;
 }

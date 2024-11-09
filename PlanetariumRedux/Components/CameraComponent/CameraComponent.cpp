@@ -16,13 +16,12 @@ CameraComponent::CameraComponent(EngineObject* engineObject) : Component(engineO
 
 }
 
-
 void CameraComponent::Start()
 {
 	
 }
 
-void CameraComponent::Update()
+void CameraComponent::Update(float deltaTime)
 {
 	if (Input::OnKeyPressed(GLFW_KEY_V)) {
 
@@ -89,22 +88,9 @@ void CameraComponent::Update()
 		}
 	}
 
-	/*
-	if (!(transform->position == Vector3f(0))) {
-		for (int i = 0; i < EngineObject::getObjectListSize(); i++)
-		{
-			Transform* pos_to_zero = &EngineObject::getGlobalObjectIndex(i)->localTransform;
-			pos_to_zero->position = pos_to_zero->position - former_position;
-		}
-		localTransform->position = localTransform->position - former_position;
-
-
-		former_position = localTransform->position;
-	}*/
-
 }
 
-void CameraComponent::FixedUpdate()
+void CameraComponent::FixedUpdate(float deltaTime)
 {
 }
 

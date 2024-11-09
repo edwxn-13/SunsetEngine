@@ -27,7 +27,7 @@ void ShipController::Start()
 	ship_stats = ShipStats();
 }
 
-void ShipController::Update() 
+void ShipController::Update(float deltaTime)
 {
 
 	float yaw, roll, pitch = 0.0f;
@@ -36,7 +36,7 @@ void ShipController::Update()
 
 	if (!Input::OnKeyPressed(GLFW_KEY_V)) {
 
-		Thrust();
+		Thrust(deltaTime);
 
 		if (Input::OnKeyPressed(GLFW_KEY_Q))
 		{
@@ -53,25 +53,25 @@ void ShipController::Update()
 		yaw = rcs_torque * Input::getMouseInputXY().x * 0.70f;
 		pitch = rcs_torque * Input::getMouseInputXY().y;
 
-		Vector3f shipRotor = Vector3f(pitch, yaw, roll) * Time::DeltaTime();
+		Vector3f shipRotor = Vector3f(pitch, yaw, roll) * deltaTime;
 
 		ship_rigidbody->addTorque(shipRotor);
 	}
 	
 }
 
-void ShipController::Thrust()
+void ShipController::Thrust(float deltaTime)
 {
-	Vectoring();
+	Vectoring(deltaTime);
 
 	if (Input::OnKeyPressed(GLFW_KEY_W))
 	{
-		throttle += 0.1 * Time::DeltaTime();
+		throttle += 0.1 * deltaTime;
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_S))
 	{
-		throttle -= 0.1 * Time::DeltaTime();
+		throttle -= 0.1 * deltaTime;
 	}
 
 	if (throttle > max_throttle) { throttle = max_throttle; }
@@ -81,30 +81,30 @@ void ShipController::Thrust()
 	ship_rigidbody->addForce(transform->forward() * throttle * ship_stats.thruster.specific_impulse );
 }
 
-void ShipController::Vectoring()
+void ShipController::Vectoring(float deltaTime)
 {
 	if (Input::OnKeyPressed(GLFW_KEY_C))
 	{
-		ship_rigidbody->addForce(transform->up() * -vector_thrust * Time::DeltaTime());
+		ship_rigidbody->addForce(transform->up() * -vector_thrust * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
 	{
-		ship_rigidbody->addForce(transform->up() * vector_thrust * Time::DeltaTime());
+		ship_rigidbody->addForce(transform->up() * vector_thrust * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_A))
 	{
-		ship_rigidbody->addForce(transform->right() * -vector_thrust * Time::DeltaTime());
+		ship_rigidbody->addForce(transform->right() * -vector_thrust * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_D))
 	{
-		ship_rigidbody->addForce(transform->right() * vector_thrust * Time::DeltaTime());
+		ship_rigidbody->addForce(transform->right() * vector_thrust * deltaTime);
 	}
 }
 
-void ShipController::FixedUpdate()
+void ShipController::FixedUpdate(float deltaTime)
 {
 	Vector3f v = ship_rigidbody->getVelocity();
 	printf("Velocity %f, %f, %f! \n", v.x, v.y, v.z);

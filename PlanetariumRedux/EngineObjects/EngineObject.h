@@ -4,6 +4,7 @@
 #include "../Components/Component.h"
 
 class EngineObject;
+class Scene;
 
 class ObjectFamily
 {
@@ -27,7 +28,7 @@ class EngineObject
 
 public:
 
-	EngineObject();
+	EngineObject(Scene * s);
 	~EngineObject();
 	void addComponent(Component* component);
 
@@ -46,9 +47,9 @@ public:
 	void removeChild(EngineObject* childObject);
 
 	void Start();
-	void Update();
-	void FixedUpdate();
-	void LateUpdate();
+	void Update(float deltaTime);
+	void FixedUpdate(float deltaTime);
+	void LateUpdate(float deltaTime);
 
 	static EngineObject* getGlobalObjectIndex(int i);
 	static int getObjectListSize();
@@ -59,6 +60,9 @@ public:
 	bool enabled;
 
 private:
+
+	Scene* scene;
+
 	std::vector<Component*> component_list;
 };
 

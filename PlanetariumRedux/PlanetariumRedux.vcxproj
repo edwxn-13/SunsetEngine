@@ -157,6 +157,7 @@
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
     <ClCompile Include="Engine\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
+    <ClCompile Include="Engine\Utility\Time.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
     <ClCompile Include="Utils\file.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
     <ClInclude Include="Engine\SceneManager\SceneManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />
+    <ClInclude Include="Engine\Utility\Time.h" />
     <ClInclude Include="Maths\MathHeader.h" />
     <ClInclude Include="SunsetCore.h" />
     <ClInclude Include="Utils\bitmap.h" />

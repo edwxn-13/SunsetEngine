@@ -79,7 +79,7 @@ void Transform::set_pos_mat(glm::mat4 mat)
 	position_matrix = mat;
 }
 
-void Transform::Update()
+void Transform::Update(float deltaTime)
 {
 	model_transform();
 }
@@ -89,7 +89,7 @@ void Transform::Start()
 
 }
 
-void Transform::FixedUpdate()
+void Transform::FixedUpdate(float deltaTime)
 {
 
 }
@@ -167,11 +167,11 @@ void Component::Start()
 {
 }
 
-void Component::Update()
+void Component::Update(float deltaTime)
 {
 }
 
-void Component::FixedUpdate()
+void Component::FixedUpdate(float deltaTime)
 {
 }
 
