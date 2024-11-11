@@ -8,6 +8,12 @@
 
 float radians(float d);
 float r_2_degrees(float r);;
+
+namespace SunsetMath
+{
+	inline float Lerp(float a, float target, float rate);
+};
+
 class Vector2f 
 {
 public:
@@ -15,7 +21,7 @@ public:
 	Vector2f(float f) { x = y = f; }
 	Vector2f(float X, float Y) { x = X; y = Y; }
 
-	Vector2f operator+= (const glm::vec2& c) const
+	inline Vector2f operator+= (const glm::vec2& c) const
 	{
 		Vector2f result;
 		result.x = this->x + c.x;
@@ -23,7 +29,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator-= (const glm::vec2& c) const
+	inline Vector2f operator-= (const glm::vec2& c) const
 	{
 		Vector2f result;
 		result.x = this->x - c.x;
@@ -31,7 +37,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator+= (const Vector2f& c) const
+	inline Vector2f operator+= (const Vector2f& c) const
 	{
 		Vector2f result = *this;
 		result.x = this->x + c.x;
@@ -39,7 +45,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator-= (const Vector2f& c) const
+	inline Vector2f operator-= (const Vector2f& c) const
 	{
 		Vector2f result;
 		result.x = this->x - c.x;
@@ -47,7 +53,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator+ (const Vector2f& c) const
+	inline Vector2f operator+ (const Vector2f& c) const
 	{
 		Vector2f result;
 		result.x = this->x + c.x;
@@ -55,7 +61,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator+ (const float& c) const
+	inline Vector2f operator+ (const float& c) const
 	{
 		Vector2f result;
 		result.x = this->x + c;
@@ -63,7 +69,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator- (const Vector2f& c) const
+	inline Vector2f operator- (const Vector2f& c) const
 	{
 		Vector2f result;
 		result.x = this->x - c.x;
@@ -71,7 +77,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator- (const float& c) const
+	inline Vector2f operator- (const float& c) const
 	{
 		Vector2f result;
 		result.x = this->x - c;
@@ -79,7 +85,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator* (const float& c) const
+	inline Vector2f operator* (const float& c) const
 	{
 		Vector2f result;
 		result.x = this->x * c;
@@ -87,7 +93,7 @@ public:
 		return result;
 	}
 
-	Vector2f operator/ (const float& c) const
+	inline Vector2f operator/ (const float& c) const
 	{
 		Vector2f result;
 		result.x = this->x / c;
@@ -95,19 +101,19 @@ public:
 		return result;
 	}
 
-	float magnitude()
+	inline float magnitude()
 	{
 		return sqrt(pow(x, 2) + pow(y, 2));
 	}
 
-	void Normalize()
+	inline void Normalize()
 	{
 		double magnitude = sqrt(pow(x, 2) + pow(y, 2));
 		x = x / magnitude;
 		y = y / magnitude;
 	}
 
-	Vector2f normal()
+	inline Vector2f normal()
 	{
 		double magnitude = sqrt(pow(x, 2) + pow(y, 2));
 		x = x / magnitude;
@@ -564,3 +570,5 @@ public:
 
 	float w, x, y, z;
 };
+
+#include "MathHeader.inl"

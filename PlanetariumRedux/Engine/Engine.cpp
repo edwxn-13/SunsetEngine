@@ -8,11 +8,10 @@
 #define HEIGHT 900
 
 
-Engine::Engine(GLFWwindow* window)
+Engine::Engine(GLFWwindow* window) : scene_manager(0)
 {
 	application_window = window;
 	renderer = Renderer(application_window);
-	Input::updateWindowValue(window);
 	timer = Time();
 	paused = false;
 }
@@ -95,7 +94,6 @@ void Engine::OnUpdate(float deltaTime)
 {
 	timer.updateTime();
 	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
-	Input::Update();
 	renderer.RenderLoop(scene_manager.active_scene, deltaTime);
 }
 

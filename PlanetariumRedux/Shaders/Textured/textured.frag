@@ -7,7 +7,18 @@ struct Material {
     sampler2D bump;    
     sampler2D bumpS;    
 
+
+	bool hasTexture;
+
+	float opacity;
+	vec3 colour;
+	float refectivity;
     float shininess;
+
+	bool checkTexture()
+	{
+		return hasTexture;
+	}
 }; 
 
 in vec3 nor;

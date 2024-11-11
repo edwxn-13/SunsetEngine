@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../../Components/Component.h"
+#include "../../../Engine/EngineUtils.h"
 #include <string>
 
 class Rigidbody;
@@ -36,6 +37,7 @@ private:
 		void ShipInit();
 		float ship_mass;
 
+
 	public:
 
 		ShipStats() { ShipInit(); }
@@ -45,6 +47,7 @@ private:
 		RCS reaction_control_sys;
 
 	};
+	Input input_controller;
 
 	ShipStats ship_stats;
 

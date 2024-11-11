@@ -94,6 +94,9 @@
     <Filter Include="Source Files\Assets\Components\ShipController">
       <UniqueIdentifier>{47ea44f3-8058-4d69-bf70-2b74dec9e685}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\Physics">
+      <UniqueIdentifier>{0261384d-cf81-4f8c-a1ad-c120b93abb61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -292,6 +295,9 @@
     </None>
     <None Include="Shaders\Textured\textured.frag">
       <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Maths\MathHeader.inl">
+      <Filter>Source Files\Utils\Maths</Filter>
     </None>
   </ItemGroup>
 </Project>

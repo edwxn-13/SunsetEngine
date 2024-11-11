@@ -22,6 +22,7 @@ void EngineLaunch()
 	GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Sunset Engine v1.10", NULL, NULL);
 	glfwMakeContextCurrent(window);
 	Screen::setScreenXY(WIDTH, HEIGHT);
+	Input::updateWindowValue(window);
 	glfwSetWindowSizeCallback(window, SizeCallback);
 	gl3wInit();
 	glEnable(GL_DEBUG_OUTPUT);

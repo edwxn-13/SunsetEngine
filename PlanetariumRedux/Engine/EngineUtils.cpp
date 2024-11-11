@@ -6,9 +6,6 @@ GLFWwindow* Input::window_p = 0;
 int Screen::screen_x = 0;
 int Screen::screen_y = 0;
 
-
-Vector2f Input::MouseXY = Vector2f(0);
-
 void Screen::setScreenXY(int ax, int ay)
 {
 	screen_x = ax;
@@ -26,6 +23,11 @@ int Screen::getScreenY()
 	return screen_y;
 }
 
+Input::Input()
+{
+	window = window_p;
+
+}
 
 int Input::getScreenMouseX()
 {
@@ -49,39 +51,42 @@ Vector2f Input::getMouseInputXY()
 
 void Input::Update()  
 {
-	//if (glfwRawMouseMotionSupported()) 
-	glfwSetInputMode(window_p, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	
+	//if (glfwRawMouseMotionSupported())
+
 	double a, b = 0;
-	glfwGetCursorPos(window_p, &a, &b);
+	glfwGetCursorPos(window, &a, &b);
 
 	int x_scale = Screen::getScreenX() / 2;
 	int y_scale = Screen::getScreenY() / 2;
 
-	double mouseRawX = a - Screen::getScreenX()/2;
-	double mouseRawY = b - Screen::getScreenY() / 2;
+	double mouseRawX = a - (double)Screen::getScreenX()/2;
+	double mouseRawY = b - (double)Screen::getScreenY() / 2;
 
-	MouseXY.x = mouseRawX/ (Screen::getScreenX() / 2);
-	MouseXY.y = (mouseRawY / (Screen::getScreenY() / 2));
-	glfwSetCursorPos(window_p, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
+	
+	MouseXY.x = SunsetMath::Lerp(MouseXY.x, (mouseRawX/ (Screen::getScreenX() / 2)), 0.2f);
+	MouseXY.y = SunsetMath::Lerp(MouseXY.y, (mouseRawY / (Screen::getScreenY() / 2)), 0.2f);
+	
+	glfwSetCursorPos(window, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
 }
 
-void Input::updateWindowValue(GLFWwindow* window)
+void Input::updateWindowValue(GLFWwindow* swindow)
 {
-	window_p = window;
+	window_p = swindow;
+	glfwSetInputMode(swindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(swindow, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 }
 
 int Input::OnKeyPressed(int KeyValue)
 {
-	return (glfwGetKey(window_p, KeyValue) == GLFW_PRESS);
+	return (glfwGetKey(window, KeyValue) == GLFW_PRESS);
 }
 
 int Input::OnKeyDown(int KeyValue)
 {
-	return glfwGetKey(window_p, KeyValue) == GLFW_RELEASE;
+	return glfwGetKey(window, KeyValue) == GLFW_RELEASE;
 }
 
 int Input::OnKeyUp(int KeyValue)
 {
-	return glfwGetKey(window_p, KeyValue) == GLFW_RELEASE;
+	return glfwGetKey(window, KeyValue) == GLFW_RELEASE;
 }

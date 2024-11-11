@@ -9,10 +9,12 @@
 #include "../../Camera/camera.h"
 #include "../../Engine/EngineUtils.h"
 
-CameraComponent::CameraComponent(EngineObject* engineObject) : Component(engineObject)
+CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) : Component(engineObject)
 {
 	component_id = 23;
 	localTransform->position = Vector3f(0, 9, 30);
+	parent_cam = camera;
+	input_controller = Input();
 
 }
 
@@ -23,57 +25,70 @@ void CameraComponent::Start()
 
 void CameraComponent::Update(float deltaTime)
 {
-	if (Input::OnKeyPressed(GLFW_KEY_V)) {
+	input_controller.Update();
 
-		if (Input::OnKeyPressed(GLFW_KEY_C))
+	if (input_controller.OnKeyPressed(GLFW_KEY_X)) 
+	{
+		parent_cam->fov = SunsetMath::Lerp(parent_cam->fov, 32, 0.2f);
+
+	}
+
+	else 
+	{
+		parent_cam->fov = SunsetMath::Lerp(parent_cam->fov, 45, 0.2f);
+	}
+
+	if (input_controller.OnKeyPressed(GLFW_KEY_V)) {
+
+		if (input_controller.OnKeyPressed(GLFW_KEY_C))
 		{
 			localTransform->position = localTransform->position - localTransform->up() * 2.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_SPACE))
+		if (input_controller.OnKeyPressed(GLFW_KEY_SPACE))
 		{
 			localTransform->position = localTransform->position + localTransform->up() * 2.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_A))
+		if (input_controller.OnKeyPressed(GLFW_KEY_A))
 		{
 			localTransform->position = localTransform->position - localTransform->right() * 2.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_D))
+		if (input_controller.OnKeyPressed(GLFW_KEY_D))
 		{
 			localTransform->position = localTransform->position + localTransform->right() * 2.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_W))
+		if (input_controller.OnKeyPressed(GLFW_KEY_W))
 		{
 			localTransform->position = localTransform->position + localTransform->forward() * 2.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_S))
+		if (input_controller.OnKeyPressed(GLFW_KEY_S))
 		{
 			localTransform->position = localTransform->position - localTransform->forward() * 2.0f;
 		}
 
 		//roll = 0;
 
-		if (Input::OnKeyPressed(GLFW_KEY_Q))
+		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
 		{
 			roll += -1.0f * 10.0f;
 		}
 
-		if (Input::OnKeyPressed(GLFW_KEY_E))
+		if (input_controller.OnKeyPressed(GLFW_KEY_E))
 		{
 			roll += 1.0f * 10.0f;
 		}
 
-		//Input::OnKeyPressed(GLFW_KEY_V)
+		//input_controller.OnKeyPressed(GLFW_KEY_V)
 		if (true)
 		{
-			Vector2f inputAxis = Input::getMouseInputXY();
+			Vector2f inputAxis = input_controller.getMouseInputXY();
 
-			yaw += 10.0f * Input::getMouseInputXY().x;
-			pitch += 10.0f * Input::getMouseInputXY().y;
+			yaw += 10.0f * input_controller.getMouseInputXY().x;
+			pitch += 10.0f * input_controller.getMouseInputXY().y;
 
 			localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
 

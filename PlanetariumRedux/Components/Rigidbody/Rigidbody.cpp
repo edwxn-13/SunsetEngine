@@ -90,16 +90,12 @@ void Rigidbody::FixedUpdate(float deltaTime)
 	{
 		drag_coef = drag_coef;
 	}
-
-	//printf("\nacc: %f, %f , %f\n", acceleration.x, acceleration.y, acceleration.z);
-
-	//addForce(drag_force);
 	torque = torque - angular_drag_force;
 
 	transform->Rotate(transform->right() * torque.x);
 	transform->Rotate(transform->up() * torque.y);
 	transform->Rotate(transform->forward() * torque.z);
 
-	transform->position = transform->position + velocity;
+	transform->position = transform->position + velocity * deltaTime;
 }
 

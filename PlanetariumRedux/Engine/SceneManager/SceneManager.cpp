@@ -1,7 +1,7 @@
 #include "SceneManager.h"
 #include "../../Assets/Scenes/MainScene.h"
 
-SceneManager::SceneManager()
+SceneManager::SceneManager(int a)
 {
 	Start();
 }

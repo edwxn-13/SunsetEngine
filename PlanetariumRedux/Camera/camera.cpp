@@ -23,7 +23,7 @@ enum SCamera::Camera_Movement
 SCamera::SCamera(Scene * s) : EngineObject(s)
 {
 	m_cam_list.push_back(this);
-	CameraComponent * cameraMovement = new CameraComponent(this);
+	CameraComponent * cameraMovement = new CameraComponent(this, this);
 	addComponent(cameraMovement);
 	if (!p_camera) { p_camera = this; }
 }

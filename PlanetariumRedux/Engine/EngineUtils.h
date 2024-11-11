@@ -21,18 +21,21 @@ public:
 class Input 
 {
 public:
-	static int getScreenMouseX();
-	static int getScreenMouseY();
-	static Vector2f getMouseInputXY();
-	static void Update();
-	static void updateWindowValue(GLFWwindow* window);
+	Input();
+	int getScreenMouseX();
+	int getScreenMouseY();
+	Vector2f getMouseInputXY();
+	void Update();
+	static void updateWindowValue(GLFWwindow* swindow);
 
-	static int OnKeyPressed(int KeyValue);
-	static int OnKeyDown(int KeyValue);
-	static int OnKeyUp(int KeyValue);
+	int OnKeyPressed(int KeyValue);
+	int OnKeyDown(int KeyValue);
+	int OnKeyUp(int KeyValue);
 private:
 	static GLFWwindow* window_p;
-	static Vector2f MouseXY;
+	GLFWwindow* window;
+
+	Vector2f MouseXY;
 };
 
 

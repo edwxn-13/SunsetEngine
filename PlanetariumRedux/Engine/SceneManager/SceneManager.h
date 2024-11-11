@@ -4,7 +4,7 @@ class Scene;
 
 struct SceneManager 
 {
-	SceneManager();
+	SceneManager(int a);
 	void Start();
 	void LoadScene();
 	void NextScene();

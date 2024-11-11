@@ -201,6 +201,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="EngineObjects\EngineObject.inl" />
+    <None Include="Maths\MathHeader.inl" />
     <None Include="README.md" />
     <None Include="Shaders\Textured\textured.frag" />
     <None Include="Shaders\Textured\textured.vert" />

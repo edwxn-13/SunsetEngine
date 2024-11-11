@@ -47,9 +47,18 @@ void Scene::attachToScene(EngineObject* engineObject)
 	SceneMembers.push_back(engineObject);
 }
 
+
 Scene* Scene::getScene(int index)
 {
 	return SceneList[index];
+}
+
+void Scene::Instantiate(EngineObject* engineObject, Vector3f position = 0, Vector3f rotation = 0)
+{
+	engineObject->transform.position = position;
+	engineObject->transform.Rotate(rotation);
+	attachToScene(engineObject);
+	engineObject->Start();
 }
 
 Skybox* Scene::getSkybox()
