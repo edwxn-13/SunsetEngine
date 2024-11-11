@@ -17,9 +17,7 @@
 
 Renderer::Renderer()
 {
-	shader_manager = ShaderManager();
-	shader_manager = ShaderManager();
-	shader_manager.setupShaders();
+
 }
 
 Renderer::Renderer(GLFWwindow * window)

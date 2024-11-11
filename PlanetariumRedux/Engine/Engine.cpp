@@ -11,9 +11,7 @@
 Engine::Engine(GLFWwindow* window)
 {
 	application_window = window;
-	//scene_manager = SceneManager();
 	renderer = Renderer(application_window);
-	renderer.app_window = application_window;
 	Input::updateWindowValue(window);
 	timer = Time();
 	paused = false;
