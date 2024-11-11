@@ -12,6 +12,7 @@
 #include <GL/gl3w.h>
 #include <glm/gtc/type_ptr.hpp>
 #include "../EngineUtils.h"
+#include "../../Utils/texture.h"
 
 
 Renderer::Renderer()
@@ -23,6 +24,7 @@ Renderer::Renderer()
 
 Renderer::Renderer(GLFWwindow * window)
 {
+	app_window = window;
 	RenderingDistance = 2000;
 	camera = SCamera::getSceneCamera();
 	shader_manager = ShaderManager();
@@ -65,9 +67,7 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glUniform3f(glGetUniformLocation(shader, "lightPos"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
-
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniform3f(glGetUniformLocation(shader, "camPos"), camera->transform.position.x, camera->transform.position.y, camera->transform.position.z);
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{

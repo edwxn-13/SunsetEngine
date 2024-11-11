@@ -23,7 +23,7 @@ ShipController::ShipController(EngineObject* engineObject) : Component (engineOb
 void ShipController::Start()
 {
 	ship_rigidbody = engineObject->getComponentOfType<Rigidbody>();
-	ship_rigidbody->mass = 2.0f;
+	ship_rigidbody->mass = 12000.0f;
 	ship_stats = ShipStats();
 }
 
@@ -40,20 +40,20 @@ void ShipController::Update(float deltaTime)
 
 		if (Input::OnKeyPressed(GLFW_KEY_Q))
 		{
-			roll = -1.0f * rcs_torque;
+			roll = -1.0f;
 		}
 
 		if (Input::OnKeyPressed(GLFW_KEY_E))
 		{
-			roll = 1.0f * rcs_torque;
+			roll = 1.0f;
 		}
 
 		Vector2f inputAxis = Input::getMouseInputXY();
 
-		yaw = rcs_torque * Input::getMouseInputXY().x * 0.70f;
-		pitch = rcs_torque * Input::getMouseInputXY().y;
+		yaw = Input::getMouseInputXY().x * 0.70f;
+		pitch = Input::getMouseInputXY().y * 2.0f;
 
-		Vector3f shipRotor = Vector3f(pitch, yaw, roll) * deltaTime;
+		Vector3f shipRotor = Vector3f(pitch, yaw, roll) * deltaTime * ship_stats.reaction_control_sys.rcs_torque;
 
 		ship_rigidbody->addTorque(shipRotor);
 	}
@@ -85,22 +85,22 @@ void ShipController::Vectoring(float deltaTime)
 {
 	if (Input::OnKeyPressed(GLFW_KEY_C))
 	{
-		ship_rigidbody->addForce(transform->up() * -vector_thrust * deltaTime);
+		ship_rigidbody->addForce(transform->up() * -ship_stats.vector_thrust.vectoring_force * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_SPACE))
 	{
-		ship_rigidbody->addForce(transform->up() * vector_thrust * deltaTime);
+		ship_rigidbody->addForce(transform->up() * ship_stats.vector_thrust.vectoring_force * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_A))
 	{
-		ship_rigidbody->addForce(transform->right() * -vector_thrust * deltaTime);
+		ship_rigidbody->addForce(transform->right() * -ship_stats.vector_thrust.vectoring_force * deltaTime);
 	}
 
 	if (Input::OnKeyPressed(GLFW_KEY_D))
 	{
-		ship_rigidbody->addForce(transform->right() * vector_thrust * deltaTime);
+		ship_rigidbody->addForce(transform->right() * ship_stats.vector_thrust.vectoring_force * deltaTime);
 	}
 }
 
@@ -117,5 +117,7 @@ void ShipController::ShipStats::ShipInit()
 	ship_modules.push_back(&thruster);
 	ship_modules.push_back(&reaction_control_sys);
 
-	thruster.specific_impulse = 20000;
+	thruster.specific_impulse = 2000;
+	vector_thrust.vectoring_force = 2000;
+	reaction_control_sys.rcs_torque = 80000;
 }

@@ -1,38 +1,30 @@
 #include "Engine.h"
 #include "Scene/Scene.h"
+#include "SceneManager/SceneManager.h"
 #include "EngineUtils.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
-
 #define WIDTH 1024
 #define HEIGHT 900
 
-#define SH_MAP_WIDTH 2048
-#define SH_MAP_HEIGHT 2048
 
-Engine::Engine() : scene_manager(), paused(false)
+Engine::Engine(GLFWwindow* window)
 {
-	renderer.setUpShaders();
-	glfwInit();
-	application_window = glfwCreateWindow(WIDTH, HEIGHT, "Sunset Engine v1.10", NULL, NULL);
-
-	glfwMakeContextCurrent(application_window);
-
-	Screen::setScreenXY(WIDTH, HEIGHT);
-	Input::updateWindowValue(application_window);
-
-	gl3wInit();
-
-	glEnable(GL_DEBUG_OUTPUT);
-
+	application_window = window;
+	//scene_manager = SceneManager();
 	renderer = Renderer(application_window);
+	renderer.app_window = application_window;
+	Input::updateWindowValue(window);
 	timer = Time();
+	paused = false;
 }
 
 void Engine::EngineStart()
 {
 	OnStart();
+	renderer.setActiveCamera();
 	EngineLoop();
+	EndEngine();
 }
 
 void Engine::EndEngine()
@@ -58,23 +50,15 @@ bool Engine::pauseState()
 
 void Engine::EngineLoop()
 {
-	renderer.preRenderSetUp(scene_manager.active_scene);
-
-	glEnable(GL_DEPTH_TEST);
-
 	while (!glfwWindowShouldClose(application_window))
 	{
 		float deltaTime = timer.DeltaTime();
 		OnUpdate(deltaTime);
-		OnFixedUpdate(deltaTime);
-		PauseGame();
-		renderer.RenderLoop(scene_manager.active_scene, deltaTime);
+
 		glfwSwapBuffers(application_window);
 		glfwPollEvents();
 		processKeyboard(application_window);
 	}
-
-	EndEngine();
 }
 
 void Engine::processKeyboard(GLFWwindow* window)
@@ -86,6 +70,8 @@ void Engine::processKeyboard(GLFWwindow* window)
 void Engine::OnStart()
 {
 	scene_manager.active_scene->StartScene();
+	renderer.preRenderSetUp(scene_manager.active_scene);
+	glEnable(GL_DEPTH_TEST);
 }
 
 void Engine::OnFixedUpdate(float deltaTime)
@@ -96,25 +82,32 @@ void Engine::OnFixedUpdate(float deltaTime)
 
 	if (call_fixed)
 	{
+		int size = scene_manager.active_scene->SceneMembers.size();
 
+		for (int i = 0; i < size; i++)
+		{
+			scene_manager.active_scene->FixedUpdate(deltaTime, i);
+		}
+		//scene_manager.active_scene->FixedUpdate(deltaTime);
 	}
 	
 }
 
 void Engine::OnUpdate(float deltaTime)
 {
-	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
 	timer.updateTime();
+	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
 	Input::Update();
 	renderer.RenderLoop(scene_manager.active_scene, deltaTime);
 }
 
 void Engine::PauseGame()
 {
-	while (paused) 
-	{
-
-	}
+	
 }
 
-
+void OnSizeCallback(GLFWwindow* window, int w, int h)
+{
+	Screen::setScreenXY(w, h);
+	glViewport(0, 0, w, h);
+}

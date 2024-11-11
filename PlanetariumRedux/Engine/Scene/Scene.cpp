@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "../../Utils/texture.h"
 #include "../../SunsetCore.h"
 
 std::vector<Scene*> Scene::SceneList = {};

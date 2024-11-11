@@ -100,6 +100,6 @@ void Rigidbody::FixedUpdate(float deltaTime)
 	transform->Rotate(transform->up() * torque.y);
 	transform->Rotate(transform->forward() * torque.z);
 
-	transform->position = transform->position + velocity * 0.00001f;
+	transform->position = transform->position + velocity;
 }
 

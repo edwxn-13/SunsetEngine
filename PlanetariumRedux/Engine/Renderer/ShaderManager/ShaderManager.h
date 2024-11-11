@@ -2,7 +2,14 @@
 
 #include <vector>
 
-
+struct SunsetMaterial 
+{
+	float reflectivness;
+	float sheen;
+	float opacity;
+	float emission;
+	float ior;
+};
 
 class SunsetShader
 {

@@ -1,10 +1,17 @@
 #include "SceneManager.h"
 #include "../../Assets/Scenes/MainScene.h"
 
+SceneManager::SceneManager()
+{
+	Start();
+}
+
 void SceneManager::Start()
 {
-	MainScene game_scene = MainScene();
-	active_scene = &game_scene;
+	MainScene * game_scene = new MainScene();
+	active_scene = game_scene;
+	active_scene->StartScene();
+	
 }
 
 void SceneManager::LoadScene()

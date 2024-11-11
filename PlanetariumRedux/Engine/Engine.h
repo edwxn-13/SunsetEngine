@@ -8,10 +8,12 @@
 
 struct GLFWwindow;
 
+void OnSizeCallback(GLFWwindow* window, int w, int h);
+
 class Engine
 {
 public:
-	Engine();
+	Engine(GLFWwindow* window);
 	void EngineLoop();
 	void OnStart();
 	void OnFixedUpdate(float deltaTime);
@@ -23,6 +25,7 @@ public:
 	void setPause(bool p);
 	bool pauseState();
 
+
 private:
 
 	void processKeyboard(GLFWwindow* window);
@@ -30,7 +33,7 @@ private:
 	GLFWwindow* application_window;
 	SceneManager scene_manager;
 	Renderer renderer;
-	bool paused;
+	bool paused = false;
 	int WindowHeight, WindowWidth = 500;
 
 public:
