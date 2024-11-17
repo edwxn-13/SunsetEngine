@@ -281,19 +281,9 @@ GLuint CreateTexture(const char* filename)
 
 	Texture* temp_tex = new Texture(filename);
 
-	Texture* tex = TextureManager::checkForTexture(filename);
-	if (false) 
-	{
-		temp_tex = tex;
-	}
-
-	else 
-	{
-		std::cout << "ok we loaded this bih\n";
-		temp_tex->pxls = stbi_load(temp_tex->filename, &temp_tex->width, &temp_tex->height, &temp_tex->channels, 0);
-		TextureManager::addToTextureList(temp_tex);
-	}
-
+	std::cout << "ok we loaded this bih\n";
+	temp_tex->pxls = stbi_load(temp_tex->filename, &temp_tex->width, &temp_tex->height, &temp_tex->channels, 0);
+	
 	//---------------------------------------------------------------------------------------------------------------------------------
 
 	if (temp_tex->pxls != NULL)

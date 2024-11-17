@@ -12,7 +12,6 @@ void Screen::setScreenXY(int ax, int ay)
 	screen_y = ay;
 }
 
-
 int Screen::getScreenX()
 {
 	return screen_x;
@@ -26,7 +25,6 @@ int Screen::getScreenY()
 Input::Input()
 {
 	window = window_p;
-
 }
 
 int Input::getScreenMouseX()
@@ -51,8 +49,6 @@ Vector2f Input::getMouseInputXY()
 
 void Input::Update()  
 {
-	//if (glfwRawMouseMotionSupported())
-
 	double a, b = 0;
 	glfwGetCursorPos(window, &a, &b);
 
@@ -61,19 +57,18 @@ void Input::Update()
 
 	double mouseRawX = a - (double)Screen::getScreenX()/2;
 	double mouseRawY = b - (double)Screen::getScreenY() / 2;
+	
+	MouseXY.x = mouseRawX / ((double)Screen::getScreenX() / 2);
+	MouseXY.y = mouseRawY / ((double)Screen::getScreenY() / 2);
 
-	
-	MouseXY.x = SunsetMath::Lerp(MouseXY.x, (mouseRawX/ (Screen::getScreenX() / 2)), 0.2f);
-	MouseXY.y = SunsetMath::Lerp(MouseXY.y, (mouseRawY / (Screen::getScreenY() / 2)), 0.2f);
-	
-	glfwSetCursorPos(window, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
+	//glfwSetCursorPos(window, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
 }
 
 void Input::updateWindowValue(GLFWwindow* swindow)
 {
 	window_p = swindow;
 	glfwSetInputMode(swindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-	glfwSetInputMode(swindow, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+	//glfwSetInputMode(swindow, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 }
 
 int Input::OnKeyPressed(int KeyValue)

@@ -7,11 +7,40 @@
 #define C_PI 3.14159265358979323846
 
 float radians(float d);
-float r_2_degrees(float r);;
+float r_2_degrees(float r);
+class Quaternion;
+class Vector3f;
 
 namespace SunsetMath
 {
 	inline float Lerp(float a, float target, float rate);
+	inline glm::mat4 rotation_matrix(Quaternion q);
+
+	inline float Magnitude(Quaternion a);
+
+	inline Quaternion Normalize(Quaternion a);
+
+	inline float Angle(Quaternion a, Quaternion b);
+
+	inline glm::mat4 RotationMatrix(Quaternion q);
+
+	inline Quaternion AngleAxis(float angle, Vector3f axis);
+
+	inline Quaternion Exp(Quaternion q);
+
+	inline Quaternion Inverse(Quaternion q);
+
+	inline Quaternion Difference(Quaternion a, Quaternion b);
+
+	inline Quaternion Scale(Quaternion q, float s);
+
+	inline Quaternion Log(Quaternion q);
+
+	inline Quaternion Pow(Quaternion q, float n);
+
+	inline float Dot(Quaternion q1, Quaternion q2);
+
+	inline Quaternion Slerp(Quaternion q1, Quaternion q2, float t);
 };
 
 class Vector2f 

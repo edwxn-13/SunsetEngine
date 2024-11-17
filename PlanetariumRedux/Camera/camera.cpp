@@ -42,16 +42,16 @@ glm::mat4 SCamera::getCamViewMatrix()
 
 
 	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX()/ (float)Screen::getScreenY(), .01f, 10000.f);
-	//view = glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm());
 
-	pos_mat = glm::translate(pos_mat, -localTransform.position.glm());
-	glm::mat4 rot = Quaternion::RotationMatrix(localTransform.rotation);
+	pos_mat = glm::translate(pos_mat, -transform.position.glm());
+	glm::mat4 rot = Quaternion::RotationMatrix(transform.rotation);
 	pos_mat = pos_mat * rot;
-	pos_mat = glm::scale(pos_mat, localTransform.scale.glm());
-
-	//view = glm::inverse(pos_mat);
+	pos_mat = glm::scale(pos_mat, transform.scale.glm());
+	view = glm::inverse(pos_mat);
 
 	view = glm::inverse(transform.get_pos_mat());
+	view = glm::lookAt(transform.position.glm(), transform.position.glm() + transform.forward().glm(), transform.up().glm());
+
 	glm::mat4 camMat = projection * view;
 	return camMat;
 }

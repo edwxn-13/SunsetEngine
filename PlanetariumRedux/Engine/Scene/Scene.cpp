@@ -4,7 +4,7 @@
 
 std::vector<Scene*> Scene::SceneList = {};
 
-Scene::Scene()
+Scene::Scene() : sun_pos(0)
 {
 	SceneList.push_back(this);
 }

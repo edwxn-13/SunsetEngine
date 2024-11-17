@@ -87,8 +87,8 @@ void CameraComponent::Update(float deltaTime)
 		{
 			Vector2f inputAxis = input_controller.getMouseInputXY();
 
-			yaw += 10.0f * input_controller.getMouseInputXY().x;
-			pitch += 10.0f * input_controller.getMouseInputXY().y;
+			yaw += 2.0f * input_controller.getMouseInputXY().x;
+			pitch += 2.0f * input_controller.getMouseInputXY().y;
 
 			localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
 

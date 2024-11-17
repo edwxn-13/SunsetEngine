@@ -28,5 +28,6 @@ public:
 	Skybox* getSkybox();
 protected:
 
+	Vector3f sun_pos;
 	Skybox skybox;
 };

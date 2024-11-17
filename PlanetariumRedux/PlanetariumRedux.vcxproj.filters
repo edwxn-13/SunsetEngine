@@ -97,6 +97,12 @@
     <Filter Include="Source Files\Components\Physics">
       <UniqueIdentifier>{0261384d-cf81-4f8c-a1ad-c120b93abb61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils\ModelParser">
+      <UniqueIdentifier>{744e0abb-ee33-4ad1-9698-17e9d17da1d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\MeshRenderer">
+      <UniqueIdentifier>{6111a4ef-511c-4ba9-9c0b-358c77c23818}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -182,6 +188,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Utility\Time.cpp">
       <Filter>Source Files\Engine\EngineUtils</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\ModelParser\ModelParser.cpp">
+      <Filter>Source Files\Utils\ModelParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\MeshRenderer\MeshRenderer.cpp">
+      <Filter>Source Files\Components\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets\MeshObject\SMeshObject.cpp">
+      <Filter>Source Files\Assets\Objects\MeshObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +298,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Utility\Time.h">
       <Filter>Source Files\Engine\EngineUtils</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ModelParser\ModelParser.h">
+      <Filter>Source Files\Utils\ModelParser</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\MeshRenderer\MeshRenderer.h">
+      <Filter>Source Files\Components\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets\MeshObject\SMeshObject.h">
+      <Filter>Source Files\Assets\Objects\MeshObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

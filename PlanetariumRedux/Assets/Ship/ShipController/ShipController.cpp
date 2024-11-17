@@ -116,5 +116,5 @@ void ShipController::ShipStats::ShipInit()
 
 	thruster.specific_impulse = 2000;
 	vector_thrust.vectoring_force = 2000;
-	reaction_control_sys.rcs_torque = 80000;
+	reaction_control_sys.rcs_torque = 3000;
 }

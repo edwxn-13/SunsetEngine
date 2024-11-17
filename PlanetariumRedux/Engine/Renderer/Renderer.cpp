@@ -5,7 +5,7 @@
 #include "../Scene/Scene.h"
 #include "../../Components/RenderingComponent.h"
 #include "../../Components/MeshComponent/MeshComponent.h"
-
+#include "../../Components/MeshRenderer/MeshRenderer.h"
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Camera/camera.h"
 #include <iostream>
@@ -78,6 +78,13 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 		}
 
 		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+			}
+		}
+
+		if (MeshRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<MeshRenderer>()) {
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());

@@ -61,6 +61,11 @@ void Transform::model_transform()
 	{
 		glm::mat4 parent_position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
 		transform->position_matrix = parent_position_matrix * position_matrix;
+
+
+		localTransform->rotation = transform->rotation * localTransform->rotation;
+		glm::vec4 location = parent_position_matrix * glm::vec4(localTransform->position.glm(),0);
+		transform->position = Vector3f(location);
 	}
 
 	else

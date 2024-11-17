@@ -14,6 +14,7 @@ struct Texture
 	const char* filename;
 	int width, height, channels;
 	unsigned char* pxls;
+	unsigned int tex_id;
 	Texture(const char* filename);
 	Texture(const char* filename, int width, int height, int channels, unsigned char* pxls);
 };

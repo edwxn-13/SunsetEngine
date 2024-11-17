@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include "../../../Maths/MathHeader.h"
 
 struct SunsetMaterial 
 {
@@ -26,6 +27,12 @@ public:
 	SunsetShader();
 	SunsetShader(unsigned int compiled_shader);
 	SunsetShader(const char* vertex, const char* fragment);
+
+	void setProgram(unsigned int program);
+	void setInt(const char* name , int value);
+	void setFloat(const char* name, float value);
+	void setVector(const char* name, Vector3f value);
+	void setMat(const char* name, glm::mat4 value);
 
 	void useShader();
 	unsigned int getProgram();

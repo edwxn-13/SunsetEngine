@@ -5,6 +5,7 @@
 
 SunsetShader::SunsetShader() 
 {
+	shader_program;
 	sheen = 0.5; 
 	opacity = 1.0f;
 }
@@ -22,6 +23,30 @@ SunsetShader::SunsetShader(const char* vs, const char* fs)
 	vertex = vs; fragment = fs;
 	sheen = 0.5;
 	opacity = 1.0f;
+}
+
+void SunsetShader::setProgram(unsigned int program)
+{
+	shader_program = program;
+}
+
+void SunsetShader::setInt(const char * name, int value)
+{
+	glUniform1i(glGetUniformLocation(shader_program, name), value);
+}
+
+void SunsetShader::setFloat(const char* name, float value)
+{
+	glUniform1f(glGetUniformLocation(shader_program, name), value);
+}
+
+void SunsetShader::setVector(const char* name, Vector3f value)
+{
+}
+
+void SunsetShader::setMat(const char* name, glm::mat4 value)
+{
+
 }
 
 void SunsetShader::useShader()

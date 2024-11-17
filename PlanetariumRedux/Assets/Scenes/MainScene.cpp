@@ -1,5 +1,7 @@
 #include "MainScene.h"
 #include "../MeshObject/MeshObject.h"
+#include "../MeshObject/SMeshObject.h"
+
 #include "../Ship/ShipController/ShipController.h"
 #include "../../Camera/camera.h"
 
@@ -13,7 +15,13 @@ void MainScene::InitScene()
 	SCamera * Camera = new SCamera(this);
 
 	//MeshObject * gooch = new MeshObject("objs/station/spaceStation.obj", this);
-	MeshObject * ship = new MeshObject("objs/fighter/fighter.obj", this);
+	SMeshObject * s_ship = new SMeshObject("Assets/Models/ProtoHelmet/proto_helmet.dae", this);
+	s_ship->transform.Rotate(Vector3f(0,180,0));
+	//SMeshObject * s_ship = new SMeshObject("objs/fighter/fighter.obj", this);
+	s_ship->transform.scale = 40;
+
+	MeshObject* ship = new MeshObject("objs/fighter/fighter.obj", this);
+
 	skybox = Skybox();
 	skybox.setupCubemap();
 
@@ -27,6 +35,9 @@ void MainScene::InitScene()
 
 	attachToScene(Camera);
 	//attachToScene(gooch);
+	attachToScene(s_ship);
+
 	attachToScene(ship);
+
 
 }
