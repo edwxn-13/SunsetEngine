@@ -5,6 +5,8 @@
 #include "../Scene/Scene.h"
 #include "../../Components/RenderingComponent.h"
 #include "../../Components/MeshComponent/MeshComponent.h"
+#include "../../Components/PrimativeRenderer/PrimativeRenderer.h"
+
 #include "../../Components/MeshRenderer/MeshRenderer.h"
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Camera/camera.h"
@@ -81,6 +83,13 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+			}
+		}
+
+		if (PlaneRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlaneRenderer>()) {
+			if (mesh)
+			{
+				//mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
 			}
 		}
 

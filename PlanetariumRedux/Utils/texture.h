@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 class SCamera;
 
 #define WIDTH 1024
@@ -7,6 +8,8 @@ class SCamera;
 
 float skyboxVerts[];
 unsigned int skyboxIndicies[];
+
+unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false);
 
 
 struct Texture

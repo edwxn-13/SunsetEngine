@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../RenderingComponent.h"
-
+#include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
 class Object;
 
 class MeshComponent : public RenderingComponent 
@@ -13,6 +13,7 @@ public:
 	void loadMesh() override;
 	void setUpMesh() override;
 	void renderMesh(unsigned int shader) override;
+	SunsetShader sunsetShader;
 
 private:
 	unsigned int shaderProgram;

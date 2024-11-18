@@ -103,6 +103,9 @@
     <Filter Include="Source Files\Components\MeshRenderer">
       <UniqueIdentifier>{6111a4ef-511c-4ba9-9c0b-358c77c23818}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EngineObject\Primatives">
+      <UniqueIdentifier>{bb892540-c9fc-494e-9322-7ac715b7120b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -197,6 +200,9 @@
     </ClCompile>
     <ClCompile Include="Assets\MeshObject\SMeshObject.cpp">
       <Filter>Source Files\Assets\Objects\MeshObject</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineObjects\PrimativeObject\PrimativeObject.cpp">
+      <Filter>Source Files\EngineObject\Primatives</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -308,6 +314,9 @@
     <ClInclude Include="Assets\MeshObject\SMeshObject.h">
       <Filter>Source Files\Assets\Objects\MeshObject</Filter>
     </ClInclude>
+    <ClInclude Include="EngineObjects\PrimativeObject\PrimativeObject.h">
+      <Filter>Source Files\EngineObject\Primatives</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -322,6 +331,12 @@
     </None>
     <None Include="Maths\MathHeader.inl">
       <Filter>Source Files\Utils\Maths</Filter>
+    </None>
+    <None Include="Shaders\BasicShader\SimpleShader.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="Shaders\BasicShader\SimpleShader.frag">
+      <Filter>Source Files\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

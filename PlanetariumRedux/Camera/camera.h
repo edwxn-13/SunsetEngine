@@ -14,11 +14,13 @@ public:
 
 	glm::mat4 getCamViewMatrix();
 	glm::mat4 getSkyboxViewMatrix();
-
+	glm::mat4 CameraToScreenMatrixx();
 	float fov = 50.0f;
 
 	const float MovementSpeed = 5.5f;
 	float MouseSensitivity = 1.f;
+
+
 
 	static SCamera* getSceneCamera();
 

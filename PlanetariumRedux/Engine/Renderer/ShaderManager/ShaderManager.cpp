@@ -3,9 +3,14 @@
 #include "../../../Utils/shader.h"
 #include <GL/gl3w.h>
 
+
+
 SunsetShader::SunsetShader() 
 {
-	shader_program;
+	shader_program = CompileShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
+	diffuse = 1.0f;
+	bump = 0.2f;
+	specular = 1.0f;
 	sheen = 0.5; 
 	opacity = 1.0f;
 }
@@ -49,6 +54,15 @@ void SunsetShader::setMat(const char* name, glm::mat4 value)
 
 }
 
+void SunsetShader::setProperties()
+{
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_diffuse"), diffuse.x, diffuse.y, diffuse.z );
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_specular"), specular.x, specular.y, specular.z);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_bump"), bump.x, bump.y, bump.z);
+	glUniform1f(glGetUniformLocation(shader_program, "material.shininess"), sheen);
+	glUniform1f(glGetUniformLocation(shader_program, "material.opacity"), opacity);
+}
+
 void SunsetShader::useShader()
 {
 	glUseProgram(shader_program);
@@ -66,7 +80,7 @@ ShaderManager::ShaderManager()
 
 void ShaderManager::setupShaders()
 {
-	makeShader("Shaders/Textured/textured.vert", "Shaders/Textured/textured.frag");
+	makeShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
 	makeShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
 	makeShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
 	makeShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");

@@ -72,7 +72,7 @@ void Mesh::Draw(SunsetShader& shader, glm::mat4 position_matrix)
 
     // draw mesh
     glUniformMatrix4fv(glGetUniformLocation(shader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(position_matrix));
-
+    shader.setProperties();
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -165,7 +165,8 @@ std::vector<STexture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType
         if (!skip)
         {   // if texture hasn't been loaded already, load it
             STexture texture;
-            texture.id = CreateTexture(str.C_Str());
+            //texture.id = CreateTexture(str.C_Str());
+            TextureFromFile(str.C_Str(), this->directory);
             texture.type = typeName;
             texture.path = str.C_Str();
             textures.push_back(texture);

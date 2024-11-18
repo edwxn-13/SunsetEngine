@@ -23,5 +23,4 @@ private:
 	SCamera* parent_cam;
 	float yaw, pitch = 0;
 	float roll = 0.0f;
-
 };

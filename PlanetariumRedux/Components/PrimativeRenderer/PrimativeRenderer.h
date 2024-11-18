@@ -5,12 +5,12 @@
 
 class Object;
 class SunsetShader;
-class Plane : public RenderingComponent
+class PlaneRenderer : public RenderingComponent
 {
 public:
 
 
-	Plane(EngineObject* engineObject);
+	PlaneRenderer(EngineObject* engineObject, float &width, float &length);
 	void loadMesh() override;
 	void setUpMesh() override;
 	void renderMesh(unsigned int shader) override;

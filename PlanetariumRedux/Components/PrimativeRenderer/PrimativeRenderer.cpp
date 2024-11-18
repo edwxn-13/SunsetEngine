@@ -21,16 +21,17 @@ float plane_vertices[] =
 };
 
 
-Plane::Plane(EngineObject* engineObject) : RenderingComponent(engineObject)
+PlaneRenderer::PlaneRenderer(EngineObject* engineObject, float& width, float& length) : RenderingComponent(engineObject)
 {
-	
+	this->width = width;
+	this->length = length;
 }
 
-void Plane::loadMesh()
+void PlaneRenderer::loadMesh()
 {
 }
 
-void Plane::setUpMesh()
+void PlaneRenderer::setUpMesh()
 {
 	glCreateBuffers(1, &VBO);
 	glNamedBufferStorage(VBO, sizeof(plane_vertices), plane_vertices, 0);
@@ -43,8 +44,9 @@ void Plane::setUpMesh()
 	glEnableVertexAttribArray(1);
 }
 
-void Plane::renderMesh(unsigned int shader)
+void PlaneRenderer::renderMesh(unsigned int shader)
 {
+	sunsetShader.setProgram(shader);
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_DEPTH_CLAMP);
 	glEnable(GL_CULL_FACE);
@@ -59,8 +61,10 @@ void Plane::renderMesh(unsigned int shader)
 	glm::mat4 model = glm::mat4(5.f);
 
 	model = glm::rotate(model, (float)glfwGetTime() / 2,glm::vec3(0.0f,1.0f,0.0f));
-	glUniformMatrix4fv(glGetUniformLocation(sunsetShader.getProgram(), "camMat"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(glGetUniformLocation(sunsetShader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(transform->get_pos_mat()));
+
+	sunsetShader.setProperties();
+	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(transform->get_pos_mat()));
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBindVertexArray(VAO);

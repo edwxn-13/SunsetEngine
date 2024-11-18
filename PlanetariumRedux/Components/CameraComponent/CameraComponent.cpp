@@ -12,20 +12,21 @@
 CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) : Component(engineObject)
 {
 	component_id = 23;
-	localTransform->position = Vector3f(0, 9, 30);
+	localTransform->Translate(Vector3f(0, -9, -30));
 	parent_cam = camera;
 	input_controller = Input();
-
+	//localTransform->Rotate(0, 180, 0);
 }
 
 void CameraComponent::Start()
 {
-	
+
 }
 
 void CameraComponent::Update(float deltaTime)
 {
 	input_controller.Update();
+
 
 	if (input_controller.OnKeyPressed(GLFW_KEY_X)) 
 	{
@@ -70,8 +71,6 @@ void CameraComponent::Update(float deltaTime)
 			localTransform->position = localTransform->position - localTransform->forward() * 2.0f;
 		}
 
-		//roll = 0;
-
 		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
 		{
 			roll += -1.0f * 10.0f;
@@ -82,7 +81,6 @@ void CameraComponent::Update(float deltaTime)
 			roll += 1.0f * 10.0f;
 		}
 
-		//input_controller.OnKeyPressed(GLFW_KEY_V)
 		if (true)
 		{
 			Vector2f inputAxis = input_controller.getMouseInputXY();
@@ -94,7 +92,6 @@ void CameraComponent::Update(float deltaTime)
 
 			printf("\n angles - x . %f , y . %f, z . %f\n",
 				r_2_degrees(localTransform->getEulerAngles().x), r_2_degrees(localTransform->getEulerAngles().y), r_2_degrees(localTransform->getEulerAngles().z));
-
 		}
 
 		else 
@@ -107,5 +104,6 @@ void CameraComponent::Update(float deltaTime)
 
 void CameraComponent::FixedUpdate(float deltaTime)
 {
+
 }
 

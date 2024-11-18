@@ -63,6 +63,8 @@ public:
 
 	void Rotate(Vector3f angles);
 	void Rotate(Quaternion q);
+	void Rotate(float x, float y, float z);
+	void Translate(Vector3f trans);
 	void RotateAngleAxis(float angle, Vector3f axis);
 	void eulerRotate(Vector3f angles);
 

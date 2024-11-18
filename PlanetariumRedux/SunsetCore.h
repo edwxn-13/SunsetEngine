@@ -6,4 +6,4 @@
 #include "EngineObjects/EngineObject.h"
 #include "Maths/MathHeader.h"
 #include "Engine/EngineUtils.h"
-
+#include "EngineObjects/PrimativeObject/PrimativeObject.h"

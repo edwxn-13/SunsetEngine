@@ -10,7 +10,7 @@
 #include "ShipController.h"
 #include "../../../EngineObjects/EngineObject.h"
 #include "../../../Components/Rigidbody/Rigidbody.h"
-
+ 
 
 ShipController::ShipController(EngineObject* engineObject) : Component (engineObject)
 {

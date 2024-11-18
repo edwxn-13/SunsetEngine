@@ -43,31 +43,29 @@ void Transform::CopyTransform(Transform* b)
 
 void Transform::model_transform()
 {
-	//Transform tempTransform(engineObject);
-	//localTransform->CopyTransform(transform);
-
 	position_matrix = glm::mat4(1.f);
 
 	rotation.normalize();
 	eulerRotation = rotation.ToEulerAngles();
 
 	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
+	//localTransform->position = -localTransform->position;
 
-	position_matrix = glm::translate(position_matrix, localTransform->position.glm());
-	position_matrix = position_matrix * rotation_matrix;
+	position_matrix = glm::translate(position_matrix, -localTransform->position.glm());
+	position_matrix = position_matrix * (glm::inverse(rotation_matrix));
 	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
 
 	if (engineObject->relationships.getParent()) 
 	{
 		glm::mat4 parent_position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
-		transform->position_matrix = parent_position_matrix * position_matrix;
-
-
-		localTransform->rotation = transform->rotation * localTransform->rotation;
-		glm::vec4 location = parent_position_matrix * glm::vec4(localTransform->position.glm(),0);
-		transform->position = Vector3f(location);
+		glm::mat4 temp_pos_mat = parent_position_matrix * position_matrix;
+		transform->position_matrix = temp_pos_mat;
+		
+		transform->rotation = localTransform->rotation * engineObject->relationships.getParent()->transform.rotation;
+		
+		transform->position = Vector3f(temp_pos_mat[3][0], temp_pos_mat[3][1], temp_pos_mat[3][2]);
 	}
-
+	 
 	else
 	{
 		localTransform->CopyTransform(transform);
@@ -106,6 +104,13 @@ void Transform::Rotate(Vector3f angles)
 	rotation = w * rotation;
 }
 
+void Transform::Rotate(float x, float y, float z)
+{
+	Quaternion w = Quaternion::ToQuaternion(Vector3f(x,y,z));
+	//Quaternion w = Quaternion(glm::quat(angles.glm()));
+	rotation = w * rotation;
+}
+
 void Transform::RotateAngleAxis(float angle, Vector3f axis) 
 {
 	Quaternion w = Quaternion::AngleAxis(angle, axis.normal());
@@ -116,6 +121,11 @@ void Transform::Rotate(Quaternion q)
 {
 	rotation = q * rotation;
 	//rotation = rotation * q.conjugate();
+}
+
+void Transform::Translate(Vector3f trans)
+{
+	position = Vector3f(trans.x,trans.y,-trans.z);
 }
 
 void Transform::eulerRotate(Vector3f angles)

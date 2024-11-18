@@ -61,7 +61,8 @@ void MeshComponent::setUpMesh()
 
 void MeshComponent::renderMesh(unsigned int shader) 
 {
-	shaderProgram = shader;
+
+	sunsetShader.setProgram(shader);
 	for (int i = 0; i < objs.size(); i++)
 	{
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), objs[i].texture);
@@ -69,6 +70,8 @@ void MeshComponent::renderMesh(unsigned int shader)
 		glUniform1i(glGetUniformLocation(shaderProgram, "material.bump"), objs[i].bump);
 		glUniform1f(glGetUniformLocation(shaderProgram, "material.shininess"), 49.0f);
 		glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
+
+		sunsetShader.setProperties();
 
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, objs[i].texture);

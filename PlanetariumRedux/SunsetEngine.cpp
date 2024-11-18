@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Engine/EngineUtils.h"
 #include "Engine/Engine.h"
-
+#include "Utils/error.h"
 #define WIDTH 1024
 #define HEIGHT 900
 
@@ -26,6 +26,7 @@ void EngineLaunch()
 	glfwSetWindowSizeCallback(window, SizeCallback);
 	gl3wInit();
 	glEnable(GL_DEBUG_OUTPUT);
+	glDebugMessageCallback(DebguMessageCallback, 0);
 	Engine engine = Engine(window);
 	engine.EngineStart();
 }
