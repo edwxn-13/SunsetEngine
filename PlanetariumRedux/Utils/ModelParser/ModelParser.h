@@ -27,13 +27,14 @@ struct STexture {
 
 struct Mesh 
 {
+	SunsetMaterial Material;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<STexture> textures;
 
 	void Draw(SunsetShader& shader, glm::mat4 position_matrix);
 
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures , SunsetMaterial mat);
 
 private:
 	unsigned int VBO, VAO, EBO;

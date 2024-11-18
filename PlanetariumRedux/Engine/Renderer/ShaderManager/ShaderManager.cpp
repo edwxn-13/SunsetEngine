@@ -8,18 +8,18 @@
 SunsetShader::SunsetShader() 
 {
 	shader_program = CompileShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
-	diffuse = 1.0f;
+	diffuse = Vector3f(0.5f, 0.2f, 1.0f);
 	bump = 0.2f;
 	specular = 1.0f;
-	sheen = 0.5; 
+	sheen = 1.0f; 
 	opacity = 1.0f;
 }
 
 SunsetShader::SunsetShader(unsigned int compiled_shader)
 {
 	shader_program = compiled_shader;
-	sheen = 0.5;
-	opacity = 1.0f;
+	sheen = 0.2f;
+	opacity = 0.45f;
 }
 
 SunsetShader::SunsetShader(const char* vs, const char* fs)
@@ -56,11 +56,20 @@ void SunsetShader::setMat(const char* name, glm::mat4 value)
 
 void SunsetShader::setProperties()
 {
-	glUniform3f(glGetUniformLocation(shader_program, "material.v_diffuse"), diffuse.x, diffuse.y, diffuse.z );
-	glUniform3f(glGetUniformLocation(shader_program, "material.v_specular"), specular.x, specular.y, specular.z);
-	glUniform3f(glGetUniformLocation(shader_program, "material.v_bump"), bump.x, bump.y, bump.z);
-	glUniform1f(glGetUniformLocation(shader_program, "material.shininess"), sheen);
-	glUniform1f(glGetUniformLocation(shader_program, "material.opacity"), opacity);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_diffuse"), material.diffuse.x, material.diffuse.y, material.diffuse.z);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_specular"), material.specular.x, material.specular.y, material.specular.z);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_bump"), material.bump.x, material.bump.y, material.bump.z);
+	glUniform1f(glGetUniformLocation(shader_program, "material.shininess"), material.sheen);
+	glUniform1f(glGetUniformLocation(shader_program, "material.opacity"), material.opacity);
+}
+
+void SunsetShader::setProperties(SunsetMaterial mat)
+{
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_diffuse"), mat.diffuse.x, mat.diffuse.y, mat.diffuse.z);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_specular"), mat.specular.x, mat.specular.y, mat.specular.z);
+	glUniform3f(glGetUniformLocation(shader_program, "material.v_bump"), mat.bump.x, mat.bump.y, mat.bump.z);
+	glUniform1f(glGetUniformLocation(shader_program, "material.shininess"), mat.sheen);
+	glUniform1f(glGetUniformLocation(shader_program, "material.opacity"), mat.opacity);
 }
 
 void SunsetShader::useShader()

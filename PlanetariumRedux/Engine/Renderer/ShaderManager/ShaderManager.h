@@ -5,15 +5,15 @@
 
 struct SunsetMaterial 
 {
-	Vector3f diffuse;
-	Vector3f specular;
-	Vector3f bump;
-	float sheen;
-	float opacity;
+	Vector3f diffuse = 1;
+	Vector3f specular = 1;
+	Vector3f bump = 0.2;
+	float sheen = 0.24;
+	float opacity = 1;
 
-	float reflectivness;
-	float emission;
-	float ior;
+	float reflectivness = 0.1f;
+	float emission = 0.0f;
+	float ior = 0.05f;
 };
 
 class SunsetShader
@@ -44,6 +44,8 @@ public:
 	void setVector(const char* name, Vector3f value);
 	void setMat(const char* name, glm::mat4 value);
 	void setProperties();
+	void setProperties(SunsetMaterial mat);
+
 
 	void useShader();
 	unsigned int getProgram();

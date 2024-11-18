@@ -64,7 +64,7 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glm::mat4 view = glm::mat4(1.f);
 	view = camera->getCamViewMatrix();
 
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), 1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 1.0f, 1.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
@@ -100,8 +100,6 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			}
 		}
 	}
-	glEnable(GL_DEPTH_TEST);
-	glBindVertexArray(0);
 }
 
 void Renderer::RenderLoop(Scene* scene, float deltaTime)

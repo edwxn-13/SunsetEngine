@@ -52,7 +52,7 @@ void Transform::model_transform()
 	//localTransform->position = -localTransform->position;
 
 	position_matrix = glm::translate(position_matrix, -localTransform->position.glm());
-	position_matrix = position_matrix * (glm::inverse(rotation_matrix));
+	position_matrix = position_matrix * (rotation_matrix);
 	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
 
 	if (engineObject->relationships.getParent()) 

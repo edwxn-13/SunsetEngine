@@ -43,7 +43,7 @@ private:
 
 	float viscocity = 1.00016f;
 	float drag_coef = 0.3f;
-	float air_density = 0.25f;
+	float air_density = 0.65f;
 
 public:
 

@@ -43,50 +43,50 @@ void CameraComponent::Update(float deltaTime)
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_C))
 		{
-			localTransform->position = localTransform->position - localTransform->up() * 2.0f;
+			localTransform->position = localTransform->position - localTransform->up() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_SPACE))
 		{
-			localTransform->position = localTransform->position + localTransform->up() * 2.0f;
+			localTransform->position = localTransform->position + localTransform->up() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_A))
 		{
-			localTransform->position = localTransform->position - localTransform->right() * 2.0f;
+			localTransform->position = localTransform->position - localTransform->right() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_D))
 		{
-			localTransform->position = localTransform->position + localTransform->right() * 2.0f;
+			localTransform->position = localTransform->position + localTransform->right() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_W))
 		{
-			localTransform->position = localTransform->position + localTransform->forward() * 2.0f;
+			localTransform->position = localTransform->position + localTransform->forward() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_S))
 		{
-			localTransform->position = localTransform->position - localTransform->forward() * 2.0f;
+			localTransform->position = localTransform->position - localTransform->forward() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
 		{
-			roll += -1.0f * 10.0f;
+			roll += -1.0f * look_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_E))
 		{
-			roll += 1.0f * 10.0f;
+			roll += 1.0f * look_speed;
 		}
 
 		if (true)
 		{
 			Vector2f inputAxis = input_controller.getMouseInputXY();
 
-			yaw += 2.0f * input_controller.getMouseInputXY().x;
-			pitch += 2.0f * input_controller.getMouseInputXY().y;
+			yaw += look_speed * input_controller.getMouseInputXY().x;
+			pitch += look_speed * input_controller.getMouseInputXY().y;
 
 			localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
 

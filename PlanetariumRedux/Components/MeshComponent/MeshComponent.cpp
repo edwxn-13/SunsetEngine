@@ -63,13 +63,14 @@ void MeshComponent::renderMesh(unsigned int shader)
 {
 
 	sunsetShader.setProgram(shader);
+	sunsetShader.useShader();
 	for (int i = 0; i < objs.size(); i++)
 	{
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.diffuse"), objs[i].texture);
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.specular"), objs[i].specular);
-		glUniform1i(glGetUniformLocation(shaderProgram, "material.bump"), objs[i].bump);
-		glUniform1f(glGetUniformLocation(shaderProgram, "material.shininess"), 49.0f);
-		glUniform1f(glGetUniformLocation(shaderProgram, "opacity"), 1.0f);
+		sunsetShader.setInt("material.diffuse", objs[i].texture);
+		sunsetShader.setInt("material.specular", objs[i].specular);
+		sunsetShader.setInt("material.bump", objs[i].bump);
+		sunsetShader.setInt("material.diffuse", 49.0f);
+		sunsetShader.setInt("opacity", 1.0f);
 
 		sunsetShader.setProperties();
 
@@ -81,7 +82,7 @@ void MeshComponent::renderMesh(unsigned int shader)
 		glBindTexture(GL_TEXTURE_2D, objs[i].bump);
 
 		glBindVertexArray(objs[i].VAO);
-		glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(engineObject->transform.get_pos_mat()));
+		glUniformMatrix4fv(glGetUniformLocation(sunsetShader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(engineObject->transform.get_pos_mat()));
 		glDrawArrays(GL_TRIANGLES, 0, (objs[i].tris.size() * 3));
 	}
 }

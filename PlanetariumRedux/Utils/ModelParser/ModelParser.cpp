@@ -14,8 +14,9 @@
 std::vector<STexture> textures_loaded = {};
 
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<STexture> textures, SunsetMaterial mat)
 {
+    this->Material = mat;
     this->vertices = vertices;
     this->indices = indices;
     this->textures = textures;
@@ -72,7 +73,7 @@ void Mesh::Draw(SunsetShader& shader, glm::mat4 position_matrix)
 
     // draw mesh
     glUniformMatrix4fv(glGetUniformLocation(shader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(position_matrix));
-    shader.setProperties();
+    shader.setProperties(Material);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -104,6 +105,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     std::vector<Vertex> vertices;
     std::vector<unsigned int> indices;
     std::vector<STexture> textures;
+    SunsetMaterial mat;
 
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -135,6 +137,24 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
     if (mesh->mMaterialIndex >= 0)
     {
         aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
+
+        aiColor4D diffuse;
+        aiGetMaterialColor(material, AI_MATKEY_COLOR_DIFFUSE, &diffuse);
+        mat.diffuse = Vector3f(diffuse.r, diffuse.g, diffuse.b);
+
+        aiColor4D specular;
+        aiGetMaterialColor(material, AI_MATKEY_COLOR_SPECULAR, &specular);
+        mat.specular = Vector3f(specular.r, specular.g, specular.b);
+
+        float opacity;
+        aiGetMaterialFloat(material, AI_MATKEY_OPACITY, &opacity);
+        mat.opacity = 1.0f;
+
+        float sheen;
+        aiGetMaterialFloat(material, AI_MATKEY_SHININESS, &sheen);
+        mat.sheen = sheen;
+
         std::vector<STexture> diffuseMaps = loadMaterialTextures(material,aiTextureType_DIFFUSE, "texture_diffuse");
         textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
         std::vector<STexture> specularMaps = loadMaterialTextures(material,aiTextureType_SPECULAR, "texture_specular");
@@ -142,7 +162,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
         
     }
 
-    return Mesh(vertices, indices, textures);
+    return Mesh(vertices, indices, textures, mat);
 }
 
 std::vector<STexture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
