@@ -62,6 +62,7 @@ glm::mat4 SCamera::getSkyboxViewMatrix()
 	glm::mat4 projection = glm::mat4(1.f);
 	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX() / (float)Screen::getScreenY(), .01f, 10000.f);
 	glm::mat4 sky_view = glm::mat4(glm::mat3(view));
+
 	glm::mat4 skyboxView = projection * sky_view;
 
 	return skyboxView;

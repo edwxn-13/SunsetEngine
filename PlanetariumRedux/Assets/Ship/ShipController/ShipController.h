@@ -26,6 +26,10 @@ public:
 	void Update(float deltaTime) override;
 	void Thrust(float deltaTime);
 	void Vectoring(float deltaTime);
+	void Stablizing(float deltaTime);
+
+	Vector3f horizontal_velocity();
+	Vector3f vertical_velocity();
 
 private: 
 

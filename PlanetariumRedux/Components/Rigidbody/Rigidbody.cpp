@@ -11,7 +11,7 @@ Rigidbody::Rigidbody(EngineObject * engineObject) : Component(engineObject)
 void Rigidbody::Start()
 {
 	useGravity = false;
-	gravity = 2.4f;
+	gravity = 0.28f;
 }
 
 void Rigidbody::addForce(Vector3f force)
@@ -46,12 +46,12 @@ Vector3f Rigidbody::getVelocity()
 	return velocity;
 }
 
-void Rigidbody::calculate_drag()
+void Rigidbody::calculate_drag(float deltaTime)
 {
 
 	if (useAngularDrag) 
 	{
-		angular_drag_force = (torque * torque.magnitude()) * 0.5f * air_density * angular_drag_coef;
+		angular_drag_force = (torque * torque.magnitude()) * -0.5f * air_density * angular_drag_coef * deltaTime;
 	}
 
 	else { angular_drag_force = 0; }
@@ -60,10 +60,13 @@ void Rigidbody::calculate_drag()
 	{
 		float reynolds = air_density * viscocity * 20;
 
-		drag_force = (velocity * velocity.magnitude()) * -0.5 * air_density * drag_coef * reynolds;
+		drag_force = (velocity * velocity.magnitude()) * -0.5 * air_density * drag_coef * reynolds * deltaTime;
 	}
 
 	else { drag_force = 0; }
+
+	addTorque(angular_drag_force);
+	addForce(drag_force);
 }
 
 void Rigidbody::calculate_contact_force()
@@ -82,19 +85,13 @@ void Rigidbody::FixedUpdate(float deltaTime)
 {
 	if (useGravity)
 	{
-		addForce(g_vector * gravity * mass);
+		addForce(g_vector * gravity * mass * deltaTime);
 	}
 
-	calculate_drag();
-	if (drag_force.x != 0)
-	{
-		drag_coef = drag_coef;
-	}
-	torque = torque - angular_drag_force;
-
-	transform->Rotate(transform->right() * torque.x);
-	transform->Rotate(transform->up() * torque.y);
-	transform->Rotate(transform->forward() * torque.z);
+	calculate_drag(deltaTime);
+	transform->Rotate(transform->right() * torque.x * deltaTime);
+	transform->Rotate(transform->up() * torque.y * deltaTime);
+	transform->Rotate(transform->forward() * torque.z * deltaTime);
 
 	transform->position = transform->position + velocity * deltaTime;
 }

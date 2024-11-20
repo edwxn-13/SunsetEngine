@@ -7,8 +7,8 @@ struct SunsetMaterial
 {
 	Vector3f diffuse = 1;
 	Vector3f specular = 1;
-	Vector3f bump = 0.2;
-	float sheen = 0.24;
+	Vector3f bump = 0.75f;
+	float sheen = 0.24f;
 	float opacity = 1;
 
 	float reflectivness = 0.1f;

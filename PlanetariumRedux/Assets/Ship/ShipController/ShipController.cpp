@@ -20,7 +20,7 @@ ShipController::ShipController(EngineObject* engineObject) : Component (engineOb
 void ShipController::Start()
 {
 	ship_rigidbody = engineObject->getComponentOfType<Rigidbody>();
-	ship_rigidbody->mass = 12000.0f;
+	ship_rigidbody->mass = 4000.0f;
 	ship_stats = ShipStats();
 }
 
@@ -37,12 +37,12 @@ void ShipController::Update(float deltaTime)
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
 		{
-			roll = -1.0f;
+			roll = -3.0f;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_E))
 		{
-			roll = 1.0f;
+			roll = 3.0f;
 		}
 
 		Vector2f inputAxis = input_controller.getMouseInputXY();
@@ -101,6 +101,39 @@ void ShipController::Vectoring(float deltaTime)
 	}
 }
 
+void ShipController::Stablizing(float deltaTime)
+{
+	if (!input_controller.OnKeyPressed(GLFW_KEY_C))
+	{
+		ship_rigidbody->addForce(transform->up() * ship_stats.vector_thrust.vectoring_force * deltaTime);
+	}
+
+	if (!input_controller.OnKeyPressed(GLFW_KEY_SPACE))
+	{
+		ship_rigidbody->addForce(transform->up() * ship_stats.vector_thrust.vectoring_force * deltaTime);
+	}
+
+	if (!input_controller.OnKeyPressed(GLFW_KEY_A))
+	{
+		ship_rigidbody->addForce(transform->right() * -ship_stats.vector_thrust.vectoring_force * deltaTime);
+	}
+
+	if (!input_controller.OnKeyPressed(GLFW_KEY_D))
+	{
+		ship_rigidbody->addForce(transform->right() * ship_stats.vector_thrust.vectoring_force * deltaTime);
+	}
+}
+
+Vector3f ShipController::horizontal_velocity()
+{
+	return transform->right() * SunsetMath::Dot(transform->right(), ship_rigidbody->getVelocity());
+}
+
+Vector3f ShipController::vertical_velocity()
+{
+	return transform->up() * SunsetMath::Dot(transform->up(), ship_rigidbody->getVelocity());
+}
+
 void ShipController::FixedUpdate(float deltaTime)
 {
 	
@@ -114,7 +147,7 @@ void ShipController::ShipStats::ShipInit()
 	ship_modules.push_back(&thruster);
 	ship_modules.push_back(&reaction_control_sys);
 
-	thruster.specific_impulse = 2000;
-	vector_thrust.vectoring_force = 2000;
-	reaction_control_sys.rcs_torque = 7000;
+	thruster.specific_impulse = 12000;
+	vector_thrust.vectoring_force = 12000;
+	reaction_control_sys.rcs_torque = 12 * pow(10,3);
 }

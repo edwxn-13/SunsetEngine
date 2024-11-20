@@ -31,8 +31,7 @@ void EngineLaunch()
 	engine.EngineStart();
 }
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
 	EngineLaunch();
 	return 0;
 }

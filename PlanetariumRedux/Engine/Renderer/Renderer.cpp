@@ -72,6 +72,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
 		scene->UpdateScene(deltaTime, i);
+		
+
 		scene->FixedUpdate(deltaTime, i);
 
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
@@ -86,10 +88,17 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			}
 		}
 
+		if (CubeRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<CubeRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+			}
+		}
+
 		if (PlaneRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlaneRenderer>()) {
 			if (mesh)
 			{
-				//mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
 			}
 		}
 
@@ -127,6 +136,22 @@ void Renderer::preRenderSetUp(Scene* scene)
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
 		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
+			if (mesh)
+			{
+				mesh->loadMesh();
+				mesh->setUpMesh();
+			}
+		}
+
+		if (PlaneRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlaneRenderer>()) {
+			if (mesh)
+			{
+				mesh->loadMesh();
+				mesh->setUpMesh();
+			}
+		}
+
+		if (CubeRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<CubeRenderer>()) {
 			if (mesh)
 			{
 				mesh->loadMesh();

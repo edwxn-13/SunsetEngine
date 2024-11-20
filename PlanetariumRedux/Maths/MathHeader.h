@@ -41,6 +41,11 @@ namespace SunsetMath
 	inline float Dot(Quaternion q1, Quaternion q2);
 
 	inline Quaternion Slerp(Quaternion q1, Quaternion q2, float t);
+
+	inline float Dot(Vector3f a, Vector3f b);
+
+	inline float Magnitude(Vector3f a);
+
 };
 
 class Vector2f 

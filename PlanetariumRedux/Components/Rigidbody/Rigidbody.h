@@ -24,10 +24,10 @@ public:
 
 private:
 
-	void calculate_drag();	
+	void calculate_drag(float deltaTime);
 	void calculate_contact_force();
 
-	Vector3f g_vector;
+	Vector3f g_vector = (0,0,-1);
 
 	Vector3f velocity;
 	Vector3f old_velocity;
@@ -39,11 +39,11 @@ private:
 	Vector3f angular_drag_force;
 
 	float gravity = 9.8f;
-	float angular_drag_coef = 0.3f;
+	float angular_drag_coef = 27;
 
-	float viscocity = 1.00016f;
-	float drag_coef = 0.3f;
-	float air_density = 0.65f;
+	float viscocity = 1.70016f;
+	float drag_coef = 0.8f;
+	float air_density = 4.2f;
 
 public:
 

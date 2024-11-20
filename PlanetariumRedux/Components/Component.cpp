@@ -22,7 +22,7 @@ Vector3f Transform::right()
 
 Vector3f Transform::up()
 {
-	return Vector3f(glm::cross(right().glm(), forward().glm())).normal();
+	return -Vector3f(glm::cross(right().glm(), forward().glm())).normal();
 }
 
 Transform::Transform(EngineObject* engineObject, Vector3f pos, Vector3f rot, Vector3f s) : Component(engineObject)
@@ -49,9 +49,12 @@ void Transform::model_transform()
 	eulerRotation = rotation.ToEulerAngles();
 
 	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-	//localTransform->position = -localTransform->position;
 
-	position_matrix = glm::translate(position_matrix, -localTransform->position.glm());
+	//localTransform->position.z = localTransform->position.z;
+	glm::vec3 transformed_position = localTransform->position.glm();
+	//transformed_position.z = -transformed_position.z;
+
+	position_matrix = glm::translate(position_matrix, transformed_position);
 	position_matrix = position_matrix * (rotation_matrix);
 	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
 
