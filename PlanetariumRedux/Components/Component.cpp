@@ -45,46 +45,7 @@ void Transform::CopyTransform(Transform* b)
 	position_matrix = b->get_pos_mat();
 }
 
-void Transform::model_transform()
-{	
 
-	if (!engineObject->relationships.getParent()) 
-	{
-		if (!scene_cam)
-		{
-			scene_cam = SCamera::getSceneCamera();
-		}
-		else {
-
-			glm::vec3 pos = (position - scene_cam->getRootPosition()).glm();
-			position_matrix = glm::mat4(1.f);
-
-			rotation.normalize();
-			eulerRotation = rotation.ToEulerAngles();
-
-			glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-
-			position_matrix = glm::translate(position_matrix, pos);
-			position_matrix = position_matrix * (rotation_matrix);
-			position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
-
-			return;
-		}
-	}
-	
-	position_matrix = glm::mat4(1.f);
-
-	rotation.normalize();
-	eulerRotation = rotation.ToEulerAngles();
-
-	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-
-	glm::vec3 transformed_position = localTransform->position.glm();
-
-	position_matrix = glm::translate(position_matrix, transformed_position);
-	position_matrix = position_matrix * (rotation_matrix);
-	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
-}
 
 glm::mat4 Transform::get_pos_mat()
 {
@@ -101,11 +62,6 @@ void Transform::CalcGlobalTransform(glm::mat4 parent_transform)
 	glm::vec4 tempPosition = glm::vec4(localTransform->position.glm(), 1);
 	glm::vec4 globalPos = glm::inverse(parent_transform) * tempPosition;
 	transform->position = Vector3d(globalPos.x, globalPos.y, globalPos.z);
-}
-
-void Transform::Update(float deltaTime)
-{
-	model_transform();
 }
 
 void Transform::FloatingOrigin()
@@ -233,35 +189,63 @@ LocalTransform::LocalTransform(EngineObject* engineObject) : Transform(engineObj
 	position_matrix = glm::mat4(1.f);
 }
 
+void Transform::Update(float deltaTime)
+{
+	if (!engineObject->relationships.getParent())
+	{
+
+		glm::vec3 zeroed_pos; 
+
+		if (!scene_cam)
+		{
+			scene_cam = SCamera::getSceneCamera();
+			zeroed_pos = position.glm();
+		}
+
+		else 
+		{
+			Vector3d temp = position - scene_cam->getRootPosition();
+			zeroed_pos = temp.glm();
+		}
+
+		position_matrix = glm::mat4(1.0f);
+		position_matrix = glm::translate(position_matrix, zeroed_pos);
+
+		glm::mat4 rotation_matrix = Quaternion::RotationMatrix(rotation);
+
+		position_matrix = position_matrix * rotation_matrix;
+		position_matrix = glm::scale(position_matrix, scale.glm());
+	}
+
+	if (EngineObject* parent = engineObject->relationships.getParent())
+	{
+		glm::mat4 pt_mat = parent->transform.get_pos_mat();
+		position_matrix = pt_mat * localTransform->get_pos_mat();
+
+		glm::vec4 global_pos = glm::vec4(localTransform->position.glm(), 0.0f);
+		global_pos = glm::inverse(pt_mat) * global_pos;
+		position = Vector3d(global_pos.x, global_pos.y, global_pos.z);
+	}
+}
+
+void Transform::model_transform()
+{
+
+}
+
+
 void LocalTransform::Update(float deltaTime)
 {
-	position_matrix = glm::mat4(1.f);
-
-	rotation.normalize();
-	eulerRotation = rotation.ToEulerAngles();
-
-	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
-
-	glm::vec3 transformed_position = localTransform->position.glm();
-
-	position_matrix = glm::translate(position_matrix, transformed_position);
-	position_matrix = position_matrix * (rotation_matrix);
-	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
-
 	if (EngineObject * parent = engineObject->relationships.getParent())
 	{
-		glm::mat4 parent_position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
-		glm::mat4 temp_pos_mat = parent_position_matrix * position_matrix;
-		transform->position_matrix = temp_pos_mat;
+		glm::mat4 p_mat = glm::mat4(1.0f);
+		p_mat = glm::translate(p_mat, position.glm());
 
+		glm::mat4 rotation_matrix = Quaternion::RotationMatrix(rotation);
+		p_mat = p_mat * rotation_matrix;
+		p_mat = glm::scale(p_mat, scale.glm());
 
-		glm::vec4 tempPosition = glm::vec4(position.glm(), 1);
-		glm::vec4 globalPos = parent->transform.get_pos_mat() * tempPosition;
-		transform->position =  Vector3d(globalPos.x, globalPos.y, globalPos.z);
-
-		transform->rotation = localTransform->rotation * engineObject->relationships.getParent()->transform.rotation;
-
-		CalcGlobalTransform(parent_position_matrix);
+		position_matrix = p_mat;
 	}
 
 	else

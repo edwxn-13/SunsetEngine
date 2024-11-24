@@ -89,7 +89,7 @@ Vector3d EngineObject::getRootPosition()
 	{
 		return object->getRootPosition();
 	}
-	return transform.position_d;
+	return transform.position;
 }
 
 EngineObject* EngineObject::getGlobalObjectIndex(int i)
