@@ -20,7 +20,7 @@ void MainScene::InitScene()
 	SMeshObject * helemt = new SMeshObject("Assets/Models/ProtoHelmet/proto_helmet.dae", this);
 	helemt->transform.Rotate(Vector3f(0,180,0));
 	helemt->transform.scale = 40;
-	helemt->transform.Translate(Vector3f(50,0,0));
+	helemt->transform.Translate(Vector3d(50,0,0));
 
 	SMeshObject* ship = new SMeshObject("objs/fighter/fighter.obj", this);
 
@@ -33,7 +33,7 @@ void MainScene::InitScene()
 
 	ship->addComponent(new ShipController(ship));
 	ship->getTransform()->scale = Vector3f(1);
-	ship->getTransform()->position = Vector3f(0, 0, 100);
+	ship->getTransform()->position = Vector3d(0, 0, 100);
 	ship->addChild(Camera);
 
 	attachToScene(Camera);

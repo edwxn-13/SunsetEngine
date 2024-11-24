@@ -11,16 +11,16 @@ public:
 	void Start() override;
 	void Update(float deltaTime) override;
 	void FixedUpdate(float deltaTime) override;
+	
 
-
-	void addForce(Vector3f force);
+	void addForce(Vector3d force);
 	void addTorque(Vector3f t);
 	void setTorque(Vector3f t);
 
-	void setVelocity(Vector3f v);
+	void setVelocity(Vector3d v);
 	void setGravityVector(Vector3f downVector);
 	
-	Vector3f getVelocity();
+	Vector3d getVelocity();
 
 private:
 
@@ -29,10 +29,10 @@ private:
 
 	Vector3f g_vector = (0,0,-1);
 
-	Vector3f velocity;
-	Vector3f old_velocity;
+	Vector3d velocity;
+	Vector3d old_velocity;
 
-	Vector3f acceleration;
+	Vector3d acceleration;
 	Vector3f torque;
 
 	Vector3f drag_force;

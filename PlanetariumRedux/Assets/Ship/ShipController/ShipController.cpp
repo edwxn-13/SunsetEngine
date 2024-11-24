@@ -132,12 +132,12 @@ void ShipController::Stablizing(float deltaTime)
 
 Vector3f ShipController::horizontal_velocity()
 {
-	return transform->right() * SunsetMath::Dot(transform->right(), ship_rigidbody->getVelocity());
+	return transform->right() * SMath::Dot(transform->right(), ship_rigidbody->getVelocity());
 }
 
 Vector3f ShipController::vertical_velocity()
 {
-	return transform->up() * SunsetMath::Dot(transform->up(), ship_rigidbody->getVelocity());
+	return transform->up() * SMath::Dot(transform->up(), ship_rigidbody->getVelocity());
 }
 
 void ShipController::FixedUpdate(float deltaTime)

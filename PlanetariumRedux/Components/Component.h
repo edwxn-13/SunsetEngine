@@ -47,7 +47,7 @@ protected:
 class Transform : public Component
 {
 public:
-	Vector3f position;
+	Vector3d position;
 	Quaternion rotation;
 	Vector3f scale;
 
@@ -56,19 +56,20 @@ public:
 	Vector3f up();
 
 	Transform(EngineObject * engineObject);
-	Transform(EngineObject* engineObject, Vector3f pos, Vector3f rot, Vector3f s);
+	Transform(EngineObject* engineObject, Vector3d pos, Vector3f rot, Vector3f s);
 
 	void CopyTransform(Transform* b);
 	void model_transform();
 
 	void Update(float deltaTime) override;
+	void FloatingOrigin();
 	virtual void Start() override;
 	virtual void FixedUpdate(float deltaTime) override;
 
 	void Rotate(Vector3f angles);
 	void Rotate(Quaternion q);
 	void Rotate(float x, float y, float z);
-	void Translate(Vector3f trans);
+	void Translate(Vector3d trans);
 	void RotateAngleAxis(float angle, Vector3f axis);
 	void eulerRotate(Vector3f angles);
 
@@ -88,6 +89,7 @@ protected:
 	SCamera* scene_cam;
 
 	friend LocalTransform;
+	friend EngineObject;
 };
 
 class LocalTransform : public Transform 

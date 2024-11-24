@@ -141,16 +141,15 @@ namespace SunsetMath
 		if (Dot(q1, q2) < 0) q2 = Scale(q2, -1);
 		return (q1 * Pow((Inverse(q1) * q2), t));
 	}
-	float Dot(Vector3f a, Vector3f b)
+	inline float Dot(Vector3f a, Vector3f b)
 	{
 		float result = (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 		return result;
 	}
 
-	float Magnitude(Vector3f a)
+	inline float Magnitude(Vector3f a)
 	{
 		return sqrt(pow(a.x,2) + pow(a.y,2) + pow(a.z,2));
 	}
-
 };
 

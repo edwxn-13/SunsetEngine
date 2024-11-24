@@ -83,6 +83,15 @@ void EngineObject::LateUpdate(float deltaTime)
 	}
 }
 
+Vector3d EngineObject::getRootPosition()
+{
+	if (EngineObject * object = relationships.getParent())
+	{
+		return object->getRootPosition();
+	}
+	return transform.position_d;
+}
+
 EngineObject* EngineObject::getGlobalObjectIndex(int i)
 {
 	return object_list[i];

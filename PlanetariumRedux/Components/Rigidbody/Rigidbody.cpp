@@ -4,7 +4,7 @@
 
 Rigidbody::Rigidbody(EngineObject * engineObject) : Component(engineObject)
 {
-	velocity = Vector3f(0);
+	velocity = Vector3d(0);
 	Start();
 }
 
@@ -14,9 +14,9 @@ void Rigidbody::Start()
 	gravity = 0.28f;
 }
 
-void Rigidbody::addForce(Vector3f force)
+void Rigidbody::addForce(Vector3d force)
 {
-	Vector3f delta_v = force / mass;
+	Vector3d delta_v = force / mass;
 	velocity = velocity + delta_v;
 }
 
@@ -31,7 +31,7 @@ void Rigidbody::setTorque(Vector3f t)
 	torque = t;
 }
 
-void Rigidbody::setVelocity(Vector3f v)
+void Rigidbody::setVelocity(Vector3d v)
 {
 	velocity = v;
 }
@@ -41,7 +41,7 @@ void Rigidbody::setGravityVector(Vector3f downVector)
 	g_vector = downVector;
 }
 
-Vector3f Rigidbody::getVelocity()
+Vector3d Rigidbody::getVelocity()
 {
 	return velocity;
 }
@@ -60,7 +60,7 @@ void Rigidbody::calculate_drag(float deltaTime)
 	{
 		float reynolds = air_density * viscocity * 20;
 
-		drag_force = (velocity * velocity.magnitude()) * -0.5 * air_density * drag_coef * reynolds * deltaTime;
+		drag_force = (velocity.f() * velocity.magnitude()) * -0.5 * air_density * drag_coef * reynolds * deltaTime;
 	}
 
 	else { drag_force = 0; }
@@ -76,7 +76,7 @@ void Rigidbody::calculate_contact_force()
 
 void Rigidbody::Update(float deltaTime)
 {
-	Vector3f current_v = velocity;
+	Vector3d current_v = velocity.f();
 	acceleration = current_v - old_velocity;
 	old_velocity = velocity;
 }

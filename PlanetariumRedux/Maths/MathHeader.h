@@ -38,7 +38,7 @@ namespace SunsetMath
 
 	inline Quaternion Pow(Quaternion q, float n);
 
-	inline Vector3f RotatePoint(Vector3f a,Quaternion q);
+	inline Vector3f RotatePoint(Vector3f a, Quaternion q);
 
 
 	inline float Dot(Quaternion q1, Quaternion q2);
@@ -48,6 +48,7 @@ namespace SunsetMath
 	inline float Dot(Vector3f a, Vector3f b);
 
 	inline float Magnitude(Vector3f a);
+
 };
 
 class Vector2f 

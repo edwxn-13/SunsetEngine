@@ -356,5 +356,8 @@
     <None Include="Shaders\BasicShader\SimpleShader.frag">
       <Filter>Source Files\Shaders</Filter>
     </None>
+    <None Include="Maths\Vector3d.inl">
+      <Filter>Source Files\Utils\Maths</Filter>
+    </None>
   </ItemGroup>
 </Project>

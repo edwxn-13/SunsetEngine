@@ -3,6 +3,7 @@
 #include <GL/gl3w.h>
 #include "../../Utils/texture.h"
 #include "../../Maths/MathHeader.h"
+#include "../../Maths/Vector3d.h"
 class EngineObject;
 
 class Scene
@@ -22,7 +23,7 @@ public:
 
 	static Scene* getScene(int index);
 
-	void Instantiate(EngineObject * engineObject, Vector3f position, Vector3f rotation);
+	void Instantiate(EngineObject * engineObject, Vector3d position, Vector3f rotation);
 
 	std::vector<EngineObject*> SceneMembers;
 	Skybox* getSkybox();

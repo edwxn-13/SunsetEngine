@@ -215,6 +215,7 @@
   <ItemGroup>
     <None Include="EngineObjects\EngineObject.inl" />
     <None Include="Maths\MathHeader.inl" />
+    <None Include="Maths\Vector3d.inl" />
     <None Include="README.md" />
     <None Include="Shaders\BasicShader\SimpleShader.frag" />
     <None Include="Shaders\BasicShader\SimpleShader.vert" />

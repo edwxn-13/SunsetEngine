@@ -68,12 +68,6 @@ glm::mat4 SCamera::getSkyboxViewMatrix()
 	return skyboxView;
 }
 
-Vector3f SCamera::getPosition()
-{
-
-	return transform.position;
-}
-
 SCamera* SCamera::getSceneCamera()
 {
 	return p_camera;

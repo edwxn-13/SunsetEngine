@@ -51,6 +51,8 @@ public:
 	void FixedUpdate(float deltaTime);
 	void LateUpdate(float deltaTime);
 
+	Vector3d getRootPosition();
+
 	static EngineObject* getGlobalObjectIndex(int i);
 	static int getObjectListSize();
 	LocalTransform localTransform;
