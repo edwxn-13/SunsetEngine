@@ -6,6 +6,8 @@
 
 class EngineObject;
 class Transform;
+class LocalTransform;
+
 class SCamera; 
 
 enum ComponentName
@@ -32,7 +34,7 @@ public:
 	int get_id() { return component_id; }
 	bool isActive();
 
-	Transform* localTransform;
+	LocalTransform* localTransform;
 	Transform* transform;
 protected:
 	EngineObject* engineObject;
@@ -84,6 +86,8 @@ protected:
 	Vector3f eulerRotation;
 	glm::mat4 position_matrix;
 	SCamera* scene_cam;
+
+	friend LocalTransform;
 };
 
 class LocalTransform : public Transform 

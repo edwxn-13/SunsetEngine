@@ -53,7 +53,7 @@ public:
 
 	static EngineObject* getGlobalObjectIndex(int i);
 	static int getObjectListSize();
-	Transform localTransform;
+	LocalTransform localTransform;
 	Transform transform;
 	ObjectFamily relationships;
 

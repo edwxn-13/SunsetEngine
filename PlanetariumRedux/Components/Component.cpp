@@ -224,14 +224,43 @@ void Component::FixedUpdate(float deltaTime)
 
 LocalTransform::LocalTransform(EngineObject* engineObject) : Transform(engineObject)
 {
-
-}
-
-void LocalTransform::Update(float deltaTime)
-{
 	position_d = Vector3d(0);
 	position = Vector3f(0);
 	eulerRotation = Vector3f(0);
 	scale = Vector3f(1);
 	position_matrix = glm::mat4(1.f);
+}
+
+void LocalTransform::Update(float deltaTime)
+{
+	position_matrix = glm::mat4(1.f);
+
+	rotation.normalize();
+	eulerRotation = rotation.ToEulerAngles();
+
+	glm::mat4 rotation_matrix = Quaternion::RotationMatrix(localTransform->rotation);
+
+	//localTransform->position.z = localTransform->position.z;
+	glm::vec3 transformed_position = localTransform->position.glm();
+	//transformed_position.z = -transformed_position.z;
+
+	position_matrix = glm::translate(position_matrix, transformed_position);
+	position_matrix = position_matrix * (rotation_matrix);
+	position_matrix = glm::scale(position_matrix, localTransform->scale.glm());
+
+	if (engineObject->relationships.getParent())
+	{
+		glm::mat4 parent_position_matrix = engineObject->relationships.getParent()->transform.position_matrix;
+		glm::mat4 temp_pos_mat = parent_position_matrix * position_matrix;
+		transform->position_matrix = temp_pos_mat;
+
+		transform->rotation = localTransform->rotation * engineObject->relationships.getParent()->transform.rotation;
+
+		CalcGlobalTransform(parent_position_matrix);
+	}
+
+	else
+	{
+		localTransform->CopyTransform(transform);
+	}
 }
