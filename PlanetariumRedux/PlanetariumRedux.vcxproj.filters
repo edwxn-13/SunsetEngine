@@ -94,9 +94,6 @@
     <Filter Include="Source Files\Assets\Components\ShipController">
       <UniqueIdentifier>{47ea44f3-8058-4d69-bf70-2b74dec9e685}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components\Physics">
-      <UniqueIdentifier>{0261384d-cf81-4f8c-a1ad-c120b93abb61}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Utils\ModelParser">
       <UniqueIdentifier>{744e0abb-ee33-4ad1-9698-17e9d17da1d2}</UniqueIdentifier>
     </Filter>
@@ -105,6 +102,12 @@
     </Filter>
     <Filter Include="Source Files\EngineObject\Primatives">
       <UniqueIdentifier>{bb892540-c9fc-494e-9322-7ac715b7120b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{0261384d-cf81-4f8c-a1ad-c120b93abb61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\BoxCollider">
+      <UniqueIdentifier>{9f7a0f11-b73e-461d-a844-73d0b63f5044}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +206,12 @@
     </ClCompile>
     <ClCompile Include="EngineObjects\PrimativeObject\PrimativeObject.cpp">
       <Filter>Source Files\EngineObject\Primatives</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Collider\BoxCollider\BoxCollider.cpp">
+      <Filter>Source Files\Physics\BoxCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Collider\ColliderManager.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +325,15 @@
     </ClInclude>
     <ClInclude Include="EngineObjects\PrimativeObject\PrimativeObject.h">
       <Filter>Source Files\EngineObject\Primatives</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Collider\BoxCollider\BoxCollider.h">
+      <Filter>Source Files\Physics\BoxCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Collider\ColliderManager.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\Vector3d.h">
+      <Filter>Source Files\Utils\Maths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

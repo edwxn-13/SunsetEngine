@@ -18,6 +18,7 @@ public:
 	void RenderShadows(Scene* scene);
 	void RenderTrans(Scene* scene);
 	void RenderGeneral(Scene* scene, float deltaTime);
+	void RenderDebug(Scene * scene, float deltaTime);
 
 	void RenderLoop(Scene * scene, float deltaTime);
 

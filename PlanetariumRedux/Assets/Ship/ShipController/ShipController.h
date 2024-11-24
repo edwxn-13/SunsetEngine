@@ -61,7 +61,6 @@ private:
 
 	float throttle = 0.0f;
 	float max_throttle = 1.0f;
-	//float throttle_direction = 1.0f;
 
 	bool inertial_dampners = true;
 	

@@ -20,7 +20,7 @@ public:
 	const float MovementSpeed = 5.5f;
 	float MouseSensitivity = 1.f;
 
-
+	Vector3f getPosition();
 
 	static SCamera* getSceneCamera();
 

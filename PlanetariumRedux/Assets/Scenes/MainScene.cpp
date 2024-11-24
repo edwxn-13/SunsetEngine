@@ -32,7 +32,7 @@ void MainScene::InitScene()
 	attachToScene(cube);
 
 	ship->addComponent(new ShipController(ship));
-	ship->getTransform()->scale = Vector3f(0.2);
+	ship->getTransform()->scale = Vector3f(1);
 	ship->getTransform()->position = Vector3f(0, 0, 100);
 	ship->addChild(Camera);
 

@@ -2,8 +2,11 @@
 
 #include <vector>
 #include "../Maths/MathHeader.h"
+#include "../Maths/Vector3d.h"
+
 class EngineObject;
 class Transform;
+class SCamera; 
 
 enum ComponentName
 {
@@ -41,7 +44,6 @@ protected:
 
 class Transform : public Component
 {
-
 public:
 	Vector3f position;
 	Quaternion rotation;
@@ -74,10 +76,22 @@ public:
 
 	glm::mat4 get_pos_mat();
 	void set_pos_mat(glm::mat4);
-private:
+protected:
 
+	void CalcGlobalTransform(glm::mat4 parent_transform);
+
+	Vector3d position_d;
 	Vector3f eulerRotation;
 	glm::mat4 position_matrix;
+	SCamera* scene_cam;
+};
+
+class LocalTransform : public Transform 
+{
+public:
+	LocalTransform(EngineObject* engineObject);
+	void Update(float deltaTime) override;
+
 
 };
 

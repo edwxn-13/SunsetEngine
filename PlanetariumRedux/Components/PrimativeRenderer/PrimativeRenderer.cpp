@@ -9,19 +9,16 @@
 float plane_vertices[] =
 {
 	//t1				
-	//pos					//tex
-	-0.9f, 0.9f, 0.f,	0.f, 1.f, 0.0f,		0.0f, 0.0f, 1.0f,		//tl
-	0.9f, 0.9f, 0.f,	1.f, 1.f, 0.0f,		0.0f, 0.0f, 1.0f,		//tr
-	0.9f, -0.9f, 0.f,	1.f, 0.f, 0.0f,		0.0f, 0.0f, 1.0f,		//br
+	//pos				//tex				//oo
+	-0.9f, 0.9f, 0.f,	0.f, 1.f, 0.0f,		0.0f, 0.0f, 1.0f,	//tl
+	0.9f, 0.9f, 0.f,	1.f, 1.f, 0.0f,		0.0f, 0.0f, 1.0f,	//tr
+	0.9f, -0.9f, 0.f,	1.f, 0.f, 0.0f,		0.0f, 0.0f, 1.0f,	//br
 	//t2					
 	//pos					//tex
 	-0.9f, 0.9f, 0.f,	0.0f, 0.0f, -1.0f,	0.f , 1.f,0.0f,	//tl
 	0.9f, -0.9f, 0.f,	0.0f, 0.0f, -1.0f,	1.f, 0.f,0.0f,	//br
 	-0.9f,-0.9f, 0.f,	0.0f, 0.0f, -1.0f,	0.f, 0.f,0.0f	//bl
 };
-
-
-
 
 
 PlaneRenderer::PlaneRenderer(EngineObject* engineObject, float& width, float& length) : RenderingComponent(engineObject)

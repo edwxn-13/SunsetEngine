@@ -95,7 +95,7 @@ int EngineObject::getObjectListSize()
 
 ObjectFamily::ObjectFamily()
 {
-	
+	parent = nullptr;
 }
 
 EngineObject* ObjectFamily::getParent()

@@ -111,6 +111,11 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	}
 }
 
+void Renderer::RenderDebug(Scene* scene, float deltaTime)
+{
+
+}
+
 void Renderer::RenderLoop(Scene* scene, float deltaTime)
 {
 	clear();

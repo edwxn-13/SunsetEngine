@@ -124,6 +124,13 @@ namespace SunsetMath
 		return Quaternion::Exp(Quaternion::Scale(Quaternion::Log(q), n));
 	}
 
+	Vector3f RotatePoint(Vector3f a, Quaternion q)
+	{
+		Quaternion v = Quaternion(0,a.x,a.y,a.z);
+		Quaternion result = q * v * q.conjugate();
+		return Vector3f(result.x, result.y, result.z);
+	}
+
 	inline float Dot(Quaternion q1, Quaternion q2) {
 		return q1.x * q2.x + q1.y * q2.y + q1.z * q2.z + q1.w * q2.w;
 	}
@@ -144,4 +151,6 @@ namespace SunsetMath
 	{
 		return sqrt(pow(a.x,2) + pow(a.y,2) + pow(a.z,2));
 	}
+
 };
+

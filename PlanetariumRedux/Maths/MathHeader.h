@@ -38,6 +38,9 @@ namespace SunsetMath
 
 	inline Quaternion Pow(Quaternion q, float n);
 
+	inline Vector3f RotatePoint(Vector3f a,Quaternion q);
+
+
 	inline float Dot(Quaternion q1, Quaternion q2);
 
 	inline Quaternion Slerp(Quaternion q1, Quaternion q2, float t);
@@ -45,7 +48,6 @@ namespace SunsetMath
 	inline float Dot(Vector3f a, Vector3f b);
 
 	inline float Magnitude(Vector3f a);
-
 };
 
 class Vector2f 
@@ -54,6 +56,8 @@ public:
 	Vector2f() { x = y = 0; }
 	Vector2f(float f) { x = y = f; }
 	Vector2f(float X, float Y) { x = X; y = Y; }
+
+	
 
 	inline Vector2f operator+= (const glm::vec2& c) const
 	{
@@ -158,6 +162,7 @@ public:
 	float x, y;
 };
 
+
 class Vector3f 
 {
 public:
@@ -175,6 +180,8 @@ public:
 	Vector3f(float X, float Y, float Z) { x = X; y = Y; z = Z; }
 
 	Vector3f(glm::vec3 v) { x = v.x; y = v.y; z = v.z; }
+
+	//Vector3f(Vector3d v) { x = v.x; y = v.y; z = v.z; }
 
 	glm::vec3 glm() { return glm::vec3(x, y, z); }
 
@@ -205,6 +212,25 @@ public:
 		result.z = this->z - c.z;
 		return result;
 	}
+
+	/*
+	inline Vector3f operator- (const Vector3d& c) const
+	{
+		Vector3f result;
+		result.x = this->x - c.x;
+		result.y = this->y - c.y;
+		result.z = this->z - c.z;
+		return result;
+	}
+
+	inline Vector3f operator+ (const Vector3d& c) const
+	{
+		Vector3f result = *this;
+		result.x = this->x + c.x;
+		result.y = this->y + c.y;
+		result.z = this->z + c.z;
+		return result;
+	}*/
 
 	inline Vector3f operator+= (const Vector3f& c) const
 	{

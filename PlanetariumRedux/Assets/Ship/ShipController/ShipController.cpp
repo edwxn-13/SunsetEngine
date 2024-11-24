@@ -29,6 +29,12 @@ void ShipController::Update(float deltaTime)
 	input_controller.Update();
 	float yaw, roll, pitch = 0.0f;
 
+	printf("pos x: %f, y: %f, z: %f  - velocity : %f  -  DFO - %f\n", 
+		transform->position.x, transform->position.y, transform->position.z,
+		ship_rigidbody->getVelocity().magnitude(), transform->position.magnitude());
+	//system("cls");
+
+
 	roll = 0.0f;
 
 	if (!input_controller.OnKeyPressed(GLFW_KEY_V)) {
@@ -147,7 +153,7 @@ void ShipController::ShipStats::ShipInit()
 	ship_modules.push_back(&thruster);
 	ship_modules.push_back(&reaction_control_sys);
 
-	thruster.specific_impulse = 12000;
+	thruster.specific_impulse = 36000;
 	vector_thrust.vectoring_force = 12000;
 	reaction_control_sys.rcs_torque = 12 * pow(10,3);
 }

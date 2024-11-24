@@ -12,10 +12,9 @@
 CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) : Component(engineObject)
 {
 	component_id = 23;
-	localTransform->Translate(Vector3f(0, -9, -30));
+	localTransform->Translate(Vector3f(20, 0, 0));
 	parent_cam = camera;
 	input_controller = Input();
-	//localTransform->Rotate(0, 180, 0);
 }
 
 void CameraComponent::Start()
@@ -27,11 +26,9 @@ void CameraComponent::Update(float deltaTime)
 {
 	input_controller.Update();
 
-
 	if (input_controller.OnKeyPressed(GLFW_KEY_X)) 
 	{
 		parent_cam->fov = SunsetMath::Lerp(parent_cam->fov, 32, 0.2f);
-
 	}
 
 	else 
@@ -89,9 +86,6 @@ void CameraComponent::Update(float deltaTime)
 			pitch += look_speed * input_controller.getMouseInputXY().y;
 
 			localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
-
-			printf("\n angles - x . %f , y . %f, z . %f\n",
-				r_2_degrees(localTransform->getEulerAngles().x), r_2_degrees(localTransform->getEulerAngles().y), r_2_degrees(localTransform->getEulerAngles().z));
 		}
 
 		else 

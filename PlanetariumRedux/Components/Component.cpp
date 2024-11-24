@@ -1,9 +1,10 @@
 #include "Component.h"
 #include "../EngineObjects/EngineObject.h"
 #include <glm/ext/matrix_transform.hpp>
-
+#include "../Camera/camera.h"
 Transform::Transform(EngineObject* engineObject) : Component(engineObject)
 {
+	position_d = Vector3d(0);
 	position = Vector3f(0);
 	eulerRotation = Vector3f(0);
 	scale = Vector3f(1);
@@ -31,18 +32,39 @@ Transform::Transform(EngineObject* engineObject, Vector3f pos, Vector3f rot, Vec
 	eulerRotation = rot;
 	scale = s;
 	position_matrix = glm::mat4(1.f);
+	scene_cam = nullptr;
 }
 
 void Transform::CopyTransform(Transform* b)
 {
 	position = b->position;
+	position_d = b->position_d;
+
 	rotation = b->rotation;
 	scale = b->scale;
 	position_matrix = b->get_pos_mat();
 }
 
 void Transform::model_transform()
-{
+{	
+	/*
+	if (!scene_cam) 
+	{
+		scene_cam = SCamera::getSceneCamera();
+	}
+
+	position_d = position_d + position;
+
+	if (scene_cam) 
+	{
+		position = position - scene_cam->getPosition();
+	}
+
+	else 
+	{
+		position = position - 0;
+	}*/
+
 	position_matrix = glm::mat4(1.f);
 
 	rotation.normalize();
@@ -66,7 +88,7 @@ void Transform::model_transform()
 		
 		transform->rotation = localTransform->rotation * engineObject->relationships.getParent()->transform.rotation;
 		
-		transform->position = Vector3f(temp_pos_mat[3][0], temp_pos_mat[3][1], temp_pos_mat[3][2]);
+		CalcGlobalTransform(parent_position_matrix);
 	}
 	 
 	else
@@ -83,6 +105,13 @@ glm::mat4 Transform::get_pos_mat()
 void Transform::set_pos_mat(glm::mat4 mat)
 {
 	position_matrix = mat;
+}
+
+void Transform::CalcGlobalTransform(glm::mat4 parent_transform)
+{
+	glm::vec4 tempPosition = glm::vec4(localTransform->position.glm(), 1);
+	glm::vec4 globalPos = glm::inverse(parent_transform) * tempPosition;
+	transform->position = Vector3f(globalPos.x, globalPos.y, globalPos.z);
 }
 
 void Transform::Update(float deltaTime)
@@ -128,7 +157,7 @@ void Transform::Rotate(Quaternion q)
 
 void Transform::Translate(Vector3f trans)
 {
-	position = Vector3f(trans.x,trans.y,-trans.z);
+	position = Vector3f(trans.x,trans.y,trans.z);
 }
 
 void Transform::eulerRotate(Vector3f angles)
@@ -193,3 +222,16 @@ void Component::FixedUpdate(float deltaTime)
 {
 }
 
+LocalTransform::LocalTransform(EngineObject* engineObject) : Transform(engineObject)
+{
+
+}
+
+void LocalTransform::Update(float deltaTime)
+{
+	position_d = Vector3d(0);
+	position = Vector3f(0);
+	eulerRotation = Vector3f(0);
+	scale = Vector3f(1);
+	position_matrix = glm::mat4(1.f);
+}
