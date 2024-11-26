@@ -42,6 +42,35 @@ void Renderer::RenderSkybox(Scene* scene)
 	scene->getSkybox()->renderCubemap(shader_manager.getSunsetShader(1)->getProgram(), camera);
 }
 
+void Renderer::RenderPlanets(Scene* scene)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	shader_manager.getSunsetShader(2)->useShader();
+	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
+	glm::mat4 view = glm::mat4(1.f);
+	view = camera->getCamViewMatrix();
+
+	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 5200.0f, 15000.0f);
+	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
+
+	for (int i = 0; i < scene->SceneMembers.size(); i++)
+	{
+		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
+		if (distance_from_cam > RenderingDistance)
+		{
+		}
+
+		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(2)->getProgram());
+			}
+		}
+	}
+}
+
 void Renderer::CreateShadowMap(Scene* scene)
 {
 }
@@ -57,6 +86,10 @@ void Renderer::RenderTrans(Scene* scene)
 void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 {
 
+	if (deltaTime > 1) 
+	{
+		deltaTime = 0.001;
+	}
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(0)->useShader();
 	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
@@ -65,7 +98,7 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glm::mat4 view = glm::mat4(1.f);
 	view = camera->getCamViewMatrix();
 
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 1.0f, 1.0f);
+	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 5200.0f, 15000.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
 	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
@@ -73,20 +106,11 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
 		scene->UpdateScene(deltaTime, i);
-		
-
 		scene->FixedUpdate(deltaTime, i);
 
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
 		if (distance_from_cam > RenderingDistance)
 		{
-		}
-
-		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
-			if (mesh)
-			{
-				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
-			}
 		}
 
 		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
@@ -130,6 +154,7 @@ void Renderer::RenderLoop(Scene* scene, float deltaTime)
 	RenderSkybox(scene);
 	CreateShadowMap(scene);
 	RenderTrans(scene);
+	RenderPlanets(scene);
 	RenderGeneral(scene, deltaTime);
 	RenderShadows(scene);
 }

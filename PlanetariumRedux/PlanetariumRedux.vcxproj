@@ -164,6 +164,7 @@
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Utility\Time.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
+    <ClCompile Include="Maths\SimplexNoise.cpp" />
     <ClCompile Include="Physics\Collider\BoxCollider\BoxCollider.cpp" />
     <ClCompile Include="Physics\Collider\ColliderManager.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Engine\Utility\Time.h" />
     <ClInclude Include="Maths\MathHeader.h" />
+    <ClInclude Include="Maths\SimplexNoise.h" />
     <ClInclude Include="Maths\Vector3d.h" />
     <ClInclude Include="Physics\Collider\BoxCollider\BoxCollider.h" />
     <ClInclude Include="Physics\Collider\ColliderManager.h" />

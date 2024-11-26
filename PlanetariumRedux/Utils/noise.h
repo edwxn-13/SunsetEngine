@@ -3,29 +3,6 @@
 #include <cstdlib> 
 #include <ctime> 
 #include <iostream>
-#include "obj.h"
-#include "../Maths/MathHeader.h"
-float randomFloat(float min, float max) 
-{
-
-	max = max + 100;
-	srand((unsigned)time(0));
-	float result = (float)((rand() % (int)max) + 1) / 100;
-	return result;
-}
-
-float adjust(int index) 
-{
-	return glm::sin(randomFloat(0, index));
-}
-
-int random(int index)
-{
-	int forsep = index + 10;
-	int res = forsep + (rand() % 100);
-	return res;
-}
-
 
 class PerlinClass 
 {
@@ -39,8 +16,8 @@ class PerlinClass
 	float* noiseSeed2D = nullptr;
 	float* perlinNoise2D =  nullptr;
 
-	int outputWidth = 4000;
-	int outputHeight = 4000;
+	int outputWidth = 2000;
+	int outputHeight = 2000;
 
 	int nMode = 1;
 public:
@@ -59,10 +36,10 @@ public:
 
 	float getNoise(float x, float y) 
 	{
-		int x_c = x * outputWidth / 10;
-		int y_c = y * outputWidth / 10;
+		int x_c = x * outputWidth;
+		int y_c = y * outputHeight;
 
-		return perlinNoise2D[x_c * y_c];
+		return perlinNoise2D[y_c * outputWidth + x_c];
 	}
 
 	void discard() 
@@ -125,10 +102,10 @@ public:
 				}
 
 				output[y * width + x] = fNoise / fScaleeAcc;
-				//cout << output[y * width + x] << " ";
+				//std::cout << output[y * width + x] << " ";
 			}
 
-		//cout << "\n" << " newline ";
+		//std::cout << "\n" << " newline ";
 
 	}
 	void PerlinNoise1D(int nCount, float* seed, int octave, float fBias, float* output)
@@ -158,15 +135,3 @@ public:
 		}
 	}
 };
-
-vec3 randheight(float noise, vec3 sufNorm) 
-{
-	vec3 result = vec3(0,0,0);
-	//glm::perlin();
-	vec3 surface = sufNorm;
-	float multi =  1 + noise;
-	result.x =  (sufNorm.x * multi) * 0.1;
-	result.y =  (sufNorm.y * multi) * 0.1;
-	result.z =  (sufNorm.z * multi) * 0.1;
-	return result;
-}

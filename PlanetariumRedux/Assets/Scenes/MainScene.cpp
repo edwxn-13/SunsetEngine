@@ -39,7 +39,7 @@ void MainScene::InitScene()
 
 	Planet* planet = new Planet(this);
 
-	planet->transform.Translate(Vector3d(12300,0,0));
+	planet->transform.Translate(Vector3d(24500,0,0));
 
 	planet->transform.scale = 12000;
 

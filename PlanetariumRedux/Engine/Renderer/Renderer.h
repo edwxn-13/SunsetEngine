@@ -14,6 +14,7 @@ public:
 	void setActiveCamera();
 
 	void RenderSkybox(Scene* scene);
+	void RenderPlanets(Scene * scene);
 	void CreateShadowMap(Scene* scene);
 	void RenderShadows(Scene* scene);
 	void RenderTrans(Scene* scene);

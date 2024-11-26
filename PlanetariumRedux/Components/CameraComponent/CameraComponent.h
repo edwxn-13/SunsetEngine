@@ -23,6 +23,6 @@ private:
 	SCamera* parent_cam;
 	float yaw, pitch = 0;
 	float roll = 0.0f;
-	float move_speed = 0.8f;
+	float move_speed = 5.0f;
 	float look_speed = 1.2f;
 };

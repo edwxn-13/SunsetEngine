@@ -10,7 +10,7 @@ SunsetShader::SunsetShader()
 	shader_program = CompileShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
 	diffuse = Vector3f(0.5f, 0.2f, 1.0f);
 	bump = 0.2f;
-	specular = 1.0f;
+	specular = 0.6f;
 	sheen = 1.0f; 
 	opacity = 1.0f;
 }
@@ -91,6 +91,8 @@ void ShaderManager::setupShaders()
 {
 	makeShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
 	makeShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
+	makeShader("Shaders/PlanetShader/PlanetShader.vert", "Shaders/PlanetShader/PlanetShader.frag");
+
 	makeShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
 	makeShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
 	makeShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");

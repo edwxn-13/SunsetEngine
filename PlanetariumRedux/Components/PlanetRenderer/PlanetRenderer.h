@@ -2,23 +2,53 @@
 #include "../RenderingComponent.h"
 #include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
 #include "../../Utils/ModelParser/ModelParser.h"
+#include "../../Utils/noise.h"
+#include "../../Maths/SimplexNoise.h"
+
 #include <map>
 
 
+struct Biome 
+{
+	float water_level = 1.01f;
+	float rock_level;
+	float ice_level;
+};
+
+
 struct p_vec3 { float x, y, z; };
-struct p_vert { p_vec3 point, normal,tc ; };
+struct p_vert { p_vec3 point, normal,tc,colour ; };
 struct p_tri { p_vert v1, v2, v3; };
 struct p_index { unsigned int t[3]; };
+
+struct NFContainer
+{
+	int layers = 5;
+	SimplexNoise noise[5];
+	PerlinClass perlin;
+	NFContainer();
+	float getFloat(p_vec3 v);
+	p_vec3 CalcVert(p_vec3 v);
+};
+
 
 p_vec3 normalize(p_vec3 vec);
 float magnitude(p_vec3 vec);
 p_vec3 add(p_vec3 a, p_vec3 b);
+p_vec3 minus(p_vec3 a, p_vec3 b);
+
+p_vec3 multi(p_vec3 a, float b);
 
 struct PlanetMesh 
 {
 	std::vector<p_index> indecies;
 	std::vector<p_vert> vertices;
 	std::vector<unsigned int> r_indices;
+
+	Biome biome;
+
+	void GeneratePlanet();
+	void recalculate_normals();
 
 	void SerializeMesh();
 	void DeserializeMesh();

@@ -27,6 +27,7 @@ struct Material {
 in vec3 nor;
 in vec2 tex;
 in vec3 FragPosWorldSpace;
+in vec3 tcol;
 
 uniform Material material;
 
@@ -129,7 +130,7 @@ vec3 CalcPositionalIllumination()
 vec3 texLight()
 {
 	float amb = 0.2;
-	vec3 ambient = amb * material.v_diffuse;
+	vec3 ambient = amb * tcol;
   	
     // diffuse 
     vec3 norm = normalize(nor);
@@ -137,7 +138,7 @@ vec3 texLight()
 
 	vec3 lDirection = normalize(lightPos - FragPosWorldSpace);
 	float diff = max(dot(norm,lDirection), 0.0);
-    vec3 diffuse =  diff * material.v_diffuse;  
+    vec3 diffuse =  diff * tcol;  
     
     // specular
     vec3 viewDir = normalize(camPos - FragPosWorldSpace);

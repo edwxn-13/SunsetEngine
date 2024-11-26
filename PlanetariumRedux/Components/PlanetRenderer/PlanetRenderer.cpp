@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+
 #include <array>
 
 using Lookup = std::map<std::pair<p_vec3, p_vec3>, p_vec3>;
@@ -18,21 +19,30 @@ void PlanetRenderer::loadMesh()
 	planet_mesh.indecies = indecies;
 	planet_mesh.vertices = vertices;
 
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		planet_mesh.indecies = subdivide_sphere();
 	}
 
 	for (p_index tri : planet_mesh.indecies)
 	{
-		planet_mesh.r_indices.push_back(tri.t[0]);
-		planet_mesh.r_indices.push_back(tri.t[1]);
-		planet_mesh.r_indices.push_back(tri.t[2]);
+		for (int i = 0; i < 3; i++) 
+		{
+			planet_mesh.r_indices.push_back(tri.t[i]);
 
-		planet_mesh.vertices[tri.t[0]].normal = normalize(planet_mesh.vertices[tri.t[0]].point);
-		planet_mesh.vertices[tri.t[1]].normal = normalize(planet_mesh.vertices[tri.t[1]].point);
-		planet_mesh.vertices[tri.t[2]].normal = normalize(planet_mesh.vertices[tri.t[2]].point);
+			planet_mesh.vertices[tri.t[i]].normal = normalize(planet_mesh.vertices[tri.t[i]].point);
+
+			p_vec3 uv;
+			uv.x = .5f - atan2(planet_mesh.vertices[tri.t[i]].point.y, planet_mesh.vertices[tri.t[i]].point.x) / (2 * glm::pi<float>());
+			uv.y = .5f - asin(planet_mesh.vertices[tri.t[i]].point.z / planet_mesh.vertices.size()) / glm::pi<float>();
+			uv.z = 0;
+			planet_mesh.vertices[tri.t[i]].tc = uv;
+
+			//{ (atan2(planet_mesh.vertices[tri.t[i]].point.z, planet_mesh.vertices[tri.t[i]].point.x / (2.0f * glm::pi<float>()))) , (asin(planet_mesh.vertices[tri.t[i]].point.y) / glm::pi<float>()) + 0.5f };
+		}
 	}
+
+	planet_mesh.GeneratePlanet();
 }
 
 void PlanetRenderer::setUpMesh()
@@ -56,6 +66,9 @@ void PlanetRenderer::setUpMesh()
 
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void*)offsetof(p_vert, tc));
+
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void*)offsetof(p_vert, colour));
 
 	glBindVertexArray(0);
 }
@@ -84,6 +97,16 @@ float magnitude(p_vec3 vec)
 p_vec3 add(p_vec3 a, p_vec3 b) 
 {
 	return { a.x + b.x, a.y + b.y, a.z + b.z };
+}
+
+p_vec3 minus(p_vec3 a, p_vec3 b)
+{
+	return { a.x - b.x, a.y - b.y, a.z - b.z };
+}
+
+p_vec3 multi(p_vec3 a, float b)
+{
+	return {a.x * b, a.y * b, a.z * b};
 }
 
 
@@ -129,5 +152,88 @@ unsigned int PlanetRenderer::subdivide_edge(std::map<std::pair<unsigned int, uns
 	}
 
 	return inserted.first->second;
-	//p_vec3 mid = { (vertices[a].point.x + vertices[b].point.x) / 2,(vertices[a].point.y + vertices[b].point.y) / 2,(vertices[a].point.z + vertices[b].point.z) / 2 };
+	p_vec3 mid = { (vertices[a].point.x + vertices[b].point.x) / 2,(vertices[a].point.y + vertices[b].point.y) / 2,(vertices[a].point.z + vertices[b].point.z) / 2 };
+}
+
+NFContainer::NFContainer()
+{
+	perlin = PerlinClass(8 , 2);
+	for (int i = 0; i < layers; i++) 
+	{
+		noise[i] = SimplexNoise(pow(i + 1,2), 1 / pow(2, i), 3.0f, 0.5f);
+	}
+	
+}
+
+float NFContainer::getFloat(p_vec3 v)
+{
+	float offset = 0.0f;
+	float strength = 0.03f;
+	
+	float min_value = 3.0f;
+
+	for (size_t i = 0; i < 7; i++) 
+	{
+		offset += (noise[0].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
+	}
+	//offset += (noise[0].fractal(1, v.x, v.y, v.z) + 1.0f) * 0.5f;
+
+	offset = glm::max<float>(0, offset - min_value);
+	return offset * strength;
+}
+
+p_vec3 NFContainer::CalcVert(p_vec3 v) 
+{
+	float offset = getFloat(v);
+	p_vec3 point = multi(v, (offset + 1) * 2);
+	return point;
+}
+
+void PlanetMesh::GeneratePlanet() 
+{
+	NFContainer nfc = NFContainer();
+	
+	float radius = 5;
+	for (p_vert& vert : vertices)
+	{
+		vert.point = nfc.CalcVert(vert.point);
+		float v_height = magnitude(vert.point);
+
+		float altitude = magnitude(minus(vert.point,normalize(vert.point)));
+
+		if (altitude < 3) { vert.colour = { 0.9,0.9,1.0 }; }
+		if (altitude < 1.061) { vert.colour = { 0.7,0.7,0.7 }; }
+		if (altitude < 1.051) { vert.colour = { 0.2,0.7,0.2 }; }
+		if (altitude < 1.001) { vert.colour = { 0.1,0.1,0.8 }; }
+
+		//else { vert.colour = normalize(vert.point); }
+	}
+	//recalculate_normals();
+}
+
+void PlanetMesh::recalculate_normals()
+{
+	for (p_vert& vert : vertices) 
+	{
+		vert.normal = { 0,0,0 };
+	}
+
+	for (p_index index : indecies) 
+	{		
+		Vector3f a, b, c;
+		a = Vector3f(vertices[index.t[0]].point.x, vertices[index.t[0]].point.y, vertices[index.t[0]].point.z);
+		b = Vector3f(vertices[index.t[1]].point.x, vertices[index.t[1]].point.y, vertices[index.t[1]].point.z);
+		c = Vector3f(vertices[index.t[2]].point.x, vertices[index.t[2]].point.y, vertices[index.t[2]].point.z);
+
+		Vector3f p = glm::cross((b-a).glm(),(c-a).glm());
+
+		vertices[index.t[0]].normal = add(vertices[index.t[0]].normal, {p.x,p.y,p.z});
+		vertices[index.t[1]].normal = add(vertices[index.t[1]].normal, { p.x,p.y,p.z });
+		vertices[index.t[2]].normal = add(vertices[index.t[2]].normal, { p.x,p.y,p.z });
+	}
+
+	for (p_vert& vert : vertices)
+	{
+		vert.normal = normalize(vert.normal);
+	}
 }

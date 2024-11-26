@@ -225,6 +225,9 @@
     <ClCompile Include="Components\PlanetRenderer\PlanetRenderer.cpp">
       <Filter>Source Files\Components\PlanetRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="Maths\SimplexNoise.cpp">
+      <Filter>Source Files\Utils\Maths</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
@@ -352,6 +355,9 @@
     </ClInclude>
     <ClInclude Include="Components\PlanetRenderer\PlanetRenderer.h">
       <Filter>Source Files\Components\PlanetRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Maths\SimplexNoise.h">
+      <Filter>Source Files\Utils\Maths</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
