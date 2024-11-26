@@ -1,6 +1,6 @@
 #include "ColliderManager.h"
 
-Collider::Collider(Vector3f pos, EngineObject* origin, ColliderManager * manager) : originator(origin), collider_manager(manager)
+Collider::Collider(Vector3d pos, EngineObject* origin, ColliderManager * manager) : originator(origin), collider_manager(manager)
 {
 	
 }

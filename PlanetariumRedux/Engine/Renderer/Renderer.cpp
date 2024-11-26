@@ -15,6 +15,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "../EngineUtils.h"
 #include "../../Utils/texture.h"
+#include "../../Components/PlanetRenderer/PlanetRenderer.h"
 
 
 Renderer::Renderer()
@@ -79,6 +80,13 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
 		if (distance_from_cam > RenderingDistance)
 		{
+		}
+
+		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+			}
 		}
 
 		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
@@ -149,6 +157,14 @@ void Renderer::preRenderSetUp(Scene* scene)
 		}
 
 		if (PlaneRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlaneRenderer>()) {
+			if (mesh)
+			{
+				mesh->loadMesh();
+				mesh->setUpMesh();
+			}
+		}
+
+		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
 			if (mesh)
 			{
 				mesh->loadMesh();

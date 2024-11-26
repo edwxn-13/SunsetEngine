@@ -2,8 +2,10 @@
 
 #include <vector>
 #include "../../Maths/MathHeader.h"
-#include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
+#include "../../Maths/Vector3d.h"
 
+#include "../../Engine/Renderer/ShaderManager/ShaderManager.h"
+#include "../../Components/Component.h"
 class EngineObject;
 class Rigidbody;
 
@@ -20,9 +22,9 @@ public:
 };
 
 
-struct ColliderTransform 
+struct ColliderTransform
 {
-	Vector3f position = 0;
+	Vector3d position = 0;
 	Quaternion rotation = Quaternion();
 	Vector3f Scale = 0;
 };
@@ -30,7 +32,7 @@ struct ColliderTransform
 class Collider
 {
 public:
-	Collider(Vector3f pos, EngineObject* origin, ColliderManager * manager = ColliderManager::getManager());
+	Collider(Vector3d pos, EngineObject* origin, ColliderManager * manager = ColliderManager::getManager());
 	virtual bool inCollision();
 	EngineObject * getOriginator();
 	Rigidbody* getRigid();

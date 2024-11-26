@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Physics\BoxCollider">
       <UniqueIdentifier>{9f7a0f11-b73e-461d-a844-73d0b63f5044}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EngineObject\Planet">
+      <UniqueIdentifier>{443d47af-fe7e-4cad-92fe-d65f6ac4e729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\PlanetRenderer">
+      <UniqueIdentifier>{978f4b23-607d-4e1d-9542-e02a570647ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -212,6 +218,12 @@
     </ClCompile>
     <ClCompile Include="Physics\Collider\ColliderManager.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineObjects\Planet\Planet.cpp">
+      <Filter>Source Files\EngineObject\Planet</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PlanetRenderer\PlanetRenderer.cpp">
+      <Filter>Source Files\Components\PlanetRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -334,6 +346,12 @@
     </ClInclude>
     <ClInclude Include="Maths\Vector3d.h">
       <Filter>Source Files\Utils\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineObjects\Planet\Planet.h">
+      <Filter>Source Files\EngineObject\Planet</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetRenderer.h">
+      <Filter>Source Files\Components\PlanetRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

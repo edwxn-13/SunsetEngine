@@ -9,7 +9,7 @@ class SunsetShader;
 class BoxCollider : public Collider 
 {
 public:
-	BoxCollider(Vector3f pos, EngineObject * origin, float w, float h, float d);
+	BoxCollider(Vector3d pos, EngineObject * origin, float w, float h, float d);
 	bool inCollision() override;
 
 	float min_x();

@@ -6,6 +6,7 @@
 #include "../../Camera/camera.h"
 
 #include "../../SunsetCore.h"
+#include "../../EngineObjects/Planet/Planet.h"
 
 MainScene::MainScene() : Scene()
 {
@@ -29,13 +30,20 @@ void MainScene::InitScene()
 
 	Cube* cube = new Cube(this, 2000, 10, 2000);
 	cube->transform.scale = Vector3f(9);
-	attachToScene(cube);
+	//attachToScene(cube);
 
 	ship->addComponent(new ShipController(ship));
 	ship->getTransform()->scale = Vector3f(1);
 	ship->getTransform()->position = Vector3d(0, 0, 100);
 	ship->addChild(Camera);
 
+	Planet* planet = new Planet(this);
+
+	planet->transform.Translate(Vector3d(12300,0,0));
+
+	planet->transform.scale = 12000;
+
+	attachToScene(planet);
 	attachToScene(Camera);
 	attachToScene(helemt);
 	attachToScene(ship);
