@@ -8,10 +8,11 @@
 struct p_vec3 { float x, y, z; };
 struct p_vert { p_vec3 point, normal,tc ; };
 struct p_tri { p_vert v1, v2, v3; };
-struct p_index { unsigned int v1, v2, v3; };
+struct p_index { unsigned int t[3]; };
 
 p_vec3 normalize(p_vec3 vec);
 float magnitude(p_vec3 vec);
+p_vec3 add(p_vec3 a, p_vec3 b);
 
 struct PlanetMesh 
 {
@@ -35,10 +36,10 @@ public:
 
 private:
 	SunsetShader planet_shader;
-	
+	PlanetMesh planet_mesh;
 
-	void subdivide_spherer();
-	p_vert subdivide_edge(std::map<std::pair<p_vec3, p_vec3>, p_vec3>& lookup, std::vector<p_vert>& vertices, p_vec3 a, p_vec3 b);
+	std::vector<p_index> subdivide_sphere();
+	unsigned int subdivide_edge(std::map<std::pair<unsigned int, unsigned int>, unsigned int>& lookup, std::vector<p_vert>& vertices, unsigned int a, unsigned int b);
 
 	unsigned int VBO, VAO, EBO;
 
@@ -46,14 +47,14 @@ private:
 	const float Z = .850650808352039932f;
 	const float N = 0.f;
 
-	std::vector<p_vert> vertices =
+	const std::vector<p_vert> vertices =
 	{
 	  {-X,N,Z}, {X,N,Z}, {-X,N,-Z}, {X,N,-Z},
 	  {N,Z,X}, {N,Z,-X}, {N,-Z,X}, {N,-Z,-X},
 	  {Z,X,N}, {-Z,X, N}, {Z,-X,N}, {-Z,-X, N}
 	};
 
-	std::vector<p_index> indecies =
+	const std::vector<p_index> indecies =
 	{
 	  {0,4,1},{0,9,4},{9,5,4},{4,5,8},{4,8,1},
 	  {8,10,1},{8,3,10},{5,3,8},{5,2,3},{2,7,3},
