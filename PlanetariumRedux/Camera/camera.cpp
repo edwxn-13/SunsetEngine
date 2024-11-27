@@ -23,6 +23,7 @@ enum SCamera::Camera_Movement
 SCamera::SCamera(Scene * s) : EngineObject(s)
 {
 	m_cam_list.push_back(this);
+	near_plane = .01f; far_plane = 1000000.0f;
 	CameraComponent * cameraMovement = new CameraComponent(this, this);
 	addComponent(cameraMovement);
 	if (!p_camera) { p_camera = this; }
@@ -41,7 +42,7 @@ glm::mat4 SCamera::getCamViewMatrix()
 	glm::mat4 pos_mat = glm::mat4(1.f);
 
 
-	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX()/ (float)Screen::getScreenY(), .01f, 10000.f);
+	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX()/ (float)Screen::getScreenY(), near_plane, far_plane);
 
 	/*pos_mat = glm::translate(pos_mat, transform.position.glm());
 	glm::mat4 rot = Quaternion::RotationMatrix(transform.rotation);
@@ -59,8 +60,9 @@ glm::mat4 SCamera::getCamViewMatrix()
 
 glm::mat4 SCamera::getSkyboxViewMatrix()
 {
+	camDepthBufFC = 2.0 / (glm::log(far_plane + 1.0) / 0.69314718055994530941723212145818f);
 	glm::mat4 projection = glm::mat4(1.f);
-	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX() / (float)Screen::getScreenY(), .01f, 10000.f);
+	projection = glm::perspective(glm::radians(fov), (float)Screen::getScreenX() / (float)Screen::getScreenY(), .01f, 400000.f);
 	glm::mat4 sky_view = glm::mat4(glm::mat3(view));
 
 	glm::mat4 skyboxView = projection * sky_view;

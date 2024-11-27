@@ -62,6 +62,10 @@ void Renderer::RenderPlanets(Scene* scene)
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 
+	shader_manager.getSunsetShader(2)->setFloat("depthBufferFC", camera->camDepthBufFC);
+	
+
+
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
@@ -90,8 +94,9 @@ void Renderer::RenderShadows(Scene* scene)
 	Sun s_sun = scene->scene_sun;
 	float near_plane = 1.0f, far_plane = 12000;
 	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	scene->scene_sun.sun_pos = (scene->scene_sun.o_pos - camera->getRootPosition()).glm();
 
-	glm::mat4 lightView = glm::lookAt(s_sun.sun_pos.glm(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightView = glm::lookAt(s_sun.sun_pos.glm(), -camera->getRootPosition().glm(), glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 	scene->scene_sun.lightMat = lightSpaceMatrix;
 

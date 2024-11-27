@@ -160,7 +160,7 @@ NFContainer::NFContainer()
 	perlin = PerlinClass(8 , 2);
 	for (int i = 0; i < layers; i++) 
 	{
-		noise[i] = SimplexNoise(pow(i + 1,2), 1 / pow(2, i), 3.0f, 0.5f);
+		noise[i] = SimplexNoise(0.75, 1, 3.0f, 0.5f);
 	}
 	
 }
@@ -168,13 +168,13 @@ NFContainer::NFContainer()
 float NFContainer::getFloat(p_vec3 v)
 {
 	float offset = 0.0f;
-	float strength = 0.03f;
+	float strength = 0.02f;
 	
-	float min_value = 3.0f;
+	float min_value = 2.5f;
 
 	for (size_t i = 0; i < 7; i++) 
 	{
-		offset += (noise[0].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
+		offset += (noise[2].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
 	}
 	//offset += (noise[0].fractal(1, v.x, v.y, v.z) + 1.0f) * 0.5f;
 
@@ -201,10 +201,11 @@ void PlanetMesh::GeneratePlanet()
 
 		float altitude = magnitude(minus(vert.point,normalize(vert.point)));
 
-		if (altitude < 3) { vert.colour = { 0.9,0.9,1.0 }; }
-		if (altitude < 1.061) { vert.colour = { 0.7,0.7,0.7 }; }
-		if (altitude < 1.051) { vert.colour = { 0.2,0.7,0.2 }; }
-		if (altitude < 1.001) { vert.colour = { 0.1,0.1,0.8 }; }
+		if (altitude < 3) { vert.colour = { 0.9f - (altitude / 7),0.9f - (altitude / 7),1.0f + (altitude / 7) }; }
+		if (altitude < 1.091) { vert.colour = { 0.7f + (altitude / 7),0.7f + (altitude / 7),0.7f + (altitude / 7) }; }
+		if (altitude < 1.081) { vert.colour = { 0.2f + (altitude / 7),0.7f + (altitude / 7),0.2f + (altitude / 7) }; }
+		if (altitude < 1.038) { vert.colour = { 0.7f + (altitude / 7),0.7f + (altitude / 7),0.1f + (altitude / 7) }; }
+		if (altitude < 1.031) { vert.colour = { 0.1f + (altitude/7) ,0.1f + (altitude / 7) ,0.8f + (altitude / 7) }; }
 
 		//else { vert.colour = normalize(vert.point); }
 	}

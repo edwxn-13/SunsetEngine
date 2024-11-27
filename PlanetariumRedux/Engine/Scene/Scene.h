@@ -7,6 +7,8 @@
 class EngineObject;
 struct Sun 
 {
+
+	Vector3d o_pos;
 	Vector3f sun_pos;
 	Vector3f sun_dir;
 	Vector3f sun_colour;

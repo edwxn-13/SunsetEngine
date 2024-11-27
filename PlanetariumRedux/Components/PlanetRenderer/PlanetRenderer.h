@@ -8,18 +8,26 @@
 #include <map>
 
 
-struct Biome 
-{
-	float water_level = 1.01f;
-	float rock_level;
-	float ice_level;
-};
 
 
 struct p_vec3 { float x, y, z; };
 struct p_vert { p_vec3 point, normal,tc,colour ; };
 struct p_tri { p_vert v1, v2, v3; };
 struct p_index { unsigned int t[3]; };
+
+p_vec3 normalize(p_vec3 vec);
+float magnitude(p_vec3 vec);
+p_vec3 add(p_vec3 a, p_vec3 b);
+p_vec3 minus(p_vec3 a, p_vec3 b);
+p_vec3 multi(p_vec3 a, float b);
+
+
+struct Biome
+{
+	float water_level = 1.01f;
+	float rock_level;
+	float ice_level;
+};
 
 struct NFContainer
 {
@@ -30,14 +38,6 @@ struct NFContainer
 	float getFloat(p_vec3 v);
 	p_vec3 CalcVert(p_vec3 v);
 };
-
-
-p_vec3 normalize(p_vec3 vec);
-float magnitude(p_vec3 vec);
-p_vec3 add(p_vec3 a, p_vec3 b);
-p_vec3 minus(p_vec3 a, p_vec3 b);
-
-p_vec3 multi(p_vec3 a, float b);
 
 struct PlanetMesh 
 {
