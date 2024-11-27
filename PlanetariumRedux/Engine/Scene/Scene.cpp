@@ -4,9 +4,12 @@
 
 std::vector<Scene*> Scene::SceneList = {};
 
-Scene::Scene() : sun_pos(0)
+Scene::Scene()
 {
 	SceneList.push_back(this);
+	scene_sun.sun_pos = Vector3f(110.0f, 5200.0f, 15000.0f);
+	scene_sun.sun_dir = Vector3f(1.0f, 1.0f, 1.0f);
+	scene_sun.sun_colour = Vector3f(1.0f);
 }
 
 void Scene::InitScene()

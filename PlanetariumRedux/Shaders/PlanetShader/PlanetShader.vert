@@ -10,10 +10,13 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 camMat;
 
+uniform mat4 projectedLightSpaceMatrix;
+
 out vec3 nor;
 out vec2 tex;
 out vec3 FragPosWorldSpace;
 out vec3 tcol;
+out vec4 fragPosLightSpace;
 
 void main()
 {
@@ -22,4 +25,7 @@ void main()
 	tex = aTex.xy;
 	nor =  mat3(transpose(inverse(model))) * vNor;
 	FragPosWorldSpace = vec3(model * aPos);
+
+	//light calc
+	fragPosLightSpace = projectedLightSpaceMatrix * vec4(FragPosWorldSpace, 1.0);
 }

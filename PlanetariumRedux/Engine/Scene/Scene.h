@@ -5,7 +5,13 @@
 #include "../../Maths/MathHeader.h"
 #include "../../Maths/Vector3d.h"
 class EngineObject;
-
+struct Sun 
+{
+	Vector3f sun_pos;
+	Vector3f sun_dir;
+	Vector3f sun_colour;
+	glm::mat4 lightMat = 1.f;
+};
 class Scene
 {
 	static std::vector<Scene*> SceneList;
@@ -27,8 +33,9 @@ public:
 
 	std::vector<EngineObject*> SceneMembers;
 	Skybox* getSkybox();
-protected:
 
-	Vector3f sun_pos;
+	Sun scene_sun;
+
+protected:
 	Skybox skybox;
 };

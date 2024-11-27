@@ -92,9 +92,9 @@ void ShaderManager::setupShaders()
 	makeShader("Shaders/BasicShader/SimpleShader.vert", "Shaders/BasicShader/SimpleShader.frag");
 	makeShader("Shaders/Skybox/skybox.vert", "Shaders/Skybox/skybox.frag");
 	makeShader("Shaders/PlanetShader/PlanetShader.vert", "Shaders/PlanetShader/PlanetShader.frag");
+	makeShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
 
 	makeShader("Shaders/PhongLight/phong.vert", "Shaders/PhongLight/phong.frag");
-	makeShader("Shaders/Shadow/shadow.vert", "Shaders/Shadow/shadow.frag");
 	makeShader("Shaders/SimplePlanet/simplePlanetShader.vert", "Shaders/SimplePlanet/simplePlanetShader.frag");
 }
 

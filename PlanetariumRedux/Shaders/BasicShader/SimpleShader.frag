@@ -27,6 +27,7 @@ struct Material {
 in vec3 nor;
 in vec2 tex;
 in vec3 FragPosWorldSpace;
+in vec4 fragPosLightSpace;
 
 uniform Material material;
 
@@ -36,8 +37,22 @@ uniform vec3 camPos;
 uniform vec3 lightPos;
 uniform float opacity;
 
+uniform sampler2D shadowMap;
+
 out vec4 fragColour;
 
+
+float shadow_calc(vec4 lightSpace)
+{
+	vec3 projCoords = lightSpace.xyz / lightSpace.w;
+	projCoords = projCoords * 0.5 + 0.5; 
+	float closestDepth = texture(shadowMap, projCoords.xy).r; 
+	float currentDepth = projCoords.z;  
+	float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;  
+
+
+	return shadow;
+}
 
 vec3 CalcDirectionalIllumination()
 {
@@ -78,7 +93,7 @@ float CalcSpotIllumination()
 
 	float spec = max(dot(nCamDir,nReflection), 0.0);
 
-	float ambient = 0.2;
+	float ambient = 0.2 ;
 	float attenuation = length(distanceeee) * 0.05;
 	
 
@@ -129,7 +144,10 @@ vec3 CalcPositionalIllumination()
 vec3 texLight()
 {
 	float amb = 0.2;
-	vec3 ambient = amb * material.v_diffuse;
+
+	vec3 colour = material.v_diffuse;
+
+	vec3 ambient = amb * lightColour;
   	
     // diffuse 
     vec3 norm = normalize(nor);
@@ -137,22 +155,24 @@ vec3 texLight()
 
 	vec3 lDirection = normalize(lightPos - FragPosWorldSpace);
 	float diff = max(dot(norm,lDirection), 0.0);
-    vec3 diffuse =  diff * material.v_diffuse;  
+    vec3 diffuse =  diff * lightColour;  
     
     // specular
     vec3 viewDir = normalize(camPos - FragPosWorldSpace);
     vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
     vec3 specular = 0.8 * material.v_specular;  
-        
-    vec3 result = ambient + diffuse + specular;
+
+    float shadow = shadow_calc(fragPosLightSpace);
+
+    vec3 result = (ambient + (1 - shadow) * (diffuse + specular)) * colour;
 
 	return result;
 }
 
 void main()
 {
-	float phong = CalcSpotIllumination();
+	//float phong = CalcSpotIllumination();
 	vec3 lightTexTex = texLight() * lightColour;
 
 	fragColour = vec4(lightTexTex, material.opacity);

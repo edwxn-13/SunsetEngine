@@ -115,6 +115,9 @@
     <Filter Include="Source Files\Components\PlanetRenderer">
       <UniqueIdentifier>{978f4b23-607d-4e1d-9542-e02a570647ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Renderer\Shadows">
+      <UniqueIdentifier>{112a2701-8a23-4416-8f43-c62647425d3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -228,15 +231,15 @@
     <ClCompile Include="Maths\SimplexNoise.cpp">
       <Filter>Source Files\Utils\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Renderer\Shadows\shadow.cpp">
+      <Filter>Source Files\Engine\Renderer\Shadows</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineObjects\Skybox\Skybox.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\noise.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils\shadow.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="Utils\shader.h">
@@ -358,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="Maths\SimplexNoise.h">
       <Filter>Source Files\Utils\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Renderer\Shadows\shadow.h">
+      <Filter>Source Files\Engine\Renderer\Shadows</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

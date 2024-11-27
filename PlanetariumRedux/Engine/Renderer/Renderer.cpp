@@ -30,6 +30,7 @@ Renderer::Renderer(GLFWwindow * window)
 	camera = SCamera::getSceneCamera();
 	shader_manager = ShaderManager();
 	shader_manager.setupShaders();
+	shadow_struct = setup_shadowmap();
 }
 
 void Renderer::setActiveCamera()
@@ -46,13 +47,19 @@ void Renderer::RenderPlanets(Scene* scene)
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(2)->useShader();
-	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
+
+	glBindTexture(GL_TEXTURE_2D, shadow_struct.depthMap);
+
+	unsigned int shader = shader_manager.getSunsetShader(2)->getProgram();
 	glm::mat4 view = glm::mat4(1.f);
 	view = camera->getCamViewMatrix();
 
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 5200.0f, 15000.0f);
-	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
-	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
+	Sun sun_obj = scene->scene_sun;
+
+	glUniform3f(glGetUniformLocation(shader, "lightPos"), sun_obj.sun_pos.x, sun_obj.sun_pos.y, sun_obj.sun_pos.z);
+	glUniform3f(glGetUniformLocation(shader, "lightDirection"), sun_obj.sun_dir.x, sun_obj.sun_dir.y, sun_obj.sun_dir.z);
+	glUniform3f(glGetUniformLocation(shader, "lightColour"), sun_obj.sun_colour.x, sun_obj.sun_colour.y, sun_obj.sun_colour.z);
+	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
@@ -77,6 +84,81 @@ void Renderer::CreateShadowMap(Scene* scene)
 
 void Renderer::RenderShadows(Scene* scene)
 {
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+//-----------------------------------------------------------------------------------------------------------------------------
+	Sun s_sun = scene->scene_sun;
+	float near_plane = 1.0f, far_plane = 12000;
+	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+
+	glm::mat4 lightView = glm::lookAt(s_sun.sun_pos.glm(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
+	scene->scene_sun.lightMat = lightSpaceMatrix;
+
+	shader_manager.getSunsetShader(3)->useShader();
+
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	glBindFramebuffer(GL_FRAMEBUFFER, shadow_struct.FBO);
+
+	glUniformMatrix4fv(glGetUniformLocation(shader_manager.getSunsetShader(3)->getProgram(), "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+	glClear(GL_DEPTH_BUFFER_BIT);
+	glEnable(GL_DEPTH_TEST);
+
+	for (int i = 0; i < scene->SceneMembers.size(); i++)
+	{
+		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(3)->getProgram());
+				continue;
+			}
+		}
+
+		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(3)->getProgram());
+				continue;
+
+			}
+		}
+
+		if (CubeRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<CubeRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(3)->getProgram());
+				continue;
+
+			}
+		}
+
+		if (PlaneRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlaneRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(3)->getProgram());
+				continue;
+
+			}
+		}
+
+		if (MeshRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<MeshRenderer>()) {
+			if (mesh)
+			{
+				mesh->renderMesh(shader_manager.getSunsetShader(3)->getProgram());
+				continue;
+
+			}
+		}
+	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//-----------------------------------------------------------------------------------------------------------------------------
+	glCullFace(GL_BACK);
+	glDisable(GL_CULL_FACE);
+
+	//saveShadowMapToBitmap(shadow_struct.depthMap, SHADOW_WIDTH, SHADOW_HEIGHT);
 }
 
 void Renderer::RenderTrans(Scene* scene)
@@ -85,7 +167,6 @@ void Renderer::RenderTrans(Scene* scene)
 
 void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 {
-
 	if (deltaTime > 1) 
 	{
 		deltaTime = 0.001;
@@ -93,15 +174,19 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(0)->useShader();
 	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
+	glBindTexture(GL_TEXTURE_2D, shadow_struct.depthMap);
 	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);
 
 	glm::mat4 view = glm::mat4(1.f);
 	view = camera->getCamViewMatrix();
 
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), 110.0f, 5200.0f, 15000.0f);
-	glUniform3f(glGetUniformLocation(shader, "lightDirection"), 1.0f, 1.0f, 1.0f);
-	glUniform3f(glGetUniformLocation(shader, "lightColour"), 1.0f, 1.0f, 1.0f);
+	Sun sun_obj = scene->scene_sun;
+	glUniform3f(glGetUniformLocation(shader, "lightPos"), sun_obj.sun_pos.x, sun_obj.sun_pos.y, sun_obj.sun_pos.z);
+	glUniform3f(glGetUniformLocation(shader, "lightDirection"), sun_obj.sun_dir.x, sun_obj.sun_dir.y, sun_obj.sun_dir.z);
+	glUniform3f(glGetUniformLocation(shader, "lightColour"), sun_obj.sun_colour.x, sun_obj.sun_colour.y, sun_obj.sun_colour.z);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
+	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
+
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
@@ -117,6 +202,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+				continue;
+
 			}
 		}
 
@@ -124,6 +211,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+				continue;
+
 			}
 		}
 
@@ -131,6 +220,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+				continue;
+
 			}
 		}
 
@@ -138,6 +229,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(0)->getProgram());
+				continue;
+
 			}
 		}
 	}
@@ -151,12 +244,12 @@ void Renderer::RenderDebug(Scene* scene, float deltaTime)
 void Renderer::RenderLoop(Scene* scene, float deltaTime)
 {
 	clear();
+	RenderShadows(scene);
 	RenderSkybox(scene);
 	CreateShadowMap(scene);
 	RenderTrans(scene);
 	RenderPlanets(scene);
 	RenderGeneral(scene, deltaTime);
-	RenderShadows(scene);
 }
 
 void Renderer::setUpShaders()

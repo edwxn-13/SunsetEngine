@@ -1,5 +1,6 @@
 #pragma once
 #include "ShaderManager/ShaderManager.h"
+#include "Shadows/shadow.h"
 
 struct GLFWwindow;
 class Scene;
@@ -31,7 +32,7 @@ public:
 	GLFWwindow* app_window;
 
 private:
-
+	ShadowStruct shadow_struct;
 	float RenderingDistance;
 	SCamera* camera;
 };

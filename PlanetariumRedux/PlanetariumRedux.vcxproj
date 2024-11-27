@@ -160,6 +160,7 @@
     <ClCompile Include="Engine\Renderer\Material\Material.cpp" />
     <ClCompile Include="Engine\Renderer\Renderer.cpp" />
     <ClCompile Include="Engine\Renderer\ShaderManager\ShaderManager.cpp" />
+    <ClCompile Include="Engine\Renderer\Shadows\shadow.cpp" />
     <ClCompile Include="Engine\SceneManager\SceneManager.cpp" />
     <ClCompile Include="Engine\Scene\Scene.cpp" />
     <ClCompile Include="Engine\Utility\Time.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Engine\Renderer\Material\Material.h" />
     <ClInclude Include="Engine\Renderer\Renderer.h" />
     <ClInclude Include="Engine\Renderer\ShaderManager\ShaderManager.h" />
+    <ClInclude Include="Engine\Renderer\Shadows\shadow.h" />
     <ClInclude Include="Engine\SceneManager\SceneManager.h" />
     <ClInclude Include="Engine\Scene\Scene.h" />
     <ClInclude Include="Engine\Utility\Time.h" />
@@ -214,7 +216,6 @@
     <ClInclude Include="Utils\noise.h" />
     <ClInclude Include="Utils\obj.h" />
     <ClInclude Include="Utils\shader.h" />
-    <ClInclude Include="Utils\shadow.h" />
     <ClInclude Include="Utils\stb_image.h" />
     <ClInclude Include="Utils\texture.h" />
   </ItemGroup>
