@@ -278,9 +278,6 @@
     <ClInclude Include="Assets\Ship\ShipController\ShipController.h">
       <Filter>Source Files\Assets\Components\ShipController</Filter>
     </ClInclude>
-    <ClInclude Include="Components\CameraComponent\CameraComponent.h">
-      <Filter>Source Files\Components\CameraComponent</Filter>
-    </ClInclude>
     <ClInclude Include="Components\LightComponent\LightComponent.h">
       <Filter>Source Files\Components\LightComponent</Filter>
     </ClInclude>
@@ -364,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Renderer\Shadows\shadow.h">
       <Filter>Source Files\Engine\Renderer\Shadows</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent\CameraComponent.h">
+      <Filter>Source Files\Components\CameraComponent</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
