@@ -15,6 +15,7 @@ out vec3 nor;
 out vec2 tex;
 out vec3 FragPosWorldSpace;
 out vec4 fragPosLightSpace;
+out float vFragDepth;
 
 void main()
 {
@@ -24,5 +25,6 @@ void main()
 	FragPosWorldSpace = vec3(model * aPos);
 	
 	fragPosLightSpace = projectedLightSpaceMatrix * vec4(FragPosWorldSpace, 1.0);
+	vFragDepth = 1.0 + gl_Position.w;
 
 }

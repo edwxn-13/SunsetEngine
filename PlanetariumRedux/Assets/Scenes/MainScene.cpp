@@ -11,8 +11,8 @@
 MainScene::MainScene() : Scene()
 {
 	InitScene();
-	scene_sun.sun_pos = Vector3f(0, 0, -15000.0f);
-	scene_sun.o_pos = Vector3d(0, 0, -15000.0f);
+	scene_sun.sun_pos = Vector3f(0, 0, 0);
+	scene_sun.o_pos = Vector3d(0, 0, 0);
 
 	scene_sun.sun_dir = Vector3f(1.0f, 1.0f, 1.0f);
 	scene_sun.sun_colour = Vector3f(1.0f);
@@ -44,9 +44,9 @@ void MainScene::InitScene()
 
 	Planet* planet = new Planet(this);
 
-	planet->transform.Translate(Vector3d(645000,0,0));
+	planet->transform.Translate(Vector3d(300000,0,0));
 
-	planet->transform.scale = 100000;
+	planet->transform.scale = 1;
 
 	attachToScene(planet);
 	attachToScene(Camera);

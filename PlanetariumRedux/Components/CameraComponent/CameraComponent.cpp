@@ -12,7 +12,7 @@
 CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) : Component(engineObject)
 {
 	component_id = 23;
-	localTransform->Translate(Vector3d(20, 0, 0));
+	localTransform->Translate(Vector3d(0, 20, 49));
 	parent_cam = camera;
 	input_controller = Input();
 }

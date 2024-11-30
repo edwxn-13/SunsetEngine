@@ -92,7 +92,7 @@ void Renderer::RenderShadows(Scene* scene)
 	glCullFace(GL_FRONT);
 //-----------------------------------------------------------------------------------------------------------------------------
 	Sun s_sun = scene->scene_sun;
-	float near_plane = 1.0f, far_plane = 12000;
+	float near_plane = 1.0f, far_plane = 700.0f;
 	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
 	scene->scene_sun.sun_pos = (scene->scene_sun.o_pos - camera->getRootPosition()).glm();
 
@@ -163,7 +163,6 @@ void Renderer::RenderShadows(Scene* scene)
 	glCullFace(GL_BACK);
 	glDisable(GL_CULL_FACE);
 
-	//saveShadowMapToBitmap(shadow_struct.depthMap, SHADOW_WIDTH, SHADOW_HEIGHT);
 }
 
 void Renderer::RenderTrans(Scene* scene)
@@ -176,6 +175,7 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	{
 		deltaTime = 0.001;
 	}
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(0)->useShader();
 	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
@@ -191,7 +191,8 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glUniform3f(glGetUniformLocation(shader, "lightColour"), sun_obj.sun_colour.x, sun_obj.sun_colour.y, sun_obj.sun_colour.z);
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
-
+	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
+	//shader_manager.getSunsetShader(0)->setFloat("depthBufferFC", camera->camDepthBufFC);
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{

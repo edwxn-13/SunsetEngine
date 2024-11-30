@@ -19,7 +19,7 @@ void PlanetRenderer::loadMesh()
 	planet_mesh.indecies = indecies;
 	planet_mesh.vertices = vertices;
 
-	for (int i = 0; i < 8; i++)
+	for (int i = 0; i < 9; i++)
 	{
 		planet_mesh.indecies = subdivide_sphere();
 	}
@@ -81,6 +81,11 @@ void PlanetRenderer::renderMesh(unsigned int shader)
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, planet_mesh.r_indices.size() , GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+}
+
+PlanetRenderer::PlanetRenderer(EngineObject* engineObject, PlanetSettings settings) : RenderingComponent(engineObject)
+{
+	planet_mesh.settings = settings;
 }
 
 p_vec3 normalize(p_vec3 vec)
@@ -155,59 +160,53 @@ unsigned int PlanetRenderer::subdivide_edge(std::map<std::pair<unsigned int, uns
 	p_vec3 mid = { (vertices[a].point.x + vertices[b].point.x) / 2,(vertices[a].point.y + vertices[b].point.y) / 2,(vertices[a].point.z + vertices[b].point.z) / 2 };
 }
 
-NFContainer::NFContainer()
+NFContainer::NFContainer(float rockiness)
 {
 	perlin = PerlinClass(8 , 2);
 	for (int i = 0; i < layers; i++) 
 	{
-		noise[i] = SimplexNoise(0.75, 1, 3.0f, 0.5f);
+		noise[i] = SimplexNoise(rockiness, 1, 3.0f, 0.5f);
 	}
 	
 }
 
-float NFContainer::getFloat(p_vec3 v)
+float NFContainer::getFloat(p_vec3 v, PlanetSettings settings)
 {
 	float offset = 0.0f;
-	float strength = 0.02f;
+	float strength = settings.height;
 	
-	float min_value = 2.5f;
+	float min_value = settings.water_level;
 
-	for (size_t i = 0; i < 7; i++) 
+	for (size_t i = 0; i < 9; i++) 
 	{
 		offset += (noise[2].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
 	}
-	//offset += (noise[0].fractal(1, v.x, v.y, v.z) + 1.0f) * 0.5f;
-
 	offset = glm::max<float>(0, offset - min_value);
 	return offset * strength;
 }
 
-p_vec3 NFContainer::CalcVert(p_vec3 v) 
+p_vec3 NFContainer::CalcVert(p_vec3 v, PlanetSettings settings) 
 {
-	float offset = getFloat(v);
-	p_vec3 point = multi(v, (offset + 1) * 2);
+	float offset = getFloat(v, settings);
+	p_vec3 point = multi(v, (offset + 1) * settings.radius);
 	return point;
 }
 
 void PlanetMesh::GeneratePlanet() 
 {
-	NFContainer nfc = NFContainer();
+	NFContainer nfc = NFContainer(settings.rockiness);
 	
-	float radius = 5;
 	for (p_vert& vert : vertices)
 	{
-		vert.point = nfc.CalcVert(vert.point);
+		p_vec3 sample = vert.point;
+		vert.point = nfc.CalcVert(vert.point, settings);
 		float v_height = magnitude(vert.point);
 
-		float altitude = magnitude(minus(vert.point,normalize(vert.point)));
+		float altitude = (v_height - settings.radius)/settings.radius;
 
-		if (altitude < 3) { vert.colour = { 0.9f - (altitude / 7),0.9f - (altitude / 7),1.0f + (altitude / 7) }; }
-		if (altitude < 1.091) { vert.colour = { 0.7f + (altitude / 7),0.7f + (altitude / 7),0.7f + (altitude / 7) }; }
-		if (altitude < 1.081) { vert.colour = { 0.2f + (altitude / 7),0.7f + (altitude / 7),0.2f + (altitude / 7) }; }
-		if (altitude < 1.038) { vert.colour = { 0.7f + (altitude / 7),0.7f + (altitude / 7),0.1f + (altitude / 7) }; }
-		if (altitude < 1.031) { vert.colour = { 0.1f + (altitude/7) ,0.1f + (altitude / 7) ,0.8f + (altitude / 7) }; }
-
-		//else { vert.colour = normalize(vert.point); }
+		vert.colour = settings.m_biome.calcBiome(altitude, 
+			glm::abs(vert.normal.y) + (0.2 * nfc.noise[2].fractal(2, sample.z, sample.x, sample.y))  + (0.1 * nfc.noise[2].fractal(4,sample.z,sample.x, sample.y)) ,
+			(nfc.noise[2].fractal(2,sample.x, sample.y, sample.z) + 1) * 0.5f);
 	}
 	//recalculate_normals();
 }
@@ -237,4 +236,29 @@ void PlanetMesh::recalculate_normals()
 	{
 		vert.normal = normalize(vert.normal);
 	}
+}
+
+p_vec3 BiomeManager::calcBiome(float altitude, float lattitude, float perciptiation)
+{
+	//float thermal_energy = 29.0f + (float)(rand() % 29); //kelvin
+	float a_value = (1- (1/((90 * altitude) + 1)));
+
+	float p_value = glm::max<float>(0, perciptiation - 0.5);
+
+	float l_value = 1 - lattitude;
+
+	float temp = glm::max<float>(0,(l_value - (a_value * a_value)));
+
+	float aridness = temp * glm::exp((1 - p_value));
+
+	float temperature = (altitude); 
+
+	p_vec3 biome_colour;
+
+	if (a_value == 0) 
+	{
+		return { a_value,a_value,a_value };
+	}
+
+	return { temp,temp,temp };
 }

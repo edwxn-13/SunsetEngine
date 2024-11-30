@@ -28,6 +28,7 @@ in vec3 nor;
 in vec2 tex;
 in vec3 FragPosWorldSpace;
 in vec4 fragPosLightSpace;
+in float vFragDepth;
 
 uniform Material material;
 
@@ -36,6 +37,7 @@ uniform vec3 lightColour;
 uniform vec3 camPos;
 uniform vec3 lightPos;
 uniform float opacity;
+uniform float depthBufferFC;
 
 uniform sampler2D shadowMap;
 
@@ -176,5 +178,5 @@ void main()
 	vec3 lightTexTex = texLight() * lightColour;
 
 	fragColour = vec4(lightTexTex, material.opacity);
-
+	gl_FragDepth = log2(vFragDepth) * depthBufferFC * 0.5;
 }
