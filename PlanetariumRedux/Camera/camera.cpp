@@ -23,7 +23,7 @@ enum SCamera::Camera_Movement
 SCamera::SCamera(Scene * s) : EngineObject(s)
 {
 	m_cam_list.push_back(this);
-	near_plane = .01f; far_plane = 1000000.0f;
+	near_plane = .01f; far_plane = 30000000.0f;
 	CameraComponent * cameraMovement = new CameraComponent(this, this);
 	addComponent(cameraMovement);
 	if (!p_camera) { p_camera = this; }

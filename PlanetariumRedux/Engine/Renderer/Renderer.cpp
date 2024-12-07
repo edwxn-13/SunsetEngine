@@ -92,11 +92,12 @@ void Renderer::RenderShadows(Scene* scene)
 	glCullFace(GL_FRONT);
 //-----------------------------------------------------------------------------------------------------------------------------
 	Sun s_sun = scene->scene_sun;
+	glm::vec3 cam_pos = camera->getRootPosition().glm();
+
 	float near_plane = 1.0f, far_plane = 700.0f;
 	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
-	scene->scene_sun.sun_pos = (scene->scene_sun.o_pos - camera->getRootPosition()).glm();
 
-	glm::mat4 lightView = glm::lookAt(s_sun.sun_pos.glm(), -camera->getRootPosition().glm(), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 lightView = glm::lookAt(s_sun.o_pos.glm() - cam_pos, -cam_pos, glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
 	scene->scene_sun.lightMat = lightSpaceMatrix;
 
@@ -106,6 +107,7 @@ void Renderer::RenderShadows(Scene* scene)
 	glBindFramebuffer(GL_FRAMEBUFFER, shadow_struct.FBO);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader_manager.getSunsetShader(3)->getProgram(), "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+	
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 
@@ -171,6 +173,8 @@ void Renderer::RenderTrans(Scene* scene)
 
 void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 {
+	glEnable(GL_DEPTH_TEST);
+
 	if (deltaTime > 1) 
 	{
 		deltaTime = 0.001;

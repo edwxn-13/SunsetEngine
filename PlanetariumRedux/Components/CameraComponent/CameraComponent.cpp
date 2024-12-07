@@ -12,7 +12,7 @@
 CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) : Component(engineObject)
 {
 	component_id = 23;
-	localTransform->Translate(Vector3d(0, 20, 49));
+	transform->Translate(Vector3d(0, 20, 49));
 	parent_cam = camera;
 	input_controller = Input();
 }
@@ -36,36 +36,36 @@ void CameraComponent::Update(float deltaTime)
 		parent_cam->fov = SunsetMath::Lerp(parent_cam->fov, 45, 0.2f);
 	}
 
-	if (input_controller.OnKeyPressed(GLFW_KEY_V)) {
+	if (true) {
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_C))
 		{
-			localTransform->position = localTransform->position - localTransform->up() * move_speed;
+			transform->position = transform->position - transform->up() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_SPACE))
 		{
-			localTransform->position = localTransform->position + localTransform->up() * move_speed;
+			transform->position = transform->position + transform->up() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_A))
 		{
-			localTransform->position = localTransform->position - localTransform->right() * move_speed;
+			transform->position = transform->position - transform->right() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_D))
 		{
-			localTransform->position = localTransform->position + localTransform->right() * move_speed;
+			transform->position = transform->position + transform->right() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_W))
 		{
-			localTransform->position = localTransform->position + localTransform->forward() * move_speed;
+			transform->position = transform->position + transform->forward() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_S))
 		{
-			localTransform->position = localTransform->position - localTransform->forward() * move_speed;
+			transform->position = transform->position - transform->forward() * move_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
@@ -85,12 +85,12 @@ void CameraComponent::Update(float deltaTime)
 			yaw += look_speed * input_controller.getMouseInputXY().x;
 			pitch += look_speed * input_controller.getMouseInputXY().y;
 
-			localTransform->setEulerAngles(Vector3f(pitch, yaw, roll));
+			transform->setEulerAngles(Vector3f(pitch, yaw, roll));
 		}
 
 		else 
 		{
-			localTransform->setEulerAngles(Vector3f(0,0,0));
+			transform->setEulerAngles(Vector3f(0,0,0));
 		}
 	}
 

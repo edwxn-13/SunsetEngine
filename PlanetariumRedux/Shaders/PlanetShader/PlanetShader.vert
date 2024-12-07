@@ -23,13 +23,11 @@ void main()
 	tcol = vCol;
 	gl_Position = camMat * model * aPos;
 
-	
 	tex = aTex.xy;
 	nor =  mat3(transpose(inverse(model))) * vNor;
 	FragPosWorldSpace = vec3(model * aPos);
 
 	//light calc
 	fragPosLightSpace = projectedLightSpaceMatrix * vec4(FragPosWorldSpace, 1.0);
-
 	vFragDepth = 1.0 + gl_Position.w;
 }

@@ -7,6 +7,7 @@
 
 #include "../../SunsetCore.h"
 #include "../../EngineObjects/Planet/Planet.h"
+#include "../../Components/PlanetRenderer/PlanetRenderer.h"
 
 MainScene::MainScene() : Scene()
 {
@@ -28,7 +29,7 @@ void MainScene::InitScene()
 	helemt->transform.scale = 40;
 	helemt->transform.Translate(Vector3d(50,0,0));
 
-	SMeshObject* ship = new SMeshObject("objs/fighter/fighter.obj", this);
+	//SMeshObject* ship = new SMeshObject("objs/fighter/fighter.obj", this);
 
 	skybox = Skybox();
 	skybox.setupCubemap();
@@ -37,21 +38,22 @@ void MainScene::InitScene()
 	cube->transform.scale = Vector3f(9);
 	//attachToScene(cube);
 
-	ship->addComponent(new ShipController(ship));
-	ship->getTransform()->scale = Vector3f(1);
-	ship->getTransform()->position = Vector3d(0, 0, 100);
-	ship->addChild(Camera);
+	//ship->addComponent(new ShipController(ship));
+	//ship->getTransform()->scale = Vector3f(1);
+	//ship->getTransform()->position = Vector3d(0, 0, 100);
+	//ship->addChild(Camera);
 
+	PlanetSettings settings;
 	Planet* planet = new Planet(this);
 
-	planet->transform.Translate(Vector3d(300000,0,0));
+	planet->transform.Translate(Vector3d(0,0,0));
 
 	planet->transform.scale = 1;
 
 	attachToScene(planet);
 	attachToScene(Camera);
 	attachToScene(helemt);
-	attachToScene(ship);
+	//attachToScene(ship);
 
 
 }

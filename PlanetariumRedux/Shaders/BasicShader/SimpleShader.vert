@@ -21,6 +21,7 @@ void main()
 {
 	gl_Position = camMat * model * aPos;
 	tex = aTex.xy;
+	
 	nor =  mat3(transpose(inverse(model))) * vNor;
 	FragPosWorldSpace = vec3(model * aPos);
 	

@@ -118,6 +118,15 @@
     <Filter Include="Source Files\Engine\Renderer\Shadows">
       <UniqueIdentifier>{112a2701-8a23-4416-8f43-c62647425d3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\PlanetRenderer\PlanetMath">
+      <UniqueIdentifier>{77b709b4-82fe-4bcd-ad5d-8b5af71ab843}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\PlanetRenderer\PlanetSettings">
+      <UniqueIdentifier>{7346849e-641d-4ff3-b374-59b76d2cd0a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\PlanetRenderer\PlanetNode">
+      <UniqueIdentifier>{dd600bd9-f287-4198-828a-7fb6e9a93d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -233,6 +242,15 @@
     </ClCompile>
     <ClCompile Include="Engine\Renderer\Shadows\shadow.cpp">
       <Filter>Source Files\Engine\Renderer\Shadows</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PlanetRenderer\PlanetSettings.cpp">
+      <Filter>Source Files\Components\PlanetRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.cpp">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetSettings</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\PlanetRenderer\PlanetNode\PlanetNode.cpp">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +383,18 @@
     <ClInclude Include="Components\CameraComponent\CameraComponent.h">
       <Filter>Source Files\Components\CameraComponent</Filter>
     </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetSettings.h">
+      <Filter>Source Files\Components\PlanetRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetMath.h">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.h">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetSettings</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetNode\PlanetNode.h">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
@@ -388,6 +418,9 @@
     </None>
     <None Include="Maths\Vector3d.inl">
       <Filter>Source Files\Utils\Maths</Filter>
+    </None>
+    <None Include="Components\PlanetRenderer\PlanetMath.inl">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetMath</Filter>
     </None>
   </ItemGroup>
 </Project>
