@@ -79,6 +79,7 @@ void PlanetNode::renderChildren()
 
 void PlanetNode::renderNode(SunsetShader& shader, const glm::mat4& transform_mat , unsigned int m_VAO, unsigned int m_VBO)
 {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glDrawElements(GL_TRIANGLES, r_index.size(), GL_UNSIGNED_INT, 0);
 }
 
@@ -119,8 +120,9 @@ std::vector<PlanetNode*> PlanetNode::getVisibleChildren(Vector3f camera_pos, con
 
 	//std::cout << "\ndistance from plate : " <<  distance << "\n\n";
 
-	if (distance < 1000)
+	if (distance < 200)
 	{
+		//std::cout << "\ndistance from plate : " << distance << " :- depth-id " << active << "\n";
 		for (size_t i = 0; i < 4; i++)
 		{
 			std::vector<PlanetNode*> drawables = children[i]->getVisibleChildren(camera_pos, transform_mat);
@@ -138,11 +140,10 @@ std::vector<PlanetNode*> PlanetNode::getVisibleChildren(Vector3f camera_pos, con
 
 void NodeManager::renderNodes(SunsetShader& shader, const glm::mat4& transform_mat)
 {
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_FRONT);
-	//glPolygonMode(GL_BACK, GL_LINE);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+	glPolygonMode(GL_BACK, GL_LINE);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(transform_mat));
 	shader.setProperties();
@@ -161,7 +162,8 @@ void NodeManager::renderNodes(SunsetShader& shader, const glm::mat4& transform_m
 	{
 		render_group[i]->renderNode(shader, transform_mat, masterVAO, masterVBO);
 	}
-	 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	glBindVertexArray(0);
 }
 

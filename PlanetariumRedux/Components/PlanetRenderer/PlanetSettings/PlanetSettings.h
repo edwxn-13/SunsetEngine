@@ -33,5 +33,5 @@ struct PlanetSettings
 	float thermal = 1.0f;
 	float dryness = 1.0f;
 
-	int detail = 2;
+	int detail = 4;
 };
