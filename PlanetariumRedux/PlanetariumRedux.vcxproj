@@ -148,7 +148,6 @@
     <ClCompile Include="Components\MeshRenderer\MeshRenderer.cpp" />
     <ClCompile Include="Components\PlanetRenderer\PlanetNode\PlanetNode.cpp" />
     <ClCompile Include="Components\PlanetRenderer\PlanetRenderer.cpp" />
-    <ClCompile Include="Components\PlanetRenderer\PlanetSettings.cpp" />
     <ClCompile Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.cpp" />
     <ClCompile Include="Components\PrimativeRenderer\PrimativeRenderer.cpp" />
     <ClCompile Include="Components\RenderingComponent.cpp" />
@@ -158,6 +157,7 @@
     <ClCompile Include="EngineObjects\Planet\Planet.cpp" />
     <ClCompile Include="EngineObjects\PrimativeObject\PrimativeObject.cpp" />
     <ClCompile Include="EngineObjects\Skybox\Skybox.cpp" />
+    <ClCompile Include="EngineObjects\Sun\Sun.cpp" />
     <ClCompile Include="Engine\Engine.cpp" />
     <ClCompile Include="Engine\EngineUtils.cpp" />
     <ClCompile Include="Engine\Renderer\Material\Material.cpp" />
@@ -191,7 +191,6 @@
     <ClInclude Include="Components\PlanetRenderer\PlanetMath.h" />
     <ClInclude Include="Components\PlanetRenderer\PlanetNode\PlanetNode.h" />
     <ClInclude Include="Components\PlanetRenderer\PlanetRenderer.h" />
-    <ClInclude Include="Components\PlanetRenderer\PlanetSettings.h" />
     <ClInclude Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.h" />
     <ClInclude Include="Components\PrimativeRenderer\PrimativeRenderer.h" />
     <ClInclude Include="Components\RenderingComponent.h" />
@@ -201,6 +200,7 @@
     <ClInclude Include="EngineObjects\Planet\Planet.h" />
     <ClInclude Include="EngineObjects\PrimativeObject\PrimativeObject.h" />
     <ClInclude Include="EngineObjects\Skybox\Skybox.h" />
+    <ClInclude Include="EngineObjects\Sun\Sun.h" />
     <ClInclude Include="Engine\Engine.h" />
     <ClInclude Include="Engine\EngineUtils.h" />
     <ClInclude Include="Engine\Renderer\Material\Material.h" />

@@ -24,14 +24,15 @@ struct BiomeManager
 struct PlanetSettings
 {
 	BiomeManager m_biome;
-	float radius = 600; //whatever -> in meteres
+	float radius = 300000; //whatever -> in meteres
 	float rockiness = 0.75f; //0.2 - 5
 	float height = 0.01f; //0 - 1 
 	float water_level = 3.0f;
 	float atmosphere_density = 1.0f;
+	Vector3f atmosphere_gases;
 
 	float thermal = 1.0f;
 	float dryness = 1.0f;
 
-	int detail = 4;
+	int detail = 5;
 };

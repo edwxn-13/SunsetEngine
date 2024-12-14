@@ -38,9 +38,9 @@ private:
 	unsigned int VBO;
 	unsigned int EBO;
 
-	float width = 90.0f;
-	float length = 1.0f;
-	float height = 90.0f;
+	float width = 10.0f;
+	float length = 10.0f;
+	float height = 10.0f;
 
 	float vertices[24] = 
 	{

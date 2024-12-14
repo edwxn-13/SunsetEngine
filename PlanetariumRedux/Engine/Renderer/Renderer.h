@@ -35,4 +35,7 @@ private:
 	ShadowStruct shadow_struct;
 	float RenderingDistance;
 	SCamera* camera;
+
+	float sh_near_plane = 1.0f;
+	float sh_far_plane = 2000000.0f;
 };

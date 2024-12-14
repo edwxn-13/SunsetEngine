@@ -28,6 +28,8 @@ public:
 	void Update();
 	static void updateWindowValue(GLFWwindow* swindow);
 
+	void calcDelta();
+
 	int OnKeyPressed(int KeyValue);
 	int OnKeyDown(int KeyValue);
 	int OnKeyUp(int KeyValue);
@@ -36,6 +38,10 @@ private:
 	GLFWwindow* window;
 
 	Vector2f MouseXY;
+	Vector2f deltaXY;
+
+	Vector2f prev_pos = 0;
+
 };
 
 

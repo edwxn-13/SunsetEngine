@@ -7,3 +7,4 @@ Planet::Planet(Scene* scene) : EngineObject(scene)
 	planet_renderer = new PlanetRenderer(this);
 	addComponent(planet_renderer);
 }
+

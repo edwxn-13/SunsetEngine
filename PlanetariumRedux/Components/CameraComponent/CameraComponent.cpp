@@ -17,6 +17,11 @@ CameraComponent::CameraComponent(EngineObject* engineObject, SCamera * camera) :
 	input_controller = Input();
 }
 
+void CameraComponent::SphereIntersection()
+{
+
+}
+
 void CameraComponent::Start()
 {
 
@@ -70,28 +75,32 @@ void CameraComponent::Update(float deltaTime)
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_Q))
 		{
-			roll += -1.0f * look_speed;
+			roll = -1.0f * look_speed;
 		}
 
 		if (input_controller.OnKeyPressed(GLFW_KEY_E))
 		{
-			roll += 1.0f * look_speed;
+			roll = 1.0f * look_speed;
 		}
 
 		if (true)
 		{
 			Vector2f inputAxis = input_controller.getMouseInputXY();
 
-			yaw += look_speed * input_controller.getMouseInputXY().x;
-			pitch += look_speed * input_controller.getMouseInputXY().y;
+			yaw = look_speed * input_controller.getMouseInputXY().x;
+			pitch = look_speed * input_controller.getMouseInputXY().y;
 
-			transform->setEulerAngles(Vector3f(pitch, yaw, roll));
+			transform->Rotate(transform->right() * pitch * deltaTime);
+			transform->Rotate(transform->up() * yaw * deltaTime);
+			transform->Rotate(transform->forward() * -roll * deltaTime);
 		}
 
 		else 
 		{
 			transform->setEulerAngles(Vector3f(0,0,0));
 		}
+
+		roll = 0;
 	}
 
 }

@@ -25,7 +25,6 @@ struct PlanetMesh
 	std::vector<unsigned int> r_indices;
 
 	PlanetSettings settings;
-
 	void setNodes();
 	void GeneratePlanet();
 	void second_noise_pass();
@@ -46,11 +45,14 @@ public:
 	void loadMesh() override;
 	void setUpMesh() override;
 	void renderMesh(unsigned int shader) override;
+
+	void renderAtmospehre(SunsetShader * atmospheric_shader);
 	
 
 private:
 	SunsetShader planet_shader;
 	PlanetMesh planet_mesh;
+	SunsetMaterial planet_mat;
 
 	std::vector<p_index> subdivide_sphere(int subd);
 
@@ -59,6 +61,14 @@ private:
 
 	unsigned int subdivide_edge(std::map<std::pair<unsigned int, unsigned int>, unsigned int>& lookup, std::vector<p_vert>& vertices, unsigned int a, unsigned int b);
 	unsigned int VBO, VAO, EBO;
+
+	unsigned int atmosphereVAO = 0;
+	unsigned int atmosphereVBO;
+	unsigned int atmosphereEBO;
+
+	unsigned int waterVAO;
+	unsigned int waterVBO;
+	unsigned int waterEBO;
 
 	const float X = .525731112119133606f;
 	const float Z = .850650808352039932f;

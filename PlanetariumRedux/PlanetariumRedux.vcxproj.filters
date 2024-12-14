@@ -127,6 +127,9 @@
     <Filter Include="Source Files\Components\PlanetRenderer\PlanetNode">
       <UniqueIdentifier>{dd600bd9-f287-4198-828a-7fb6e9a93d63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\EngineObject\Sun">
+      <UniqueIdentifier>{79e9c1ba-b66b-437b-951d-e4b21e719328}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -243,14 +246,14 @@
     <ClCompile Include="Engine\Renderer\Shadows\shadow.cpp">
       <Filter>Source Files\Engine\Renderer\Shadows</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PlanetRenderer\PlanetSettings.cpp">
-      <Filter>Source Files\Components\PlanetRenderer</Filter>
+    <ClCompile Include="Components\PlanetRenderer\PlanetNode\PlanetNode.cpp">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
     </ClCompile>
     <ClCompile Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.cpp">
       <Filter>Source Files\Components\PlanetRenderer\PlanetSettings</Filter>
     </ClCompile>
-    <ClCompile Include="Components\PlanetRenderer\PlanetNode\PlanetNode.cpp">
-      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
+    <ClCompile Include="EngineObjects\Sun\Sun.cpp">
+      <Filter>Source Files\EngineObject\Sun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -383,17 +386,17 @@
     <ClInclude Include="Components\CameraComponent\CameraComponent.h">
       <Filter>Source Files\Components\CameraComponent</Filter>
     </ClInclude>
-    <ClInclude Include="Components\PlanetRenderer\PlanetSettings.h">
-      <Filter>Source Files\Components\PlanetRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="Components\PlanetRenderer\PlanetMath.h">
       <Filter>Source Files\Components\PlanetRenderer\PlanetMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PlanetRenderer\PlanetNode\PlanetNode.h">
+      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
     </ClInclude>
     <ClInclude Include="Components\PlanetRenderer\PlanetSettings\PlanetSettings.h">
       <Filter>Source Files\Components\PlanetRenderer\PlanetSettings</Filter>
     </ClInclude>
-    <ClInclude Include="Components\PlanetRenderer\PlanetNode\PlanetNode.h">
-      <Filter>Source Files\Components\PlanetRenderer\PlanetNode</Filter>
+    <ClInclude Include="EngineObjects\Sun\Sun.h">
+      <Filter>Source Files\EngineObject\Sun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

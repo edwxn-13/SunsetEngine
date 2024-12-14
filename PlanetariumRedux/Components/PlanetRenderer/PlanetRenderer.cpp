@@ -1,7 +1,6 @@
 #include "PlanetRenderer.h"
 
 #include "../../Camera/camera.h"
-
 #include <GL/gl3w.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -14,7 +13,7 @@
 using Lookup = std::map<std::pair<p_vec3, p_vec3>, p_vec3>;
 PlanetRenderer::PlanetRenderer(EngineObject* engineObject) : RenderingComponent(engineObject)
 {
-	
+	planet_mat.ambient = 0.59f;
 }
 
 void PlanetRenderer::loadMesh()
@@ -22,66 +21,15 @@ void PlanetRenderer::loadMesh()
 	planet_mesh.indecies = indecies;
 	planet_mesh.vertices = vertices;
 	planet_mesh.setNodes();
-	/*
-	for (int i = 0; i < planet_mesh.settings.detail; i++)
-	{
-		planet_mesh.indecies = subdivide_sphere(i);
-	}
-
-	for (p_index tri : planet_mesh.indecies)
-	{
-		for (int i = 0; i < 3; i++) 
-		{
-			planet_mesh.r_indices.push_back(tri.t[i]);
-
-			planet_mesh.vertices[tri.t[i]].normal = normalize(planet_mesh.vertices[tri.t[i]].point);
-
-			p_vec3 uv;
-
-			uv.x = .5f - atan2(planet_mesh.vertices[tri.t[i]].point.y, planet_mesh.vertices[tri.t[i]].point.x) / (2 * glm::pi<float>());
-			uv.y = .5f - asin(planet_mesh.vertices[tri.t[i]].point.z / planet_mesh.vertices.size()) / glm::pi<float>();
-			uv.z = 0;
-
-			planet_mesh.vertices[tri.t[i]].tc = uv;
-		}
-	}*/
+	
 }
 
 void PlanetRenderer::setUpMesh()
 {
-	/*
-	glEnable(GL_BLEND);
-	glDepthFunc(GL_LESS);
-	glEnable(GL_DEPTH_CLAMP);
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	glBufferData(GL_ARRAY_BUFFER, planet_mesh.vertices.size() * sizeof(p_vert), &planet_mesh.vertices[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, planet_mesh.r_indices.size() * sizeof(unsigned int),
-		&planet_mesh.r_indices[0], GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void *)0);
-
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void*)offsetof(p_vert,normal));
-
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void*)offsetof(p_vert, tc));
-
-	glEnableVertexAttribArray(3);
-	glVertexAttribPointer(3, 3, GL_FLOAT, FALSE, sizeof(p_vert), (void*)offsetof(p_vert, colour));
-
-	glBindVertexArray(0);*/
 	std::map<std::pair<unsigned int, unsigned int>, unsigned int> edge_lookup;
-
 	for (int i = 0; i < 20; i++)
 	{
+		printf("loading percentage [%f] - please wait... \n\n", (float(i) / 20.0f) * 100.0f);
 		planet_mesh.manager.root_node[i] = subdivide_face(planet_mesh.manager.root_node[i], planet_mesh.settings.detail, 0, planet_mesh.settings.detail, edge_lookup);
 	}
 	planet_mesh.GeneratePlanet();
@@ -91,20 +39,8 @@ void PlanetRenderer::setUpMesh()
 
 void PlanetRenderer::renderMesh(unsigned int shader)
 {
-	/*
-	//glPolygonMode(GL_BACK, GL_LINE);
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
-
 	planet_shader.setProgram(shader);
-	glUniformMatrix4fv(glGetUniformLocation(planet_shader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(transform->get_pos_mat()));
-	planet_shader.setProperties();
-	glBindVertexArray(VAO);
-	glDrawElements(GL_TRIANGLES, planet_mesh.r_indices.size() , GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);*/
-
-	planet_shader.setProgram(shader);
+	planet_shader.setProperties(planet_mat);
 
 	planet_mesh.manager.renderNodes(planet_shader, transform->get_pos_mat());
 }
@@ -117,6 +53,8 @@ PlanetRenderer::PlanetRenderer(EngineObject* engineObject, PlanetSettings settin
 PlanetNode * PlanetRenderer::subdivide_face(PlanetNode* root, int subd, int depth, int max_depth, std::map<std::pair<unsigned int, unsigned int>, unsigned int>& edge_lookup)
 {
 	std::vector<p_index> next_index;
+
+	root->draw_distance = (planet_mesh.settings.radius * 2.0f * 3.14159265358979f) * (18.0f/360.0f) * 10.0f;
 
 	p_vec3 init_a = planet_mesh.vertices[root->triangles[0].t[0]].point;
 	p_vec3 init_b = planet_mesh.vertices[root->triangles[0].t[1]].point;
@@ -174,6 +112,92 @@ PlanetNode * PlanetRenderer::subdivide_face(PlanetNode* root, int subd, int dept
 	}
 
 	return root;
+}
+
+void PlanetRenderer::renderAtmospehre(SunsetShader * atmospheric_shader)
+{
+	atmospheric_shader->setVector("planet.atmosphere_colour", planet_mesh.settings.atmosphere_gases);
+	atmospheric_shader->setFloat("planet.radius", planet_mesh.settings.radius);
+	atmospheric_shader->setFloat("planet.density", planet_mesh.settings.atmosphere_density);
+	atmospheric_shader->setMat("model", transform->get_pos_mat());
+
+
+	if (atmosphereVAO == 0)
+	{
+
+		float quadVertices[] = {
+			// positions        // texture Coords
+			-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,
+			 1.0f,  1.0f,  -1.0f, 1.0f, 1.0f,
+			 1.0f, -1.0f,  -1.0f, 1.0f, 0.0f,
+		};
+		// setup plane VAO
+		glGenVertexArrays(1, &atmosphereVAO);
+		glGenBuffers(1, &atmosphereVBO);
+		glBindVertexArray(atmosphereVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, atmosphereVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
+
+	if (waterVAO == 0) {
+
+		float radius = planet_mesh.settings.radius;
+
+		std::vector<float> vertices =
+		{
+			-radius,-radius, -radius, // 0
+			radius, -radius, -radius, // 1
+			radius,  radius, -radius, // 2
+			-radius, radius, -radius, // 3
+			-radius,-radius, radius, // 4
+			radius, -radius, radius, // 5
+			radius,  radius, radius, // 6
+			-radius, radius, radius // 7
+		};
+
+		float texCoords[12] =
+		{
+			0.0, 0.0, 0.0,
+			1.0, 0.0, 0.0,
+			1.0, 1.0, 0.0,
+			0.0, 1.0, 0.0
+		};
+
+		short indices[36] =
+		{
+			0,2,1,
+			0,3,2,
+
+			1,2,6,
+			6,5,1,
+
+			4,5,6,
+			6,7,4,
+
+			2,3,6,
+			6,3,7,
+
+			0,7,3,
+			0,4,7,
+
+			0,1,5,
+			0,5,4
+		};
+	}
+
+	glDisable(GL_CULL_FACE);
+
+	glBindVertexArray(atmosphereVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glBindVertexArray(0);
+
+	glDisable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
 }
 
 std::vector<p_index> PlanetRenderer::subdivide_sphere(int subd)
@@ -239,7 +263,7 @@ NFContainer::NFContainer(float rockiness)
 {
 	for (int i = 0; i < layers; i++) 
 	{
-		noise[i] = SimplexNoise(rockiness, 1, 3.0f, 0.5f);
+		noise[i] = SimplexNoise(rockiness, 0.5, 3.0f, 0.5f);
 	}
 	
 }
@@ -251,12 +275,14 @@ float NFContainer::getFloat(p_vec3 v, PlanetSettings settings)
 	
 	float min_value = settings.water_level;
 
-	for (size_t i = 0; i < 9; i++) 
+	for (size_t i = 0; i < 12; i++) 
 	{
-		offset += (noise[2].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
+		float temp_offset = (noise[2].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
+		//temp_offset = pow(temp_offset, 1.2);
+		offset += temp_offset;
 	}
 
-	offset = pow(glm::max<float>(0, offset - min_value),1);
+	offset = glm::max<float>(0, offset - (1.3 * min_value));
 
 	return offset * strength;
 }

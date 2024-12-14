@@ -4,6 +4,8 @@ struct ShadowStruct
 {
 	unsigned int FBO;
 	unsigned int depthMap;
+	unsigned int depthCubemap;
+
 };
 
 const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;

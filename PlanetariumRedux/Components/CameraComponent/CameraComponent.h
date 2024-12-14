@@ -9,6 +9,7 @@ class CameraComponent : public Component
 {
 public:
 	CameraComponent(EngineObject* engineObject, SCamera * camera);
+	void SphereIntersection();
 	void Update(float deltaTime) override;
 	void FixedUpdate(float deltaTime) override;
 	void Start() override;
@@ -23,6 +24,6 @@ private:
 	SCamera* parent_cam;
 	float yaw, pitch = 0;
 	float roll = 0.0f;
-	float move_speed = 2.2f;
-	float look_speed = 1.2f;
+	float move_speed = -1500.0f;
+	float look_speed = 500.0f;
 };

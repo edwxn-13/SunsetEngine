@@ -9,12 +9,9 @@ uniform mat4 view;
 uniform mat4 projection;
 uniform mat4 camMat;
 
-uniform mat4 projectedLightSpaceMatrix;
-
 out vec3 nor;
 out vec2 tex;
-out vec3 FragPosWorldSpace;
-out vec4 fragPosLightSpace;
+out vec3 FragPos;
 out float vFragDepth;
 
 void main()
@@ -23,9 +20,8 @@ void main()
 	tex = aTex.xy;
 	
 	nor =  mat3(transpose(inverse(model))) * vNor;
-	FragPosWorldSpace = vec3(model * aPos);
+	FragPos = vec3(model * aPos);
 	
-	fragPosLightSpace = projectedLightSpaceMatrix * vec4(FragPosWorldSpace, 1.0);
 	vFragDepth = 1.0 + gl_Position.w;
 
 }

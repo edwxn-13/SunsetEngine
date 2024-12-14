@@ -48,7 +48,8 @@ void Renderer::RenderPlanets(Scene* scene)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(2)->useShader();
 
-	glBindTexture(GL_TEXTURE_2D, shadow_struct.depthMap);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_struct.depthCubemap);
 
 	unsigned int shader = shader_manager.getSunsetShader(2)->getProgram();
 	glm::mat4 view = glm::mat4(1.f);
@@ -56,14 +57,13 @@ void Renderer::RenderPlanets(Scene* scene)
 
 	Sun sun_obj = scene->scene_sun;
 
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), sun_obj.sun_pos.x, sun_obj.sun_pos.y, sun_obj.sun_pos.z);
-	glUniform3f(glGetUniformLocation(shader, "lightDirection"), sun_obj.sun_dir.x, sun_obj.sun_dir.y, sun_obj.sun_dir.z);
-	glUniform3f(glGetUniformLocation(shader, "lightColour"), sun_obj.sun_colour.x, sun_obj.sun_colour.y, sun_obj.sun_colour.z);
-	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
-	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
+	sun_obj.lightMat = glm::translate(glm::mat4(1.f), sun_obj.sun_pos.glm() - camera->transform.position.glm());
 
+	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
 	shader_manager.getSunsetShader(2)->setFloat("depthBufferFC", camera->camDepthBufFC);
-	
+	shader_manager.getSunsetShader(2)->setSun(sun_obj.sun_pos.glm() - camera->transform.position.glm(), sun_obj.star_class);
+	shader_manager.getSunsetShader(2)->setVector("camPos", Vector3f(0));
+	shader_manager.getSunsetShader(2)->setFloat("far_plane", sh_far_plane);
 
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
@@ -77,6 +77,19 @@ void Renderer::RenderPlanets(Scene* scene)
 			if (mesh)
 			{
 				mesh->renderMesh(shader_manager.getSunsetShader(2)->getProgram());
+
+				SunsetShader * atmosphere_shader = shader_manager.getSunsetShader(4);
+				atmosphere_shader->useShader();
+				atmosphere_shader->setFloat("depthBufferFC", camera->camDepthBufFC);
+				atmosphere_shader->setMat("camMat", view);
+				atmosphere_shader->setVector("sphere_center", mesh->transform->position.glm() - camera->transform.position.glm());
+				atmosphere_shader->setVector("planet.center", mesh->transform->position.glm() - camera->transform.position.glm());
+				atmosphere_shader->setVector("cam_pos", camera->transform.position.glm());
+				atmosphere_shader->setVector("cam_dir", camera->transform.forward());
+				atmosphere_shader->setVector("sun_pos", sun_obj.sun_pos - camera->transform.position.glm());
+
+
+				mesh->renderAtmospehre(atmosphere_shader);
 			}
 		}
 	}
@@ -90,26 +103,41 @@ void Renderer::RenderShadows(Scene* scene)
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
+
+	SunsetShader * shadow_shader = shader_manager.getSunsetShader(3);
 //-----------------------------------------------------------------------------------------------------------------------------
 	Sun s_sun = scene->scene_sun;
 	glm::vec3 cam_pos = camera->getRootPosition().glm();
+	glm::vec3 trans_sun_pos = s_sun.sun_pos.glm() - cam_pos;
 
-	float near_plane = 1.0f, far_plane = 700.0f;
-	glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+	glm::mat4 shadowProj = glm::perspective(glm::radians(90.0f), (float)SHADOW_WIDTH / (float)SHADOW_HEIGHT, sh_near_plane, sh_far_plane);
+	std::vector<glm::mat4> shadowTransforms;
 
-	glm::mat4 lightView = glm::lookAt(s_sun.o_pos.glm() - cam_pos, -cam_pos, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 lightSpaceMatrix = lightProjection * lightView;
-	scene->scene_sun.lightMat = lightSpaceMatrix;
-
-	shader_manager.getSunsetShader(3)->useShader();
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(0.0f, -1.0f, 0.0f), glm::vec3(0.0f, 0.0f, -1.0f)));
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(0.0f, 0.0f, 1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+	shadowTransforms.push_back(shadowProj * glm::lookAt(trans_sun_pos, trans_sun_pos + glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
 
 	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadow_struct.FBO);
 
-	glUniformMatrix4fv(glGetUniformLocation(shader_manager.getSunsetShader(3)->getProgram(), "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(lightSpaceMatrix));
+	shadow_shader->useShader();
+	shadow_shader->setMat("model", glm::translate(glm::mat4(1.f), trans_sun_pos));
+	shadow_shader->setFloat("far_plane", sh_far_plane);
+	shadow_shader->setVector("light_pos", trans_sun_pos);
+
+
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
+
+	for (unsigned int i = 0; i < 6; ++i) {
+
+		std::string address = "shadowMatrices[" + std::to_string(i) + "]";
+		shadow_shader->setMat(address.c_str(), shadowTransforms[i]);
+	}
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
@@ -158,6 +186,8 @@ void Renderer::RenderShadows(Scene* scene)
 		}
 	}
 
+	//saveShadowMapToBitmap(GL_TEXTURE, SHADOW_WIDTH, SHADOW_HEIGHT);
+
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glViewport(0, 0, Screen::getScreenX(), Screen::getScreenY());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -183,20 +213,23 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	shader_manager.getSunsetShader(0)->useShader();
 	unsigned int shader = shader_manager.getSunsetShader(0)->getProgram();
-	glBindTexture(GL_TEXTURE_2D, shadow_struct.depthMap);
-	glUniform1i(glGetUniformLocation(shader, "Texture"), 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, shadow_struct.depthCubemap);
+
+	glUniform1i(glGetUniformLocation(shader, "depthMap"), shadow_struct.depthCubemap);
 
 	glm::mat4 view = glm::mat4(1.f);
 	view = camera->getCamViewMatrix();
 
 	Sun sun_obj = scene->scene_sun;
-	glUniform3f(glGetUniformLocation(shader, "lightPos"), sun_obj.sun_pos.x, sun_obj.sun_pos.y, sun_obj.sun_pos.z);
-	glUniform3f(glGetUniformLocation(shader, "lightDirection"), sun_obj.sun_dir.x, sun_obj.sun_dir.y, sun_obj.sun_dir.z);
-	glUniform3f(glGetUniformLocation(shader, "lightColour"), sun_obj.sun_colour.x, sun_obj.sun_colour.y, sun_obj.sun_colour.z);
+
 	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
-	glUniformMatrix4fv(glGetUniformLocation(shader, "projectedLightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(sun_obj.lightMat));
-	glUniformMatrix4fv(glGetUniformLocation(shader, "camMat"), 1, GL_FALSE, glm::value_ptr(view));
-	//shader_manager.getSunsetShader(0)->setFloat("depthBufferFC", camera->camDepthBufFC);
+
+	shader_manager.getSunsetShader(0)->setFloat("depthBufferFC", camera->camDepthBufFC);
+	shader_manager.getSunsetShader(0)->setSun(sun_obj.sun_pos.glm() - camera->transform.position.glm(), sun_obj.star_class);
+	shader_manager.getSunsetShader(0)->setVector("camPos",Vector3f(0));
+	shader_manager.getSunsetShader(0)->setFloat("far_plane", sh_far_plane);
 
 	for (int i = 0; i < scene->SceneMembers.size(); i++)
 	{
@@ -206,6 +239,7 @@ void Renderer::RenderGeneral(Scene* scene, float deltaTime)
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
 		if (distance_from_cam > RenderingDistance)
 		{
+
 		}
 
 		if (MeshComponent* mesh = scene->SceneMembers[i]->getComponentOfType<MeshComponent>()) {

@@ -106,7 +106,7 @@ p_vec3 PlanetNode::calc_node_pos(std::vector<p_vert> list)
 
 std::vector<PlanetNode*> PlanetNode::getVisibleChildren(Vector3f camera_pos, const glm::mat4& transform_mat)
 {
-	glm::vec4 local_pos = glm::vec4(positon.x, positon.y, positon.z, 0);
+	glm::vec4 local_pos = glm::vec4(positon.x, positon.y, positon.z, 1.0f);
 	Vector3f position = glm::vec3(transform_mat * local_pos);
 	float distance = SunsetMath::Magnitude(position - camera_pos);
 
@@ -119,8 +119,9 @@ std::vector<PlanetNode*> PlanetNode::getVisibleChildren(Vector3f camera_pos, con
 	}
 
 	//std::cout << "\ndistance from plate : " <<  distance << "\n\n";
+	float final_draw_distance = draw_distance / pow(2, active);
 
-	if (distance < 200)
+	if (distance < final_draw_distance)
 	{
 		//std::cout << "\ndistance from plate : " << distance << " :- depth-id " << active << "\n";
 		for (size_t i = 0; i < 4; i++)
@@ -142,11 +143,9 @@ void NodeManager::renderNodes(SunsetShader& shader, const glm::mat4& transform_m
 {
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_FRONT);
-	glPolygonMode(GL_BACK, GL_LINE);
-
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glUniformMatrix4fv(glGetUniformLocation(shader.getProgram(), "model"), 1, GL_FALSE, glm::value_ptr(transform_mat));
-	shader.setProperties();
 
 	render_group = {};
 
@@ -162,7 +161,6 @@ void NodeManager::renderNodes(SunsetShader& shader, const glm::mat4& transform_m
 	{
 		render_group[i]->renderNode(shader, transform_mat, masterVAO, masterVBO);
 	}
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glBindVertexArray(0);
 }
@@ -206,6 +204,8 @@ void NodeManager::setupNodes(const std::vector<p_vert>& m_verts)
 
 	for (int i = 0; i < 20; i++)
 	{
+		printf("setup percentage [%f] - please wait... \n\n", (float(i) / 20.0f) * 100.0f);
+
 		root_node[i]->setUpNode(verts);
 	}
 

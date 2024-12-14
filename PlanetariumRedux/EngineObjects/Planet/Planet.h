@@ -26,11 +26,8 @@ class Planet : public EngineObject
 {
 public:
 	Planet(Scene* scene);
-
 	PlanetStats stats;
 	PlanetRenderer* planet_renderer;
-
-
 private:
 
 };

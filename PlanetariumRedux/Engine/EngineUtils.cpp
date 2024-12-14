@@ -61,14 +61,24 @@ void Input::Update()
 	MouseXY.x = mouseRawX / ((double)Screen::getScreenX() / 2);
 	MouseXY.y = mouseRawY / ((double)Screen::getScreenY() / 2);
 
-	//glfwSetCursorPos(window, Screen::getScreenX() / 2, Screen::getScreenY() / 2);
+
+	//std::cout << mouseRawX << " , " << mouseRawY << std::endl;
+	glfwSetCursorPos(window, Screen::getScreenX()/2, Screen::getScreenY() / 2);
+
+	calcDelta();
 }
 
 void Input::updateWindowValue(GLFWwindow* swindow)
 {
 	window_p = swindow;
-	glfwSetInputMode(swindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	glfwSetInputMode(swindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//glfwSetInputMode(swindow, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+}
+
+void Input::calcDelta()
+{
+	deltaXY = MouseXY - prev_pos;
+	prev_pos = MouseXY;
 }
 
 int Input::OnKeyPressed(int KeyValue)

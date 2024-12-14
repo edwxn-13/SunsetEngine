@@ -27,7 +27,7 @@ void MainScene::InitScene()
 	SMeshObject * helemt = new SMeshObject("Assets/Models/ProtoHelmet/proto_helmet.dae", this);
 	helemt->transform.Rotate(Vector3f(0,180,0));
 	helemt->transform.scale = 40;
-	helemt->transform.Translate(Vector3d(50,0,0));
+	helemt->transform.Translate(Vector3d(50,152,0));
 
 	//SMeshObject* ship = new SMeshObject("objs/fighter/fighter.obj", this);
 
@@ -35,8 +35,9 @@ void MainScene::InitScene()
 	skybox.setupCubemap();
 
 	Cube* cube = new Cube(this, 2000, 10, 2000);
-	cube->transform.scale = Vector3f(9);
-	//attachToScene(cube);
+	cube->transform.scale = Vector3f(9,0,9);
+	cube->transform.Translate(Vector3f(1,-60,9));
+	attachToScene(cube);
 
 	//ship->addComponent(new ShipController(ship));
 	//ship->getTransform()->scale = Vector3f(1);
@@ -46,7 +47,7 @@ void MainScene::InitScene()
 	PlanetSettings settings;
 	Planet* planet = new Planet(this);
 
-	planet->transform.Translate(Vector3d(0,0,0));
+	planet->transform.Translate(Vector3d(500000,700000,6));
 
 	planet->transform.scale = 1;
 

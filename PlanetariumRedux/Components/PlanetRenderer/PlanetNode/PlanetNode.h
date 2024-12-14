@@ -39,7 +39,8 @@ struct PlanetNode
 	PlanetNode* children[4] = {nullptr, nullptr, nullptr, nullptr};
 	int active = 0;
 
-	const float draw_distance = 500.0f;
+	float draw_distance = 500.0f;
+	float side_length;
 };
 
 struct PlanetRenderChunk
@@ -65,7 +66,7 @@ struct NodeManager
 
 	unsigned int masterVAO, masterVBO, masterEBO;
 
-	float draw_distance = 200.0f;
+	float draw_distance = 3.0f;
 
 	int max_nodes = 200;
 	int min_depth = 0;
