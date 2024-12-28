@@ -31,6 +31,8 @@ void CameraComponent::Update(float deltaTime)
 {
 	input_controller.Update();
 
+	//printf("x - %f, y - %f, z - %f \n\n", transform->position.x, transform->position.y, transform->position.z);
+
 	if (input_controller.OnKeyPressed(GLFW_KEY_X)) 
 	{
 		parent_cam->fov = SunsetMath::Lerp(parent_cam->fov, 32, 0.2f);

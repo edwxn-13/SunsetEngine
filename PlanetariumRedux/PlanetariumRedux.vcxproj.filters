@@ -130,6 +130,15 @@
     <Filter Include="Source Files\EngineObject\Sun">
       <UniqueIdentifier>{79e9c1ba-b66b-437b-951d-e4b21e719328}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Physics\CollisionGrid">
+      <UniqueIdentifier>{2e1cae4a-f19a-45f5-bd89-0afa461accb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\Ray">
+      <UniqueIdentifier>{66424002-4eb3-4519-9166-4f0a987502da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics\SphereCollider">
+      <UniqueIdentifier>{d56a2175-3924-41ea-9ba4-5fe95321a69a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SunsetEngine.cpp">
@@ -254,6 +263,18 @@
     </ClCompile>
     <ClCompile Include="EngineObjects\Sun\Sun.cpp">
       <Filter>Source Files\EngineObject\Sun</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\CollisionGrid\CollisionGrid.cpp">
+      <Filter>Source Files\Physics\CollisionGrid</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Collider\SphereCollider\SphereCollider.cpp">
+      <Filter>Source Files\Physics\SphereCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\Collider\Ray\Ray.cpp">
+      <Filter>Source Files\Physics\Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="Physics\ColliderMath.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +418,21 @@
     </ClInclude>
     <ClInclude Include="EngineObjects\Sun\Sun.h">
       <Filter>Source Files\EngineObject\Sun</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionGrid\CollisionGrid.h">
+      <Filter>Source Files\Physics\CollisionGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Collider\SphereCollider\SphereCollider.h">
+      <Filter>Source Files\Physics\SphereCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\Collider\Ray\Ray.h">
+      <Filter>Source Files\Physics\Ray</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\ColliderMath.h">
+      <Filter>Source Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\CollisionUtils\Collision.h">
+      <Filter>Source Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

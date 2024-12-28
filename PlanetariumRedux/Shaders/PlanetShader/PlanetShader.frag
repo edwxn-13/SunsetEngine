@@ -147,6 +147,8 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir, vec3 col)
     float diff = max(dot(normal, lightDir), 0.0);
     vec3 reflectDir = reflect(-lightDir, normal);
 
+	float dark_side_attenuation = dot(normal, lightDir);
+
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
 
 	float distance = length(light.position - FragPos);

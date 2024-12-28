@@ -21,9 +21,9 @@ public:
 	float min_z();
 	float max_z();
 
-	bool AABB(BoxCollider* col);
-	bool AASphere(BoxCollider* col);
-	bool AATriangle(BoxCollider* col);
+	bool OBB(const BoxCollider &col);
+	bool AASphere(const BoxCollider& col);
+	bool AATriangle(const BoxCollider& col);
 
 	void setUpDebugMesh() override;
 	void renderDebugMesh() override;

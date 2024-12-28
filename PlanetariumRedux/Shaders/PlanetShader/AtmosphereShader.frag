@@ -20,11 +20,18 @@ uniform sampler2D depthTex;
 
 uniform mat4 inverseProjection;
 uniform mat4 inverseView;
+uniform vec3 cam_pos; 
 
 uniform vec3 sun_pos;
 
-in float vFragDepth;
+out vec4 fColour;
 
+in VS_OUT {
+    float vFragDepth;
+    vec3 FragPos;
+    vec3 nor;
+
+} fs_in;
 
 int water_shader_for_later(Planet planet, vec3 camera_forward)
 {
@@ -190,13 +197,19 @@ vec3 atmosphere(vec3 r, vec3 r0, vec3 pSun, float iSun, float rPlanet, float rAt
 
 void main()
 {
+
+    vec3 nFragPos = mScreenToWorld(fs_in.FragPos);
+    vec3 FragToCam = nFragPos - cam_pos;
+
     float phong = dot(sun_pos, planet.center);
 
-    vec3 atmos_colour = atmosphere(cam_dir, vec3(0), sun_pos - planet.center, 0.8, planet.radius, planet.radius * 1.5, vec3(0.3,0.3,0.9), 21.0e-6,  8.0e3 ,1.2e3, 0.7);
+    vec3 atmos_colour = atmosphere(fs_in.FragPos, vec3(0), sun_pos - planet.center, 0.8, planet.radius, planet.radius * 1.5, vec3(0.3,0.3,0.9), 21.0e-6,  8.0e3 ,1.2e3, 0.7);
 
     atmos_colour = 1.0 - exp(-1.0 * atmos_colour);
+    int opacity = water_shader_for_later(planet, FragToCam);
+    float strength = length(FragToCam);
 
-    float strength = length(atmos_colour);
-    gl_FragColor = vec4(vec3(0.6) ,1.0f);
-    gl_FragDepth = log2(vFragDepth) * depthBufferFC * 0.5;
+    fColour = vec4(FragToCam.xyz,strength);
+
+    gl_FragDepth = log2(fs_in.vFragDepth) * depthBufferFC * 0.5;
 }

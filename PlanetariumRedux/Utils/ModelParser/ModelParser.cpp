@@ -85,6 +85,11 @@ void Model::Draw(SunsetShader& shader, glm::mat4 position_matrix)
         meshes[i].Draw(shader, position_matrix);
 }
 
+std::vector<Mesh> Model::getMeshInfo()
+{
+    return meshes;
+}
+
 void Model::processNode(aiNode* node, const aiScene* scene)
 {
     // process all the node's meshes (if any)

@@ -50,6 +50,8 @@ struct Model
 	}
 
 	void Draw(SunsetShader &shader, glm::mat4 position_matrix);
+	std::vector<Mesh> getMeshInfo();
+
 private:
 
 	std::vector<Mesh> meshes;

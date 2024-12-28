@@ -12,6 +12,9 @@ struct Sun
 	Vector3f sun_dir;
 	Vector3f sun_colour;
 	float star_class = 0.0000000009;
+	float linear = 1.0f;
+	float y = 1.0f;
+	float quadratic = 1.0f;
 	glm::mat4 lightMat = 1.f;
 };
 class Scene

@@ -3,7 +3,6 @@
 #include "SceneManager/SceneManager.h"
 #include "Renderer/Renderer.h"
 #include "Utility/Time.h"
-
 #include <string>
 
 struct GLFWwindow;
@@ -18,6 +17,7 @@ public:
 	void OnStart();
 	void OnFixedUpdate(float deltaTime);
 	void OnUpdate(float deltaTime);
+	void OnPhysicsUpdate();
 	void PauseGame();
 	void EngineStart();
 	void EndEngine();

@@ -3,6 +3,7 @@
 #include "../Component.h"
 #include "../../Maths/MathHeader.h"
 #include "../../Engine/EngineUtils.h"
+
 class SCamera;
 
 class CameraComponent : public Component 
@@ -24,6 +25,6 @@ private:
 	SCamera* parent_cam;
 	float yaw, pitch = 0;
 	float roll = 0.0f;
-	float move_speed = -1500.0f;
+	float move_speed = -0.7f;
 	float look_speed = 500.0f;
 };

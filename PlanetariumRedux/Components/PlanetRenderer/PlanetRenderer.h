@@ -14,6 +14,8 @@ struct NFContainer
 	SimplexNoise noise[5];
 	NFContainer(float rockiness);
 	float getFloat(p_vec3 v, PlanetSettings settings);
+	float getDetailFloat(p_vec3 v, PlanetSettings settings);
+
 	p_vec3 CalcVert(p_vec3 v, PlanetSettings settings);
 };
 
@@ -90,5 +92,26 @@ private:
 	};
 
 	std::vector<unsigned int> r_indices;
+
+	std::vector<unsigned int> atmos_inx =
+	{
+		0,2,1,
+		0,3,2,
+
+		1,2,6,
+		6,5,1,
+
+		4,5,6,
+		6,7,4,
+
+		2,3,6,
+		6,3,7,
+
+		0,7,3,
+		0,4,7,
+
+		0,1,5,
+		0,5,4
+	};
 
 };

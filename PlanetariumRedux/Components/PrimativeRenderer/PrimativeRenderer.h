@@ -85,52 +85,52 @@ private:
 
 	float cube_verts[324] =
 	{
-	-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
-	width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
-	width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
-	width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
-	-width, height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
-	-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		-width, height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
 
-	//front face
-	-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
-	width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
-	width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
-	width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
-	-width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
-	-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		//front face
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		-width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
 
-	//left face
-	-width, height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
-	-width, height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
-	-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
-	-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
-	-width, -height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
-	-width,  height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		//left face
+		-width, height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width,  height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
 
-	//right face
-	width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
-	width,  height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
-	width, -height, -length, 	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
-	width, -height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
-	width, -height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
-	width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		//right face
+		width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height, -length, 	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
 
-	//bottom face
-	-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
-	width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
-	width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
-	width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
-	-width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
-	-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		//bottom face
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		-width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
 
-	//top face
-	-width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
-	width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
-	width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
-	width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
-	-width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
-	-width,  height, -length, 	1.0f, 1.f, 1.0f, 	0.f,1.f,0.f
+		//top face
+		-width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		-width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		-width,  height, -length, 	1.0f, 1.f, 1.0f, 	0.f,1.f,0.f
 	};
 
 	SunsetShader sunsetShader;

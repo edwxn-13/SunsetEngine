@@ -163,7 +163,6 @@ public:
 	float x, y;
 };
 
-
 class Vector3f 
 {
 public:
@@ -182,9 +181,14 @@ public:
 
 	Vector3f(glm::vec3 v) { x = v.x; y = v.y; z = v.z; }
 
+	Vector3f(glm::vec4 v) { x = v.x; y = v.y; z = v.z; }
+
+
 	//Vector3f(Vector3d v) { x = v.x; y = v.y; z = v.z; }
 
 	glm::vec3 glm() { return glm::vec3(x, y, z); }
+
+	glm::vec4 glm4() { return glm::vec4(x, y, z, 1.0f); }
 
 	// Operators
 	/*Vector3f operator= (const glm::vec3& c) const

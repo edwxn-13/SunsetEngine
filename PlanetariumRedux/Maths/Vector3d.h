@@ -52,7 +52,9 @@ class Vector3d;
 namespace SMath
 {
 	inline float Dot(Vector3d a, Vector3d b);
+	inline Vector3d Cross(Vector3d a, Vector3d b);
 	inline float Magnitude(Vector3d a);
+	inline Vector3d Normalize(Vector3d a);
 };
 
 
@@ -71,11 +73,17 @@ public:
 	Vector3d(double X, double Y, double Z) { x = X; y = Y; z = Z; }
 
 	Vector3d(glm::vec3 v) { x = v.x; y = v.y; z = v.z; }
+
+	Vector3d(glm::vec4 v) { x = v.x; y = v.y; z = v.z; }
+
+
 	Vector3d(Vector3f v) { x = v.x; y = v.y; z = v.z; }
 
 	//Vector3d(Vector3d v) { x = v.x; y = v.y; z = v.z; }
 
 	glm::vec3 glm() { return glm::vec3(x, y, z); }
+
+	glm::vec4 glm4() { return glm::vec4(x, y, z, 1.0f); }
 
 	// Operators
 

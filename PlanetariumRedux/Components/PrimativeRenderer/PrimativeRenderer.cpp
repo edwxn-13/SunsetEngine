@@ -90,6 +90,58 @@ CubeRenderer::CubeRenderer(EngineObject* engineObject, float& width, float& heig
 	this->length = length;
 	this->width = width;
 	this->height = height;
+
+	float new_vert[324] =
+	{
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		-width, height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,0.f,-1.f,
+
+		//front face
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		-width,  height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	0.f,0.f,1.f,
+
+		//left face
+		-width, height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height, -length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width, -height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+		-width,  height,  length,  	1.0f, 1.0f, 1.0f,	-1.f,0.f,0.f,
+
+		//right face
+		width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width,  height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height, -length, 	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+		width,  height,  length,  	1.f, 1.0f, 1.0f,	1.f,0.f,0.f,
+
+		//bottom face
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		-width, -height,  length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+		-width, -height, -length,  	1.f, 1.0f, 1.0f,	0.f,-1.f,0.f,
+
+		//top face
+		-width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height, -length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		-width,  height,  length,  	1.0f, 1.f, 1.0f,	0.f,1.f,0.f,
+		-width,  height, -length, 	1.0f, 1.f, 1.0f, 	0.f,1.f,0.f
+	};
+
+	//cube_verts = new_vert;
 }
 
 void CubeRenderer::loadMesh()
@@ -99,6 +151,8 @@ void CubeRenderer::loadMesh()
 
 void CubeRenderer::setUpMesh()
 {
+
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);

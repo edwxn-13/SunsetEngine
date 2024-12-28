@@ -169,8 +169,12 @@
     <ClCompile Include="Engine\Utility\Time.cpp" />
     <ClCompile Include="Maths\MathHeader.cpp" />
     <ClCompile Include="Maths\SimplexNoise.cpp" />
+    <ClCompile Include="Physics\ColliderMath.cpp" />
     <ClCompile Include="Physics\Collider\BoxCollider\BoxCollider.cpp" />
     <ClCompile Include="Physics\Collider\ColliderManager.cpp" />
+    <ClCompile Include="Physics\Collider\Ray\Ray.cpp" />
+    <ClCompile Include="Physics\Collider\SphereCollider\SphereCollider.cpp" />
+    <ClCompile Include="Physics\CollisionGrid\CollisionGrid.cpp" />
     <ClCompile Include="SunsetEngine.cpp" />
     <ClCompile Include="Utils\file.cpp" />
     <ClCompile Include="Utils\ModelParser\ModelParser.cpp" />
@@ -213,8 +217,13 @@
     <ClInclude Include="Maths\MathHeader.h" />
     <ClInclude Include="Maths\SimplexNoise.h" />
     <ClInclude Include="Maths\Vector3d.h" />
+    <ClInclude Include="Physics\ColliderMath.h" />
     <ClInclude Include="Physics\Collider\BoxCollider\BoxCollider.h" />
     <ClInclude Include="Physics\Collider\ColliderManager.h" />
+    <ClInclude Include="Physics\Collider\Ray\Ray.h" />
+    <ClInclude Include="Physics\Collider\SphereCollider\SphereCollider.h" />
+    <ClInclude Include="Physics\CollisionGrid\CollisionGrid.h" />
+    <ClInclude Include="Physics\CollisionUtils\Collision.h" />
     <ClInclude Include="SunsetCore.h" />
     <ClInclude Include="Utils\bitmap.h" />
     <ClInclude Include="Utils\error.h" />

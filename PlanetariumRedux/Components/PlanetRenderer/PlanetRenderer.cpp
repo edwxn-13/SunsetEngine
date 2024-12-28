@@ -29,7 +29,7 @@ void PlanetRenderer::setUpMesh()
 	std::map<std::pair<unsigned int, unsigned int>, unsigned int> edge_lookup;
 	for (int i = 0; i < 20; i++)
 	{
-		printf("loading percentage [%f] - please wait... \n\n", (float(i) / 20.0f) * 100.0f);
+		printf("loading percentage [%f] - please wait... \n\n", (float(i + 1) / 20.0f) * 100.0f);
 		planet_mesh.manager.root_node[i] = subdivide_face(planet_mesh.manager.root_node[i], planet_mesh.settings.detail, 0, planet_mesh.settings.detail, edge_lookup);
 	}
 	planet_mesh.GeneratePlanet();
@@ -68,7 +68,7 @@ PlanetNode * PlanetRenderer::subdivide_face(PlanetNode* root, int subd, int dept
 
 	root->active = depth;
 
-	int tiledetail = 5;
+	int tiledetail = 3;
 
 	for (int detail_index = 0; detail_index < tiledetail; detail_index++) {
 
@@ -121,83 +121,82 @@ void PlanetRenderer::renderAtmospehre(SunsetShader * atmospheric_shader)
 	atmospheric_shader->setFloat("planet.density", planet_mesh.settings.atmosphere_density);
 	atmospheric_shader->setMat("model", transform->get_pos_mat());
 
-
-	if (atmosphereVAO == 0)
-	{
-
-		float quadVertices[] = {
-			// positions        // texture Coords
-			-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-			-1.0f, -1.0f,  -1.0f, 0.0f, 0.0f,
-			 1.0f,  1.0f,  -1.0f, 1.0f, 1.0f,
-			 1.0f, -1.0f,  -1.0f, 1.0f, 0.0f,
-		};
-		// setup plane VAO
-		glGenVertexArrays(1, &atmosphereVAO);
-		glGenBuffers(1, &atmosphereVBO);
-		glBindVertexArray(atmosphereVAO);
-		glBindBuffer(GL_ARRAY_BUFFER, atmosphereVBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-	}
-
-	if (waterVAO == 0) {
+	if (atmosphereVAO == 0) {
 
 		float radius = planet_mesh.settings.radius;
 
-		std::vector<float> vertices =
-		{
-			-radius,-radius, -radius, // 0
-			radius, -radius, -radius, // 1
-			radius,  radius, -radius, // 2
-			-radius, radius, -radius, // 3
-			-radius,-radius, radius, // 4
-			radius, -radius, radius, // 5
-			radius,  radius, radius, // 6
-			-radius, radius, radius // 7
+		float vertices[] = {
+		-radius, -radius, -radius,  0.0f,  0.0f, -1.0f,
+		 radius, -radius, -radius,  0.0f,  0.0f, -1.0f,
+		 radius,  radius, -radius,  0.0f,  0.0f, -1.0f,
+		 radius,  radius, -radius,  0.0f,  0.0f, -1.0f,
+		-radius,  radius, -radius,  0.0f,  0.0f, -1.0f,
+		-radius, -radius, -radius,  0.0f,  0.0f, -1.0f,
+
+		-radius, -radius,  radius,  0.0f,  0.0f,  1.0f,
+		 radius, -radius,  radius,  0.0f,  0.0f,  1.0f,
+		 radius,  radius,  radius,  0.0f,  0.0f,  1.0f,
+		 radius,  radius,  radius,  0.0f,  0.0f,  1.0f,
+		-radius,  radius,  radius,  0.0f,  0.0f,  1.0f,
+		-radius, -radius,  radius,  0.0f,  0.0f,  1.0f,
+
+		-radius,  radius,  radius, -1.0f,  0.0f,  0.0f,
+		-radius,  radius, -radius, -1.0f,  0.0f,  0.0f,
+		-radius, -radius, -radius, -1.0f,  0.0f,  0.0f,
+		-radius, -radius, -radius, -1.0f,  0.0f,  0.0f,
+		-radius, -radius,  radius, -1.0f,  0.0f,  0.0f,
+		-radius,  radius,  radius, -1.0f,  0.0f,  0.0f,
+
+		 radius,  radius,  radius,  1.0f,  0.0f,  0.0f,
+		 radius,  radius, -radius,  1.0f,  0.0f,  0.0f,
+		 radius, -radius, -radius,  1.0f,  0.0f,  0.0f,
+		 radius, -radius, -radius,  1.0f,  0.0f,  0.0f,
+		 radius, -radius,  radius,  1.0f,  0.0f,  0.0f,
+		 radius,  radius,  radius,  1.0f,  0.0f,  0.0f,
+
+		-radius, -radius, -radius,  0.0f, -1.0f,  0.0f,
+		 radius, -radius, -radius,  0.0f, -1.0f,  0.0f,
+		 radius, -radius,  radius,  0.0f, -1.0f,  0.0f,
+		 radius, -radius,  radius,  0.0f, -1.0f,  0.0f,
+		-radius, -radius,  radius,  0.0f, -1.0f,  0.0f,
+		-radius, -radius, -radius,  0.0f, -1.0f,  0.0f,
+
+		-radius,  radius, -radius,  0.0f,  1.0f,  0.0f,
+		 radius,  radius, -radius,  0.0f,  1.0f,  0.0f,
+		 radius,  radius,  radius,  0.0f,  1.0f,  0.0f,
+		 radius,  radius,  radius,  0.0f,  1.0f,  0.0f,
+		-radius,  radius,  radius,  0.0f,  1.0f,  0.0f,
+		-radius,  radius, -radius,  0.0f,  1.0f,  0.0f
 		};
 
-		float texCoords[12] =
-		{
-			0.0, 0.0, 0.0,
-			1.0, 0.0, 0.0,
-			1.0, 1.0, 0.0,
-			0.0, 1.0, 0.0
-		};
+		glGenVertexArrays(1, &atmosphereVAO);
+		glBindVertexArray(atmosphereVAO);
 
-		short indices[36] =
-		{
-			0,2,1,
-			0,3,2,
+		glGenBuffers(1, &atmosphereVBO);
+		glBindBuffer(GL_ARRAY_BUFFER, atmosphereVBO);
 
-			1,2,6,
-			6,5,1,
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), &vertices, GL_STATIC_DRAW);
 
-			4,5,6,
-			6,7,4,
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
 
-			2,3,6,
-			6,3,7,
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
 
-			0,7,3,
-			0,4,7,
+		glBindVertexArray(0);
 
-			0,1,5,
-			0,5,4
-		};
 	}
 
-	glDisable(GL_CULL_FACE);
-
-	glBindVertexArray(atmosphereVAO);
-	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-	glBindVertexArray(0);
+	//glCullFace(GL_BACK);
 
 	glDisable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
+	//glBindVertexArray(atmosphereVAO);
+	//glDrawArrays(GL_TRIANGLES, 0, 36);
+	//glBindVertexArray(0);
+	glEnable(GL_CULL_FACE);
+
+	//glCullFace(GL_FRONT);
+
 }
 
 std::vector<p_index> PlanetRenderer::subdivide_sphere(int subd)
@@ -263,9 +262,13 @@ NFContainer::NFContainer(float rockiness)
 {
 	for (int i = 0; i < layers; i++) 
 	{
-		noise[i] = SimplexNoise(rockiness, 0.5, 3.0f, 0.5f);
+		noise[i] = SimplexNoise(rockiness * (pow(2,i)), 0.5, 3.0f, 0.5f);
 	}
 	
+	noise[0] = SimplexNoise(rockiness, 1.0f, 2.0f, 0.69f);
+	noise[1] = SimplexNoise(rockiness * 2, 1.0f, 3.0f, 0.5f);
+	noise[2] = SimplexNoise(rockiness * 1.4, 1.0f, 3.0f, 0.5f);
+
 }
 
 float NFContainer::getFloat(p_vec3 v, PlanetSettings settings)
@@ -277,8 +280,7 @@ float NFContainer::getFloat(p_vec3 v, PlanetSettings settings)
 
 	for (size_t i = 0; i < 12; i++) 
 	{
-		float temp_offset = (noise[2].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
-		//temp_offset = pow(temp_offset, 1.2);
+		float temp_offset = (noise[0].fractal(i + 1,v.x, v.y, v.z) + 1.0f) * 0.5f;
 		offset += temp_offset;
 	}
 
@@ -287,10 +289,36 @@ float NFContainer::getFloat(p_vec3 v, PlanetSettings settings)
 	return offset * strength;
 }
 
+float NFContainer::getDetailFloat(p_vec3 v, PlanetSettings settings)
+{
+	float offset = 0.0f;
+	float strength = settings.height;
+
+
+	for (size_t i = 0; i < 12; i++)
+	{
+		float temp_offset = (noise[1].fractal(i + 1, v.x, v.y, v.z) + 1.0f) * 0.5f;
+		offset += temp_offset;
+	}
+
+	return offset * strength;
+}
+
+
 p_vec3 NFContainer::CalcVert(p_vec3 v, PlanetSettings settings) 
 {
 	float offset = getFloat(v, settings);
-	p_vec3 point = multi(v, (offset + 1) * settings.radius);
+	float scale_fac = 1;
+	scale_fac += getDetailFloat(v, settings);
+
+	if (offset != 0) 
+	{
+		
+	}
+
+	float steepness = (noise[3].noise(v.x,v.y,v.z) + 1.0f) * 0.5f;
+
+	p_vec3 point = multi(v, exp(offset * pow(scale_fac, steepness)) * settings.radius);
 	return point;
 }
 
@@ -324,7 +352,6 @@ void PlanetMesh::setNodes()
 		manager.root_node[i]->triangles.push_back(indecies[i]);
 	}
 }
-
 
 void PlanetMesh::recalculate_normals()
 {

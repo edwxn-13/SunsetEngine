@@ -51,7 +51,7 @@ public:
 	void setProperties();
 	void setProperties(SunsetMaterial mat);
 
-	void setSun(Vector3f sunPos, float sunClass);
+	void setSun(Vector3f sunPos, float linear, float constant, float quadratic);
 
 	void useShader();
 	unsigned int getProgram();

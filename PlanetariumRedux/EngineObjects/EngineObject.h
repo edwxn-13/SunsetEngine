@@ -2,7 +2,7 @@
 
 #include "../Maths/MathHeader.h"
 #include "../Components/Component.h"
-
+#include "../Physics/CollisionUtils/Collision.h"
 class EngineObject;
 class Scene;
 
@@ -50,6 +50,8 @@ public:
 	void Update(float deltaTime);
 	void FixedUpdate(float deltaTime);
 	void LateUpdate(float deltaTime);
+
+	virtual void onCollisionEnter(Collision col);
 
 	Vector3d getRootPosition();
 

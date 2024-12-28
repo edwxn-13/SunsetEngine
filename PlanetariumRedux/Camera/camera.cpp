@@ -9,6 +9,9 @@
 #include "../Components/CameraComponent/CameraComponent.h"
 #include "../Engine/EngineUtils.h"
 #include "../Engine/Scene/Scene.h"
+
+#include "../Components/Rigidbody/CollisionComponent/CollisionComponent.h"
+
 std::vector<SCamera*> SCamera::m_cam_list = {};
 SCamera * SCamera::p_camera = nullptr;
 
@@ -24,8 +27,10 @@ SCamera::SCamera(Scene * s) : EngineObject(s)
 {
 	m_cam_list.push_back(this);
 	near_plane = 1.0f; far_plane = 200000000.0f;
+	EllipsoidCollider* ColliderComp = new EllipsoidCollider(this);
 	CameraComponent * cameraMovement = new CameraComponent(this, this);
 	addComponent(cameraMovement);
+	addComponent(ColliderComp);
 	if (!p_camera) { p_camera = this; }
 }
 

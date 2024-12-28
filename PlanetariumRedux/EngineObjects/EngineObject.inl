@@ -20,6 +20,8 @@ template <class T>
 inline std::vector<T*> EngineObject::getComponentsOfType()
 {
 	std::vector<T*> list;
+
+	
 	return list;
 }
 

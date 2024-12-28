@@ -83,6 +83,11 @@ void EngineObject::LateUpdate(float deltaTime)
 	}
 }
 
+void EngineObject::onCollisionEnter(Collision col)
+{
+
+}
+
 Vector3d EngineObject::getRootPosition()
 {
 	if (EngineObject * object = relationships.getParent())

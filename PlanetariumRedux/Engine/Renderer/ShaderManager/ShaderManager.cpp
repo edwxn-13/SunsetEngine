@@ -105,7 +105,7 @@ void SunsetShader::setProperties(SunsetMaterial mat)
 	glUniform1f(glGetUniformLocation(shader_program, "material.opacity"), mat.opacity);
 }
 
-void SunsetShader::setSun(Vector3f sunPos, float sunClass)
+void SunsetShader::setSun(Vector3f sunPos, float linear, float constant, float quadratic)
 {
 	setVector("tSun.position", sunPos);
 
@@ -113,9 +113,9 @@ void SunsetShader::setSun(Vector3f sunPos, float sunClass)
 	setVector("tSun.diffuse", Vector3f(1.0f));
 	setVector("tSun.specular", Vector3f(1.0f));
 
-	setFloat("tSun.constant", 0.02f * sunClass);
-	setFloat("tSun.linear", 0.007f * sunClass);
-	setFloat("tSun.quadratic", 0.0052f * sunClass);
+	setFloat("tSun.constant", constant);
+	setFloat("tSun.linear", linear);
+	setFloat("tSun.quadratic", quadratic);
 }
 
 void SunsetShader::useShader()
