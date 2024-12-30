@@ -2,16 +2,14 @@
 #include "../Rigidbody.h"
 #include "../../../EngineObjects/EngineObject.h"
 #include "../../../Utils/ModelParser/ModelParser.h"
-
 ColliderComponent::ColliderComponent(EngineObject* engineObject) : Component(engineObject)
 {
 	if (!rigidbody) { static_object = true; }
-
 }
 
 void ColliderComponent::Start()
 {
-	//rigidbody = engineObject->getComponentOfType<Rigidbody>();
+	//engineObject->getComponentOfType<ColliderComponent>();
 	if (rigidbody) { static_object = true; }
 }
 
@@ -23,7 +21,7 @@ void ColliderComponent::Update(float deltaTime)
 {
 }
 
-
+//-------------------------------------------------------------------
 void EllipsoidCollider::Start()
 {
 
@@ -36,9 +34,29 @@ void EllipsoidCollider::FixedUpdate(float deltaTime)
 
 void EllipsoidCollider::Update(float deltaTime)
 {
-	if (!static_object) { return; }
+	if (static_object) {
+		collider.collision.velocity = 0;
+	}
+	else {
+		collider.collision.velocity = rigidbody->getVelocity().glm();
+	}
+
 	collider.Update();
 	collider.transform = transform;
+
+
+	if (collider.inCollision()) 
+	{
+		col_count++;
+		if (col_count < 2)
+		{
+			engineObject->onCollisionEnter(collider.collision);
+		}
+
+
+	}
+
+	else { col_count = 0; }
 	SunsetPhysics::EllipsoidOrigin(collider);
 }
 

@@ -2,6 +2,7 @@
 #include "../EngineObjects/EngineObject.h"
 #include <glm/ext/matrix_transform.hpp>
 #include "../Camera/camera.h"
+#include <iostream>
 Transform::Transform(EngineObject* engineObject) : Component(engineObject)
 {
 	position_d = Vector3d(0);
@@ -145,6 +146,8 @@ Component::Component(EngineObject * engineObject)
 	this->transform = &engineObject->transform;
 	world_list.push_back(this);
 	active = true;
+
+	component_id = typeid(*this).hash_code();
 }
 
 Component::~Component()

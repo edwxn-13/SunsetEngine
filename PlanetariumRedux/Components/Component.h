@@ -27,7 +27,6 @@ public:
 	virtual void Update(float deltaTime);
 	virtual void FixedUpdate(float deltaTime);
 
-
 	static Component* getGlobalComponantIndex(int i);
 
 	static int getComponentListSize();

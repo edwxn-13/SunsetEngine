@@ -23,6 +23,11 @@ void SunsetPhysics::EllipsoidCollider::Update()
 	eSpace = build_matrix();
 }
 
+bool SunsetPhysics::EllipsoidCollider::inCollision()
+{
+	return collision.collision_found;
+}
+
 
 bool SunsetPhysics::checkPointInTriangle(const Vector3d& point, const Vector3d& pa, const Vector3d& pb, const Vector3d& pc)
 {
@@ -78,12 +83,12 @@ double SunsetPhysics::squaredLegnth(Vector3d a)
 	return (pow(a.x, 2) + pow(a.y, 2) + pow(a.z, 2));
 }
 
-bool SunsetPhysics::EllipsoidMesh(EllipsoidCollider& ellipsoid, MeshColliderStruct& mesh, Vector3f velocity)
+void SunsetPhysics::EllipsoidMesh(EllipsoidCollider& ellipsoid, MeshColliderStruct& mesh)
 {
-
-
-
-	return false;
+	for (ColliderTriangle triangle: mesh.collider) 
+	{
+		EllipsoidTriangle(triangle, ellipsoid);
+	}
 }
 
 bool SunsetPhysics::RayTriangle(const Vector3d& origin, const Vector3d& raydir, Vector3d& hit_point, const TrianglePoints& points)
@@ -110,15 +115,17 @@ bool SunsetPhysics::TriangleOrigin(const ColliderTriangle& triangle)
 	}
 	return false;
 }
-bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidCollider& ellipsoid, Vector3f velocity)
+void SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidCollider& ellipsoid)
 {
 	Vector3f ta = ellipsoid.eSpace * triangle.triangle_points[0].glm4();
 	Vector3f tb = ellipsoid.eSpace * triangle.triangle_points[1].glm4();
 	Vector3f tc = ellipsoid.eSpace * triangle.triangle_points[2].glm4();
-
+	Vector3f velocity = ellipsoid.eSpace * ellipsoid.collision.velocity.glm4();
 	Vector3d position = (ellipsoid.eSpace * ellipsoid.transform.position.glm4());
 
 	Plane triangle_plane = Plane(ta,tb,tc);
+
+	ellipsoid.collision.collision_found = false;
 
 	if (triangle_plane.isFrontFacingTo(SMath::Normalize(velocity)))
 	{
@@ -131,7 +138,7 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 		float normalDotVelocity = SMath::Dot(triangle_plane.normal, velocity);
 
 		if (normalDotVelocity == 0.0f) {
-			if (std::abs(signed_distance) >= 1.f) { return false; }
+			if (std::abs(signed_distance) >= 1.f) { return; }
 
 			else
 			{
@@ -165,10 +172,7 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 			if (checkPointInTriangle(collision_point, ta, tb, tc)) 
 			{
 				collision_found = true;
-
 				collision_point = plane_intersect_point;
-
-				return true;
 			}
 		}
 
@@ -190,7 +194,6 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 				t = newT;
 				collision_found = true;
 				collision_point = ta;
-				return true;
 			}
 
 			b = 2.0 * (SMath::Dot(p_velocity, (base - tb)));
@@ -201,8 +204,6 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 				t = newT;
 				collision_found = true;
 				collision_point = tb;
-				return true;
-
 			}
 
 			b = 2.0 * (SMath::Dot(p_velocity, (base - tc)));
@@ -213,8 +214,6 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 				t = newT;
 				collision_found = true;
 				collision_point = tc;
-				return true;
-
 			}
 
 
@@ -241,8 +240,6 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 					t = newT;
 					collision_found = true;
 					collision_point = ta + (edge * f).glm();
-					return true;
-
 				}
 			}
 
@@ -270,8 +267,6 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 					t = newT;
 					collision_found = true;
 					collision_point = ta + (edge * f).glm();
-					return true;
-
 				}
 			}
 
@@ -299,24 +294,24 @@ bool SunsetPhysics::EllipsoidTriangle(ColliderTriangle& triangle, EllipsoidColli
 					t = newT;
 					collision_found = true;
 					collision_point = ta + (edge * f).glm();
-					return true;
-
 				}
 			}
 		}
 
 		if (collision_found == true) {
-			// distance to collision: ’t’ is time of collision
 			float distToCollision = t * velocity.magnitude();
-			// Does this triangle qualify for the closest hit?
-			// it does if it’s the first hit or the closest
+
+			if(ellipsoid.collision.collision_found == false ||
+				distToCollision < ellipsoid.collision.collision_distance)
+			{
+				ellipsoid.collision.collision_distance = distToCollision;
+				ellipsoid.collision.point = collision_point;
+				ellipsoid.collision.collision_found = true;
+			}
 		
 		}
 		
-
 	}
-
-	return false;
 };
 
 bool SunsetPhysics::EllipsoidOrigin(EllipsoidCollider& ellipsoid_collider)

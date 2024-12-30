@@ -72,15 +72,16 @@ namespace SunsetPhysics
 
 		glm::mat4 build_matrix();
 		void Update() override;
+		bool inCollision() override;
 	};
 
 	//TrianglePoints getTriangle(glm::mat4 matrix, Vector3f a, Vector3f b, Vector3f c);
 
 
-	bool EllipsoidMesh(EllipsoidCollider& ellipsoid, MeshColliderStruct& mesh, Vector3f velocity);
+	void EllipsoidMesh(EllipsoidCollider& ellipsoid, MeshColliderStruct& mesh);
 	bool RayTriangle(const Vector3d &origin, const Vector3d &raydir, Vector3d &hit_point, const TrianglePoints &points);
 	bool checkPointInTriangle(const Vector3d &point, const Vector3d &pa, const Vector3d &pb, const Vector3d &pc);
 	bool TriangleOrigin(const ColliderTriangle& triangle);
-	bool EllipsoidTriangle(ColliderTriangle&triangle, EllipsoidCollider &ellipsoid , Vector3f velocity);
+	void EllipsoidTriangle(ColliderTriangle&triangle, EllipsoidCollider &ellipsoid);
 	bool EllipsoidOrigin(EllipsoidCollider& ellipsoid_collider);
 };

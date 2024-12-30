@@ -1,6 +1,8 @@
 #include "ColliderManager.h"
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Components/Rigidbody/Rigidbody.h"
+#include "../ColliderMath.h"
+
 ColliderManager* ColliderManager::collider_pointer = 0;
 
 
@@ -44,6 +46,17 @@ ColliderManager::ColliderManager()
 ColliderManager* ColliderManager::getManager()
 {
 	return collider_pointer;
+}
+
+void ColliderManager::EllipsoidMesh(std::vector<SunsetPhysics::EllipsoidCollider*> ellipsoid_list, std::vector<SunsetPhysics::MeshColliderStruct*> mesh_list)
+{
+	for (SunsetPhysics::EllipsoidCollider * ellipsoid: ellipsoid_list)
+	{
+		for (SunsetPhysics::MeshColliderStruct* mesh : mesh_list)
+		{
+			SunsetPhysics::EllipsoidMesh(*ellipsoid, *mesh);
+		}
+	}
 }
 
 void ColliderManager::UpdateCollisions()

@@ -10,6 +10,7 @@ class ColliderComponent : public Component
 protected:
 	Rigidbody* rigidbody = nullptr;
 	bool static_object;
+	int col_count = 0;
 
 public:
 	ColliderComponent(EngineObject* engineObject);
@@ -51,6 +52,8 @@ public:
 	void Start() override;
 	void FixedUpdate(float deltaTime) override;
 	void Update(float deltaTime) override;
+
+	
 
 	bool TriangleCheck();
 

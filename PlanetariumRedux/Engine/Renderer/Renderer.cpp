@@ -6,7 +6,6 @@
 #include "../../Components/RenderingComponent.h"
 #include "../../Components/MeshComponent/MeshComponent.h"
 #include "../../Components/PrimativeRenderer/PrimativeRenderer.h"
-
 #include "../../Components/MeshRenderer/MeshRenderer.h"
 #include "../../EngineObjects/EngineObject.h"
 #include "../../Camera/camera.h"
@@ -70,6 +69,7 @@ void Renderer::RenderPlanets(Scene* scene)
 		float distance_from_cam = (scene->SceneMembers[i]->transform.position - camera->transform.position).magnitude();
 		if (distance_from_cam > RenderingDistance)
 		{
+
 		}
 
 		if (PlanetRenderer* mesh = scene->SceneMembers[i]->getComponentOfType<PlanetRenderer>()) {
